@@ -1,0 +1,13 @@
+# general patterns
+
+*.[oa]
+*~
+*.tgz
+
+# specific executables
+*_test
+
+# all executables on Cygwin
+*.exe
+
+/old/

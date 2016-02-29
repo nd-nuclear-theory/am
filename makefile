@@ -11,7 +11,7 @@ modules_h = wigner_gsl wigner2_gsl
 modules_ho = halfint am
 
 # programs
-programs = am_test
+programs = halfint_test am_test
 CC := $(CXX)
 
 # set flag for linking to FORTRAN
@@ -33,7 +33,4 @@ CC := $(CXX)
 
 # external libraries
 LDLIBS +=  -lhalfint -lgsl
-
-# dependencies
-angular_momentum.o: angular_momentum.h 
 

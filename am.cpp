@@ -1,5 +1,5 @@
 /**************************************
- angular_momentum.cpp
+ am.cpp
  
  Angular momentum algebra utility functions.
                                  
@@ -8,7 +8,7 @@
                                    
  **************************************/
 
-#include "angular_momentum.h"
+#include "am.h"
 
 using namespace std;
 

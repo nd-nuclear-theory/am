@@ -3,6 +3,8 @@
 
   Defines arithmetic type HalfInt which stores integer or half-integer values,
   as needed, e.g., for angular momentum quantum numbers.
+
+  Language: C++11
                                   
   Created by Ke Cai on 6/18/10.   
 
@@ -50,11 +52,12 @@
     - Replace exception generation with exit()
   2/22/11 (mac):
     - Fix operator<< to return output stream
-  Last modified 10/20/13 (mac).  
+  3/7/16 (mac):
+    - Add integer typecast operator.
 ****************************************************************/
 
-#ifndef halfint_h
-#define halfint_h
+#ifndef HALFINT_H_
+#define HALFINT_H_
 
 #include <cstdlib>
 #include <iostream>
@@ -97,6 +100,17 @@ public:
 		}
 		return twice_value_/2;
 	};
+
+	// truncate to int
+	// See also: http://stackoverflow.com/questions/4824278/c-defining-a-type-cast
+
+	// Only permit explicit conversion, else an expression of type
+	// <int> + <HalfInt> is an ambiguous overload of operator +.
+	// Requires -std=c++0x.
+	explicit operator int() const 
+	{
+	  return twice_value_/2;
+	}
 
 	// return value as type double
 	double DValue() const {return static_cast<double>(twice_value_)/2;};

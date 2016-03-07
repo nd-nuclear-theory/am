@@ -14,6 +14,8 @@ modules_ho = halfint am
 programs = halfint_test am_test
 CC := $(CXX)
 
+CXXFLAGS = -std=c++0x
+
 # set flag for linking to FORTRAN
 # need_fortran = 
 

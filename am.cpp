@@ -1,38 +1,32 @@
-/**************************************
- am.cpp
- 
- Angular momentum algebra utility functions.
-                                 
- Created by Mark Caprio on 12/02/10
- Last changes by mac 2/16/11
+/****************************************************************
+  am.cpp
+
+  Mark A. Caprio
+  University of Notre Dame
+
+  See header file for documentation.
                                    
- **************************************/
+****************************************************************/
 
 #include "am.h"
 
-using namespace std;
+namespace am {
 
-bool AllowedTriangle(const HalfInt& h1, const HalfInt& h2, const HalfInt& h3)
-{
-	bool triangular, proper_integrity;
-	triangular = ((abs(h1-h2) <= h3) && (h3 <= (h1+h2)));
-        proper_integrity = (h1.TwiceValue() + h2.TwiceValue() + h3.TwiceValue())%2 
-		== 0;
-	return triangular && proper_integrity;
-}
+  HalfInt::vector ProductAngularMomenta(const HalfInt& j1, const HalfInt& j2)
+  {
+    // find triangle range
+    HalfInt j_min = abs(j1-j2);
+    HalfInt j_max = j1+j2;
 
-vector<HalfInt> ProductAngularMomenta (const HalfInt& j1, const HalfInt& j2)
-{
-	int i = 0;
-	vector<HalfInt> result;
-	HalfInt jmax = j1+j2;
-	HalfInt jmin = abs(j1-j2);
-	for (HalfInt jsum = jmax; jsum >=jmin; --jsum) 
-		result.push_back(jsum);
-	return result;
-}
+    // allocate storage for results
+    HalfInt::vector result;
+    int entries = int(j_max-j_min)+1;
+    result.reserve(entries);
 
-//HalfIntBound TriangleBound(const HalfInt& j1, const HalfInt& j2)
-//{
-//	return HalfIntBound(abs(j1-j2),j1+j2);
-//}
+    // store results
+    for (HalfInt j = j_min; j <= j_max; ++j) 
+      result.push_back(j);
+    return result;
+  }
+
+} // namespace

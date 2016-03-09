@@ -1,28 +1,36 @@
 /****************************************************************
   halfint.cpp                       
-                                    
-  Created by Ke Cai on 6/18/10.    
-                                    
-  Last changes by mac 2/22/11       
-                                    
+
+  Ke Cai, Veerle Hellemans, Mark A. Caprio
+  University of Notre Dame
+
+  See header file for documentation.
+                                   
 ****************************************************************/
 
 #include "halfint.h"
 
-using namespace std;
+#include <sstream>
 
-////////////////////////////////////////////////////////////////
-// stream output
-////////////////////////////////////////////////////////////////
+std::string HalfInt::Str() const
+  {
+    std::ostringstream ss;
 
-ostream& operator<< (ostream& os, const HalfInt& h)
+    if (IsInteger())
+      ss << twice_value_/2;
+    else
+      ss << twice_value_ << "/2";
+
+    return ss.str();
+  }
+
+std::ostream& operator<< (std::ostream& os, const HalfInt& h)
 {
-	int num = h.TwiceValue();
-	if (num % 2 == 0)
-		os << num/2;
-	else
-		os << num << "/" << "2";
+  return os << h.Str();
+}
 
-	return os;
+std::ostream& operator<< (std::ostream& os, const HalfInt::pair& r)
+{
+  return os << "(" << r.first << "," << r.second << ")";
 }
 

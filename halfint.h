@@ -61,6 +61,8 @@
     - Add string conversion member function.
     - Add pair and vector convenience types.
     - Add float() and double() conversion operators.
+  5/15/16 (mac):
+    - Add hash_value definition for HalfInt.
 ****************************************************************/
 
 #ifndef HALFINT_H_
@@ -68,6 +70,7 @@
 
 #include <cmath> // for sqrt
 #include <cstdlib>
+#include <functional>  // for hash
 #include <iostream>
 #include <string>
 #include <utility>
@@ -388,6 +391,23 @@ inline bool operator != (const HalfInt& h1, const HalfInt& h2)
 {
   return !(h1 == h2);
 }
+
+////////////////////////////////////////////////////////////////
+// hashing (support for Boost automatic hash lookup)
+////////////////////////////////////////////////////////////////
+
+inline
+std::size_t hash_value(const HalfInt& h)
+// Hash a HalfInt by its internal integer representation.
+//
+// Using the official hasher seems to be overkill, as g++ appears to
+// just hash an integer to itself, though this does guarantee
+// appropriate restriction of the range to size_t.
+{
+  std::hash<int> int_hash;
+  return int_hash(TwiceValue(h));
+}
+
 
 ////////////////////////////////////////////////////////////////
 // arithmetic functions

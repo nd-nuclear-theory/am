@@ -1,11 +1,9 @@
 /******************************************************************************
-  
-  Created by M. A. Caprio
-  University of Notre Dame
-  November 27, 2010
 
-  2/28/16 (mac) : Move into am library and remove halfint_bound.
- 
+  halfint_test.cpp
+
+  M. A. Caprio
+  University of Notre Dame
 
 ******************************************************************************/
 
@@ -57,6 +55,11 @@ int main(int argc, char **argv)
 
   // parity sign
   std::cout << ParitySign(-1) << std::endl;
+  std::cout << "****" << std::endl;
+
+  // hashing
+  std::cout << "hash " << HalfInt(1,2).Str() << " " << hash_value(HalfInt(1,2)) << " " 
+            << HalfInt(22,2).Str() << " "  << hash_value(HalfInt(22,2)) << std::endl;
   std::cout << "****" << std::endl;
 
   // termination

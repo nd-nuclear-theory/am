@@ -23,6 +23,7 @@
     - Move Hat and ParitySign back to HalfInt so as not to 
       require namespace qualification.
     - Add angular momentum range arithmetic (superseding old HalfIntBound).
+  5/23/16 (mac): Add dim() for angular momentum dimension.
 
 
 ****************************************************************/
@@ -36,9 +37,35 @@
 
 namespace am {
 
-  ////////////////////////////////
-  // triangle inequality
-  ////////////////////////////////
+  ////////////////////////////////////////////////////////////////
+  // dimension factor
+  ////////////////////////////////////////////////////////////////
+
+  // dim
+  //
+  // Overloading: Versions for both halfint and int arguments are
+  // provided, though the int version is strictly unnecessary due to
+  // automatic type conversion from halfint to int.
+
+  // Should Hat be moved from halfint.h (and global namespace) to here
+  // (and am namespace), as well?
+
+  inline
+    int dim(const HalfInt& j)
+  {
+    return TwiceValue(j)+1;
+  }
+
+  inline
+    double dim(int j)
+  {
+    return 2*j+1;
+  }
+
+
+  ////////////////////////////////////////////////////////////////
+  // triangle inequality and coupling
+  ////////////////////////////////////////////////////////////////
 
   inline
     bool AllowedTriangle(const HalfInt& h1, const HalfInt& h2, const HalfInt& h3)

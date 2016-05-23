@@ -63,11 +63,15 @@
     - Add float() and double() conversion operators.
   5/15/16 (mac):
     - Add hash_value definition for HalfInt.
+  5/23/16 (mac):
+    - Remove deprecated IValue and DValue accessors and 
+      nonmember accessors.
 ****************************************************************/
 
 #ifndef HALFINT_H_
 #define HALFINT_H_
 
+#include <cassert>
 #include <cmath> // for sqrt
 #include <cstdlib>
 #include <functional>  // for hash
@@ -128,22 +132,23 @@ class HalfInt
     return !(twice_value_%2);
   }
 
-  int IValue() const
-  // return value as type int, by truncation
-  //
-  // This is the "safe" version with test for integer value, as
-  // opposed to the conversion operator int().
-  //
-  // DEPRECATED in favor of conversion operator, except in cases where
-  // safety check is desired.
-  {
-    if ((twice_value_ % 2) != 0)
-      {
-	std::cerr << "HalfInt::IValue called for nonintegral HalfInt value" << std::endl;
-	std::exit(EXIT_FAILURE);
-      }
-    return twice_value_/2;
-  };
+  // int IValue() const
+  // // return value as type int, by truncation
+  // //
+  // // This is the "safe" version with test for integer value, as
+  // // opposed to the conversion operator int().
+  // //
+  // // DEPRECATED in favor of conversion operator, except in cases where
+  // // safety check is desired.  But, even there, an
+  // // assert(h.IsInteger()) would likely be preferable.
+  // {
+  //   if ((twice_value_ % 2) != 0)
+  //     {
+  //       std::cerr << "HalfInt::IValue called for nonintegral HalfInt value" << std::endl;
+  //       std::exit(EXIT_FAILURE);
+  //     }
+  //   return twice_value_/2;
+  // };
 
   explicit operator int() const 
   // conversion to int by truncation
@@ -161,13 +166,13 @@ class HalfInt
   // floating point accessors and conversion operators
   ////////////////////////////////////////////////////////////////
 
-  double DValue() const
-  // return value as type double
-  //
-  // DEPRECATED in favor of conversion operator.
-  {
-    return static_cast<double>(twice_value_)/2;
-  };
+  // double DValue() const
+  // // return value as type double
+  // //
+  // // DEPRECATED in favor of conversion operator.
+  // {
+  //   return static_cast<double>(twice_value_)/2;
+  // };
 
   explicit operator float() const 
   // conversion operators for float
@@ -287,15 +292,17 @@ inline bool IsInteger(const HalfInt& h)
   return (h.IsInteger());
 }
 
-inline int IValue(const HalfInt& h) 
-{
-  return (h.IValue());
-}
+// inline int IValue(const HalfInt& h)
+// // DEPRECATED in favor of C++11 conversion operator.
+// {
+//   return (h.IValue());
+// }
 
-inline double DValue(const HalfInt& h) 
-{
-  return (h.DValue());
-}
+// inline double DValue(const HalfInt& h) 
+// // DEPRECATED in favor of C++11 conversion operator.
+// {
+//   return (h.DValue());
+// }
 
 ////////////////////////////////////////////////////////////////
 // unary arithmetic operators
@@ -408,6 +415,7 @@ std::size_t hash_value(const HalfInt& h)
   return int_hash(TwiceValue(h));
 }
 
+
 ////////////////////////////////////////////////////////////////
 // arithmetic functions
 ////////////////////////////////////////////////////////////////
@@ -421,11 +429,11 @@ inline HalfInt abs(const HalfInt& h)
     return h;
 }
 
+// angular momentum hat symbol
+//
 // Overloading: Versions for both halfint and int arguments are
 // provided, though the int version is strictly unnecessary due to
 // automatic type conversion from halfint to int.
-
-// angular momentum hat symbol
 
 inline
 double Hat(const HalfInt& j)
@@ -451,7 +459,9 @@ double Hat(int j)
 inline 
 int ParitySign(const HalfInt& sum)
 {
-  int remainder = abs(IValue(sum)) % 2;
+  //int remainder = abs(IValue(sum)) % 2;
+  assert(IsInteger(sum));
+  int remainder = abs(int(sum)) % 2;
   // int sign = (remainder == 0) ? +1 : -1; // folklore says to avoid conditional for performance
   int sign = 1 - 2*remainder;
   return sign;

@@ -27,12 +27,13 @@ int main(int argc, char **argv)
   // UNNECESSARY: std::cout << zero + HalfInt(1,2) << std::endl;
   std::cout << 0+HalfInt(1,2) << std::endl;
   std::cout << 1+HalfInt(1,2) << std::endl;
-  std::cout << "double... " << 1.0 + DValue(HalfInt(1,2)) << std::endl;
+  //std::cout << "double... " << 1.0 + DValue(HalfInt(1,2)) << std::endl;
+std::cout << "double... " << 1.0 + double(HalfInt(1,2)) << std::endl;
   std::cout << "****" << std::endl;
 
   // std::cout << HalfInt(7,4) << std::endl; 	// causes throw
 
-  std::cout << HalfInt(4,2).IValue() << " " << IValue(HalfInt(4,2)) << std::endl;
+  // std::cout << HalfInt(4,2).IValue() << " " << IValue(HalfInt(4,2)) << std::endl;
   // std::cout << HalfInt(1,2).IValue() << std::endl; 	// causes throw
 
 

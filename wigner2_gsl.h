@@ -12,11 +12,12 @@
   3/12/12 (mac): Extraction of "wigner2" functions from "wigner" functions completed.
   2/27/16 (mac): Update includes for restructured header files.
   3/8/16 (mac): Enclose in namespace.
+  6/8/16 (mac): Update compilation guard directive.
 
 ****************************************************************/
 
-#ifndef gsl_wigner_h
-#define gsl_wigner_h
+#ifndef WIGNER2_GSL_H_
+#define WIGNER2_GSL_H_
 
 #include <gsl/gsl_sf_coupling.h>
 

@@ -280,8 +280,6 @@ inline HalfInt& HalfInt::operator -=(const HalfInt& b)
 // nonmember accessor functions
 ////////////////////////////////////////////////////////////////
 
-// Compare use of conversion operators or member accessor functions.
-
 inline int TwiceValue(const HalfInt& h)
 {
   return (h.TwiceValue());

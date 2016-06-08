@@ -24,12 +24,12 @@
       require namespace qualification.
     - Add angular momentum range arithmetic (superseding old HalfIntBound).
   5/23/16 (mac): Add dim() for angular momentum dimension.
-
+  6/8/16 (mac): Update compilation guard directive.
 
 ****************************************************************/
 
-#ifndef angular_momentum_h
-#define angular_momentum_h
+#ifndef AM_H_
+#define AM_H_
 
 #include <iostream>
 

@@ -1,18 +1,27 @@
 /****************************************************************
   wigner2_gsl.h                       
 
-  Defines Wigner coupling and recoupling symbols as wrappers 
-  for GSL angular momentum functions.  
+  Defines Wigner coupling and recoupling symbols as wrappers for GSL
+  angular momentum functions -- this version takes integer "twice
+  value" angular momentum arguments.
 
-  Includes support for HalfInt arguments.
-                                  
-  Created by Mark A. Caprio, University of Notre Dame, 2/16/10.
+  Naming convention: 
+    - Function names *not* ending in '2' accept HalfInt arguments J.
+    - Function names ending in '2' accept integer arguments 2*J.
+
+  See, e.g., appendix to de Shalit and Talmi for underlying formulas.
+
+  Language: C++
+
+  Mark A. Caprio
+  University of Notre Dame
 
   2/16/10 (mac): Initiated.
   3/12/12 (mac): Extraction of "wigner2" functions from "wigner" functions completed.
   2/27/16 (mac): Update includes for restructured header files.
   3/8/16 (mac): Enclose in namespace.
-  6/8/16 (mac): Update compilation guard directive.
+  6/8/16 (mac): Update #define guard directive.
+  6/21/16 (mac): Update comments.
 
 ****************************************************************/
 
@@ -24,10 +33,6 @@
 #include "am.h"
 
 namespace am {
-
-  // Naming convention: 
-  //   - Function names *not* ending in '2' accept HalfInt arguments J.
-  //   - Function names ending in '2' accept integer arguments 2*J.
 
   // Wigner3J(ja,jb,jc,ma,mb,mc)
   //   returns Wigner 3-J symbol

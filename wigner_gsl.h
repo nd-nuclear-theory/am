@@ -1,22 +1,28 @@
 /****************************************************************
   wigner_gsl.h                       
 
-  Defines Wigner coupling and recoupling symbols as wrappers 
-  for GSL angular momentum functions.  
+  Defines Wigner coupling and recoupling symbols as wrappers for GSL
+  angular momentum functions -- this version takes HalfInt angular
+  momentum arguments.
+
+  Naming convention: 
+    - Function names *not* ending in '2' accept HalfInt arguments J.
+    - Function names ending in '2' accept integer arguments 2*J.
 
   See, e.g., appendix to de Shalit and Talmi for underlying formulas.
 
-  Includes support for HalfInt arguments.
-
   Language: C++
-  Mark A. Caprio, University of Notre Dame.
+
+  Mark A. Caprio
+  University of Notre Dame
 
   2/16/10 (mac): Created.
   11/13/15 (mac): Add unitary 6J for (12)3-(13)2 recoupling 
     and Racah reduction factor.
   2/27/16 (mac): Update includes for restructured header files.
   3/8/16 (mac): Enclose in namespace.
-  6/8/16 (mac): Update compilation guard directive.
+  6/8/16 (mac): Update #define guard directive.
+  6/21/16 (mac): Remove Racah reduction factor. Update comments.
  
 ****************************************************************/
 
@@ -26,10 +32,6 @@
 #include <gsl/gsl_sf_coupling.h>
 
 #include "am.h"
-
-// Naming convention: 
-//   - Function names *not* ending in '2' accept HalfInt arguments J.
-//   - Function names ending in '2' accept integer arguments 2*J.
 
 namespace am {
 
@@ -121,22 +123,6 @@ namespace am {
   {
     return ParitySign(jb+je+jc+jf)*Hat(jc)*Hat(jf)
       *Wigner6J(ja,jb,jc,jd,je,jf);
-  }
-
-  // RacahReductionFactorFirstSystem(j1p,j2p,Jp,j1,j2,J,J0)
-  //   wrapper for gsl_sf_coupling_6j
-  //   returns prefactor for first-system operator in Racah two-system 
-  //     reduction formula
-
-  inline 
-    double RacahReductionFactorFirstSystem(
-					   const HalfInt& j1p, const HalfInt& j2p, const HalfInt& Jp, 
-					   const HalfInt& j1, const HalfInt& j2, const HalfInt& J, 
-					   const HalfInt& J0
-					   )
-  {
-    return ParitySign(j1p+j2p+J+J0)*Hat(Jp)*Hat(J)
-      *Wigner6J(j1p,Jp,j2p,J,j1,J0);
   }
 
   // Wigner9J(ja,jb,jc,jd,je,jf,jg,jh,ji)

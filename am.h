@@ -25,6 +25,7 @@
     - Add angular momentum range arithmetic (superseding old HalfIntBound).
   5/23/16 (mac): Add dim() for angular momentum dimension.
   6/8/16 (mac): Update compilation guard directive.
+  7/4/16 (mac): Fix name AngularMomentumRangeIntersection.
 
 ****************************************************************/
 
@@ -97,7 +98,7 @@ namespace am {
   }
 
   inline
-    HalfInt::pair AngularMomentamRangeIntersection(const HalfInt::pair& r1, const HalfInt::pair& r2)
+    HalfInt::pair AngularMomentumRangeIntersection(const HalfInt::pair& r1, const HalfInt::pair& r2)
   // Obtain intersection of two angular momentum ranges.
   //
   // Lower bound is max of lower bounds, and upper bound is min of upper bounds.

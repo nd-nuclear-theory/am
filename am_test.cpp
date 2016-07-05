@@ -1,7 +1,8 @@
 /******************************************************************************
   am_test.cpp
  
-  Created by Mark A. Caprio, 2/16/11.
+  Mark A. Caprio
+  University of Notre Dame
 
 ******************************************************************************/
 
@@ -35,12 +36,16 @@ int main(int argc, char **argv)
   std::cout << "range intersection" << std::endl;
   HalfInt::pair r1(1,5);
   HalfInt::pair r2(3,6);
-  HalfInt::pair r = am::AngularMomentamRangeIntersection(r1,r2);
-  std::cout << r1 << r2 << r << std::endl;
+  HalfInt::pair r12 = am::AngularMomentumRangeIntersection(r1,r2);
+  std::cout << r1 << r2 << "->" << r12 << std::endl;
+  HalfInt::pair r3(4,7);
+  HalfInt::pair r123 = am::AngularMomentumRangeIntersection(r1,r2,r3);  // variadic form
+  std::cout << r1 << r2 << r3 << "->" << r123 << std::endl;
+
   HalfInt::pair r1x(1,5);
   HalfInt::pair r2x(7,9);
-  HalfInt::pair rx = am::AngularMomentamRangeIntersection(r1x,r2x);
-  std::cout << r1x << r2x << rx << std::endl;
+  HalfInt::pair rx = am::AngularMomentumRangeIntersection(r1x,r2x);
+  std::cout << r1x << r2x << "->" << rx << std::endl;
   std::cout << "****" << std::endl;
 
   // GSL coupling tests

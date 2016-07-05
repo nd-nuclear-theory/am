@@ -26,6 +26,8 @@
   5/23/16 (mac): Add dim() for angular momentum dimension.
   6/8/16 (mac): Update compilation guard directive.
   7/4/16 (mac): Fix name AngularMomentumRangeIntersection.
+  7/5/16 (mac): Extend AngularMomentumRangeIntersection to arbitrary number 
+    of arguments.
 
 ****************************************************************/
 
@@ -111,6 +113,28 @@ namespace am {
   {
     return HalfInt::pair(std::max(r1.first,r2.first),std::min(r1.second,r2.second));
   }
+
+  template <typename... Types>
+  inline
+    HalfInt::pair AngularMomentumRangeIntersection(
+        const HalfInt::pair& r1, const Types&... args
+      )
+  // Recursive extension of AngularMomentumRangeIntersection to
+  // arbitrary number of arguments...
+  {
+    HalfInt::pair r = am::AngularMomentumRangeIntersection(args...);
+    return am::AngularMomentumRangeIntersection(r1,r);
+  }
+
+  // Debugging: This fails...  Apparently need template?  To check
+  // C++11 variadic syntax...
+  //
+  // inline
+  //   HalfInt::pair AngularMomentumRangeIntersection(
+  //       const HalfInt::pair& r1, const HalfInt::pair&... args
+  //     )
+
+
 
 } // namespace
 

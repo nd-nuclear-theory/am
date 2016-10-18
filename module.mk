@@ -4,7 +4,7 @@ $(eval $(begin-module))
 # unit definitions
 ################################################################
 
-module_units_h := wigner_gsl wigner2_gsl
+module_units_h := wigner_gsl wigner_gsl_twice
 module_units_cpp-h := halfint am
 # module_units_f := 
 # module_programs_cpp :=

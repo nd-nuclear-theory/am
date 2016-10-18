@@ -5,7 +5,7 @@
 libname = am
 
 # modules -- header-only
-modules_h = wigner_gsl wigner2_gsl
+modules_h = wigner_gsl wigner_gsl_twice
 
 # modules -- header-plus-object 
 modules_ho = halfint am

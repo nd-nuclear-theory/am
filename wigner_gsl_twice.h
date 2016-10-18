@@ -1,9 +1,11 @@
 /****************************************************************
-  wigner2_gsl.h                       
+  wigner_gsl.h / wigner_gsl_twice.h
 
   Defines Wigner coupling and recoupling symbols as wrappers for GSL
-  angular momentum functions -- this version takes integer "twice
-  value" angular momentum arguments.
+  angular momentum functions:
+
+    - wigner_gsl.h -- takes HalfInt angular momentum arguments (RECOMMENDED)
+    - wigner_gsl_twice.h -- takes integer "twice value" angular momentum arguments
 
   Naming convention: 
     - Function names *not* ending in '2' accept HalfInt arguments J.
@@ -11,18 +13,24 @@
 
   See, e.g., appendix to de Shalit and Talmi for underlying formulas.
 
+  DOCUMENTATION: See wigner_gsl.h (rather than wigner_gsl_twice.h) for
+  more complete function comments.
+
   Language: C++
 
   Mark A. Caprio
   University of Notre Dame
 
-  2/16/10 (mac): Initiated.
-  3/12/12 (mac): Extraction of "wigner2" functions from "wigner" functions completed.
+  2/16/10 (mac): Created.
+  11/13/15 (mac): Add unitary 6J for (12)3-(13)2 recoupling 
+    and Racah reduction factor.
   2/27/16 (mac): Update includes for restructured header files.
   3/8/16 (mac): Enclose in namespace.
   6/8/16 (mac): Update #define guard directive.
-  6/21/16 (mac): Update comments.
-
+  6/21/16 (mac): Remove Racah reduction factor. Update comments.
+  10/18/16 (mac): Update Unitary6J comment. Rename wigner2_gsl.h to
+    wigner_gsl_twice.h.
+ 
 ****************************************************************/
 
 #ifndef WIGNER2_GSL_H_

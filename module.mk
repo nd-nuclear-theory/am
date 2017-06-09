@@ -7,7 +7,7 @@ $(eval $(begin-module))
 module_units_h := wigner_gsl wigner_gsl_twice
 module_units_cpp-h := halfint am
 # module_units_f := 
-# module_programs_cpp :=
+module_programs_cpp := halfint_test am_test
 # module_programs_f :=
 # module_generated :=
 

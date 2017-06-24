@@ -28,7 +28,10 @@ int main(int argc, char **argv)
   std::cout << 0+HalfInt(1,2) << std::endl;
   std::cout << 1+HalfInt(1,2) << std::endl;
   //std::cout << "double... " << 1.0 + DValue(HalfInt(1,2)) << std::endl;
-std::cout << "double... " << 1.0 + double(HalfInt(1,2)) << std::endl;
+  std::cout << "double... " << 1.0 + double(HalfInt(1,2)) << std::endl;
+  std::cout << "****" << std::endl;
+  std::cout << "fallacious but lucky... 1.0 + HalfInt(1,2) = " << 1.0 + HalfInt(1,2) << std::endl;
+  std::cout << "fallacious and not lucky... 0.5 + HalfInt(1,2) = " << 0.5 + HalfInt(1,2) << std::endl;
   std::cout << "****" << std::endl;
 
   // std::cout << HalfInt(7,4) << std::endl; 	// causes throw

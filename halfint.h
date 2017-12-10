@@ -1,5 +1,5 @@
 /****************************************************************
-  halfint.h                       
+  halfint.h
 
   Defines arithmetic type HalfInt which stores integer or half-integer values,
   as needed, e.g., for angular momentum quantum numbers.
@@ -8,11 +8,11 @@
 
   Ke Cai, Veerle Hellemans, Mark A. Caprio
   University of Notre Dame
-                                  
-  Created by Ke Cai on 6/18/10.   
-  10/04/10 stylistic changes (vh): 
+
+  Created by Ke Cai on 6/18/10.
+  10/04/10 stylistic changes (vh):
     (1) removed "using namespace std" in Halfint.h and added to Halfint.cpp
-    (2) copy constructor & copy assignment operator don't need to be defined : 
+    (2) copy constructor & copy assignment operator don't need to be defined:
         the default copy constructor & assignment operator provide memberwise
         copy & assignment
     (3) changed arguments passed by value to arguments passed by const reference
@@ -30,7 +30,7 @@
     - Implement full set of arithmetic assignment operators += and -=
     - Implement stream output operator << for HalfInt
     - Change binary arithmetic operators + and - to global functions
-        for aesthetics and to allow use with automatic integer->HalfInt 
+        for aesthetics and to allow use with automatic integer->HalfInt
         conversion, and reimplement in terms of += and -=
     - Remove static constant definitions zero and one, since are redundant to
       integers 0 and 1 (due to automatic conversions from
@@ -46,7 +46,7 @@
   12/15/10 (mac):
     - Add value accessor IValue() which gives *truncated* integer value
   12/24/10 (mac):
-    - Eliminate member function display() as redundant to stream output 
+    - Eliminate member function display() as redundant to stream output
     - Fix sign error just introduced to abs(HalfInt)
   2/16/11 (mac):
     - Add nonmember versions of accessor functions
@@ -64,8 +64,12 @@
   5/15/16 (mac):
     - Add hash_value definition for HalfInt.
   5/23/16 (mac):
-    - Remove deprecated IValue and DValue accessors and 
+    - Remove deprecated IValue and DValue accessors and
       nonmember accessors.
+  10/13/17 (pjf):
+    - Add integer multiplication arithmetic assignment operator *=.
+    - Add binary integer multiplication operator * as global function
+      implemented in terms of *=.
 ****************************************************************/
 
 #ifndef HALFINT_H_
@@ -97,11 +101,11 @@ class HalfInt
   // constructors
   ////////////////////////////////////////////////////////////////
 
-  // note: Copy constructor is synthesized copy constructor 
+  // note: Copy constructor is synthesized copy constructor
   // since only data member needs copying
 
   // default constructor: initializes value to zero
-  HalfInt() : twice_value_(0) {}; 
+  HalfInt() : twice_value_(0) {};
 
   // conversion from integer
   // EX: HalfInt(1) constructs 2/2, HalfInt(2) constructs 4/2
@@ -150,7 +154,7 @@ class HalfInt
   //   return twice_value_/2;
   // };
 
-  explicit operator int() const 
+  explicit operator int() const
   // conversion to int by truncation
   //
   // See also: http://stackoverflow.com/questions/4824278/c-defining-a-type-cast
@@ -174,7 +178,7 @@ class HalfInt
   //   return static_cast<double>(twice_value_)/2;
   // };
 
-  explicit operator float() const 
+  explicit operator float() const
   // conversion operators for float
   //
   // See also: http://stackoverflow.com/questions/4824278/c-defining-a-type-cast
@@ -193,7 +197,7 @@ class HalfInt
     return static_cast<float>(twice_value_)/2;
   }
 
-  explicit operator double() const 
+  explicit operator double() const
   // conversion operators for float
   //
   // See notes for float().
@@ -206,11 +210,12 @@ class HalfInt
   // arithmetic assignment operators
   ////////////////////////////////////////////////////////////////
 
-  // note: operator = is synthesized assignment operator 
+  // note: operator = is synthesized assignment operator
 
   // operators return reference to allow for chained (a+=b)+=c structures
   HalfInt& operator +=(const HalfInt&);
   HalfInt& operator -=(const HalfInt&);
+  HalfInt& operator *=(const int&);
 
   ////////////////////////////////////////////////////////////////
   // unary arithmetic operators
@@ -227,7 +232,7 @@ class HalfInt
   ////////////////////////////////////////////////////////////////
   // string conversion
   ////////////////////////////////////////////////////////////////
-  
+
   std::string Str() const;
 
   ////////////////////////////////////////////////////////////////
@@ -276,6 +281,12 @@ inline HalfInt& HalfInt::operator -=(const HalfInt& b)
   return *this;
 }
 
+inline HalfInt& HalfInt::operator *=(const int& b)
+{
+  twice_value_ *= b;
+  return *this;
+}
+
 ////////////////////////////////////////////////////////////////
 // nonmember accessor functions
 ////////////////////////////////////////////////////////////////
@@ -296,7 +307,7 @@ inline bool IsInteger(const HalfInt& h)
 //   return (h.IValue());
 // }
 
-// inline double DValue(const HalfInt& h) 
+// inline double DValue(const HalfInt& h)
 // // DEPRECATED in favor of C++11 conversion operator.
 // {
 //   return (h.DValue());
@@ -306,12 +317,12 @@ inline bool IsInteger(const HalfInt& h)
 // unary arithmetic operators
 ////////////////////////////////////////////////////////////////
 
-inline HalfInt HalfInt::operator + () const 
+inline HalfInt HalfInt::operator + () const
 {
   return *this;
 };
 
-inline HalfInt HalfInt::operator - () const 
+inline HalfInt HalfInt::operator - () const
 {
   HalfInt negative;
   negative.twice_value_ = -twice_value_;
@@ -320,7 +331,7 @@ inline HalfInt HalfInt::operator - () const
 
 inline HalfInt& HalfInt::operator ++ ()
 {
-  twice_value_ += 2;	
+  twice_value_ += 2;
   return *this;
 }
 
@@ -333,7 +344,7 @@ inline HalfInt HalfInt::operator ++ (int)
 
 inline HalfInt& HalfInt::operator -- ()
 {
-  twice_value_ -= 2;	
+  twice_value_ -= 2;
   return *this;
 }
 
@@ -349,18 +360,32 @@ inline HalfInt HalfInt::operator -- (int)
 // binary arithmetic operators
 ////////////////////////////////////////////////////////////////
 
-inline HalfInt operator + (const HalfInt& a, const HalfInt& b) 
+inline HalfInt operator + (const HalfInt& a, const HalfInt& b)
 {
   HalfInt sum(a);
   sum += b;
   return sum;
 }
 
-inline HalfInt operator - (const HalfInt& a, const HalfInt& b) 
+inline HalfInt operator - (const HalfInt& a, const HalfInt& b)
 {
   HalfInt sum(a);
   sum -=b;
   return sum;
+}
+
+inline HalfInt operator * (const HalfInt& a, const int& b)
+{
+  HalfInt product(a);
+  product *= b;
+  return product;
+}
+
+inline HalfInt operator * (const int& a, const HalfInt& b)
+{
+  HalfInt product(b);
+  product *= a;
+  return product;
 }
 
 ////////////////////////////////////////////////////////////////
@@ -423,7 +448,7 @@ inline HalfInt abs(const HalfInt& h)
 {
   if (h.TwiceValue() < 0)
     return -h;
-  else 
+  else
     return h;
 }
 
@@ -454,7 +479,7 @@ double Hat(int j)
 // oddness).  Without abs(), e.g., ParitySign(-1) can result in
 // failure, from a remainder result other than 0 or 1.
 
-inline 
+inline
 int ParitySign(const HalfInt& sum)
 {
   //int remainder = abs(IValue(sum)) % 2;
@@ -465,7 +490,7 @@ int ParitySign(const HalfInt& sum)
   return sign;
 }
 
-inline 
+inline
 int ParitySign(int sum)
 {
   int remainder = abs(sum) % 2;

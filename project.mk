@@ -37,6 +37,15 @@ LDLIBS += -lgsl
 LDLIBS += -lgslcblas
 CPPFLAGS += -DHAVE_INLINE
 
+################################################################
+# makefile configuration flags
+################################################################
+
+#   AM_ENABLE_UNIT_TEST: define to enable compilation of unit test
+#   codes
+
+AM_ENABLE_UNIT_TEST := yes
+
 ################################
 # "neighboring" libraries
 ################################

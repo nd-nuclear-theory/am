@@ -4,15 +4,15 @@ $(eval $(begin-module))
 # unit definitions
 ################################################################
 
-module_units_h := wigner_gsl wigner_gsl_twice
-module_units_cpp-h := halfint am
-# module_units_f := 
-module_programs_cpp :=
-ifdef AM_ENABLE_UNIT_TEST
-  module_programs_cpp += halfint_test am_test
-endif
-# module_programs_f :=
-# module_generated :=
+# units
+module_units_h += wigner_gsl wigner_gsl_twice
+module_units_cpp-h += halfint am
+
+# programs
+module_programs_cpp +=
+
+# test programs
+module_programs_cpp_test += halfint_test am_test
 
 ################################################################
 # library creation flag
@@ -23,9 +23,5 @@ $(eval $(library))
 ################################################################
 # special variable assignments, rules, and dependencies
 ################################################################
-
-# rule for generating data file
-# $(current-dir)/fort.4 : $(current-dir)/su3genbk
-#	cd $(dir $@); ./$(notdir $<)
 
 $(eval $(end-module))

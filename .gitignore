@@ -1,13 +1,18 @@
 # general patterns
-
 *.[oa]
 *~
 *.tgz
 
-# specific executables
+# unit test executables
 *_test
 
 # all executables on Cygwin
 *.exe
 
-/old/
+# Doxygen-generated docs
+doc/html/
+doc/latex/
+
+# project configuration symlinks
+makefile
+config.mk

@@ -26,11 +26,28 @@ namespace am {
       const HalfInt& J1, const HalfInt& J2, const HalfInt& J, 
       const HalfInt& J0
     )
-  // Calculate coefficient in Racah two-system reduction formula, for case of
-  // first-system operator, applicable to either Rose or Brink-Satchler
-  // Wigner-Eckart convention.
+  // Coefficient in Racah two-system reduction formula, for case of first-system
+  // operator.
+  //
+  // Follows either Rose or Brink-Satchler convention for RME:
+  //
+  //   <J1',J2;J||A_1^J0||J1,J2;J>
+  //     =(-)^(J1'+J2+J+J0)*Hat(J1')*Hat(J)*{J1',J',J2;J,J1,J0} 
+  //
+  // Note: Under Edmonds or Bohr-Mottelson convention, the Hat(J1') would be a
+  // Hat(J').
   //
   // See, e.g., Brink & Satchler, Angular momentum, 2ed. (1968), Appendix VI.
+  //
+  // Assertion: Arguments J2p and J2 must be equal.
+  //
+  // Arguments:
+  //   J1p, J2p, Jp (input): bra angular momenta
+  //   J1, J2, J (input): ket angular momenta
+  //   J0 (input): operator angular momentum
+  //
+  // Returns:
+  //   coefficient
   {
 
     assert(J2p==J2);
@@ -46,11 +63,28 @@ namespace am {
       const HalfInt& J1, const HalfInt& J2, const HalfInt& J, 
       const HalfInt& J0
     )
-  // Calculate coefficient in Racah two-system reduction formula, for case of
-  // second-system operator, applicable to either Rose or Brink-Satchler
-  // Wigner-Eckart convention.
+  // Coefficient in Racah two-system reduction formula, for case of second-system
+  // operator.
+  //
+  // Follows either Rose or Brink-Satchler convention for RME:
+  //
+  //   <J1,J2';J||A_2^J0||J1,J2;J>
+  //     =(-)^(J1+J2+J'+J0)*Hat(J2')*Hat(J)*{J',J2',J1;J2,J,J0} 
+  //
+  // Note: Under Edmonds or Bohr-Mottelson convention, the Hat(J2') would be a
+  // Hat(J').
   //
   // See, e.g., Brink & Satchler, Angular momentum, 2ed. (1968), Appendix VI.
+  //
+  // Assertion: Arguments J1p and J1 must be equal.
+  //
+  // Arguments:
+  //   J1p, J2p, Jp (input): bra angular momenta
+  //   J1, J2, J (input): ket angular momenta
+  //   J0 (input): operator angular momentum
+  //
+  // Returns:
+  //   coefficient
   {
 
     assert(J1p==J1);

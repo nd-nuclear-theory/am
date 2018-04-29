@@ -30,6 +30,8 @@
   6/21/16 (mac): Remove Racah reduction factor. Update comments.
   10/18/16 (mac): Update Unitary6J comment. Rename wigner2_gsl.h to
     wigner_gsl_twice.h.
+  4/28/18 (mac): Restore missing Hat2 and ParitySign2 to
+    wigner_gsl_twice.h.
  
 ****************************************************************/
 
@@ -41,6 +43,26 @@
 #include "am.h"
 
 namespace am {
+
+  // angular momentum hat symbol
+
+  inline
+    double Hat2(int two_j)
+  {
+    return sqrt(static_cast<double>(two_j+1));
+  }
+
+
+  // phase sign (-)^sum
+
+  inline
+    int ParitySign2(int two_sum)
+  {
+    assert((two_sum%2)==0);
+    int remainder = abs(two_sum/2) % 2;
+    int sign = 1 - 2*remainder;
+    return sign;
+  }
 
   // Wigner3J(ja,jb,jc,ma,mb,mc)
   //   returns Wigner 3-J symbol

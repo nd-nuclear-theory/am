@@ -8,7 +8,7 @@
 
 #include "am/am.h"
 #include "am/wigner_gsl.h"
-// #include "am/wigner_gsl_twice.h"
+#include "am/wigner_gsl_twice.h"
 #include "am/racah_reduction.h"
 
 int main(int argc, char **argv)

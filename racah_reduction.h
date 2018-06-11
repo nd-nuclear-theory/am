@@ -11,7 +11,7 @@
   University of Notre Dame
 
   4/28/18 (mac): Created, based on code from moshinsky_xform.cpp.
- 
+
 ****************************************************************/
 
 #ifndef RACAH_REDUCTION_H_
@@ -22,8 +22,8 @@
 namespace am {
 
   double RacahReductionFactor1Rose(
-      const HalfInt& J1p, const HalfInt& J2p, const HalfInt& Jp, 
-      const HalfInt& J1, const HalfInt& J2, const HalfInt& J, 
+      const HalfInt& J1p, const HalfInt& J2p, const HalfInt& Jp,
+      const HalfInt& J1, const HalfInt& J2, const HalfInt& J,
       const HalfInt& J0
     )
   // Coefficient in Racah two-system reduction formula, for case of first-system
@@ -59,8 +59,8 @@ namespace am {
   }
 
   double RacahReductionFactor2Rose(
-      const HalfInt& J1p, const HalfInt& J2p, const HalfInt& Jp, 
-      const HalfInt& J1, const HalfInt& J2, const HalfInt& J, 
+      const HalfInt& J1p, const HalfInt& J2p, const HalfInt& Jp,
+      const HalfInt& J1, const HalfInt& J2, const HalfInt& J,
       const HalfInt& J0
     )
   // Coefficient in Racah two-system reduction formula, for case of second-system
@@ -92,6 +92,46 @@ namespace am {
     double value = ParitySign(J1+J2+Jp+J0)
       *Hat(J2p)*Hat(J)
       *Wigner6J(Jp,J2p,J1,J2,J,J0);
+    return value;
+  }
+
+  double RacahReductionFactor12DotRose(
+      const HalfInt& J1p, const HalfInt& J2p, const HalfInt& Jp,
+      const HalfInt& J1, const HalfInt& J2, const HalfInt& J,
+      const HalfInt& J0
+    )
+  // Calculate coefficient in Racah two-system reduction formula, for case of
+  // scalar product of two operators, applicable to either Rose or Brink-Satchler
+  // Wigner-Eckart convention.
+  //
+  // See, e.g., Brink & Satchler, Angular momentum, 2ed. (1968), Appendix VI.
+  {
+
+    assert(Jp==J);
+
+    double value = ParitySign(J2p+Jp+J1)
+      * Hat(J1p) * Hat(J2p)
+      * Wigner6J(J1p, J2p, Jp, J2 J1, J0);
+    return value;
+  }
+
+  double RacahReductionFactor12Rose(
+      const HalfInt& J1p, const HalfInt& J2p, const HalfInt& Jp,
+      const HalfInt& J1, const HalfInt& J2, const HalfInt& J,
+      const HalfInt& J0a, const HalfInt& J0b, const HalfInt& J0
+    )
+  // Calculate coefficient in Racah two-system reduction formula, for case of
+  // scalar product of two operators, applicable to either Rose or Brink-Satchler
+  // Wigner-Eckart convention.
+  //
+  // See, e.g., Brink & Satchler, Angular momentum, 2ed. (1968), Appendix VI.
+  {
+
+    assert(AllowedTriangle(Jp, J, J0));
+
+    double value = Hat(J0) * Hat(J)
+      * Hat(J1p) * Hat(J2p)
+      * Wigner9J(J1p, J2p, Jp, J1, J2, J, J0a, J0b, J0);
     return value;
   }
 

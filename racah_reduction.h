@@ -10,7 +10,8 @@
   Mark A. Caprio
   University of Notre Dame
 
-  4/28/18 (mac): Created, based on code from moshinsky_xform.cpp.
+  + 04/28/18 (mac): Created, based on code from moshinsky_xform.cpp.
+  + 06/13/18 (pjf): Add remaining two-system reduction formulae.
 
 ****************************************************************/
 
@@ -32,7 +33,7 @@ namespace am {
   // Follows either Rose or Brink-Satchler convention for RME:
   //
   //   <J1',J2;J||A_1^J0||J1,J2;J>
-  //     =(-)^(J1'+J2+J+J0)*Hat(J1')*Hat(J)*{J1',J',J2;J,J1,J0} 
+  //     =(-)^(J1'+J2+J+J0)*Hat(J1')*Hat(J)*{J1',J',J2;J,J1,J0}
   //
   // Note: Under Edmonds or Bohr-Mottelson convention, the Hat(J1') would be a
   // Hat(J').
@@ -69,7 +70,7 @@ namespace am {
   // Follows either Rose or Brink-Satchler convention for RME:
   //
   //   <J1,J2';J||A_2^J0||J1,J2;J>
-  //     =(-)^(J1+J2+J'+J0)*Hat(J2')*Hat(J)*{J',J2',J1;J2,J,J0} 
+  //     =(-)^(J1+J2+J'+J0)*Hat(J2')*Hat(J)*{J',J2',J1;J2,J,J0}
   //
   // Note: Under Edmonds or Bohr-Mottelson convention, the Hat(J2') would be a
   // Hat(J').
@@ -105,13 +106,21 @@ namespace am {
   // Wigner-Eckart convention.
   //
   // See, e.g., Brink & Satchler, Angular momentum, 2ed. (1968), Appendix VI.
+  //
+  // Arguments:
+  //   J1p, J2p, Jp (input): bra angular momenta
+  //   J1, J2, J (input): ket angular momenta
+  //   J0 (input): operator angular momentum
+  //
+  // Returns:
+  //   coefficient
   {
 
     assert(Jp==J);
 
     double value = ParitySign(J2p+Jp+J1)
       * Hat(J1p) * Hat(J2p)
-      * Wigner6J(J1p, J2p, Jp, J2 J1, J0);
+      * Wigner6J(J1p, J2p, Jp, J2, J1, J0);
     return value;
   }
 
@@ -125,6 +134,14 @@ namespace am {
   // Wigner-Eckart convention.
   //
   // See, e.g., Brink & Satchler, Angular momentum, 2ed. (1968), Appendix VI.
+  //
+  // Arguments:
+  //   J1p, J2p, Jp (input): bra angular momenta
+  //   J1, J2, J (input): ket angular momenta
+  //   J0a, J0b, J0 (input): operator angular momenta
+  //
+  // Returns:
+  //   coefficient
   {
 
     assert(AllowedTriangle(Jp, J, J0));

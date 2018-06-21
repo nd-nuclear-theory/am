@@ -22,6 +22,7 @@
 
 namespace am {
 
+  inline
   double RacahReductionFactor1Rose(
       const HalfInt& J1p, const HalfInt& J2p, const HalfInt& Jp,
       const HalfInt& J1, const HalfInt& J2, const HalfInt& J,
@@ -59,6 +60,7 @@ namespace am {
     return value;
   }
 
+  inline
   double RacahReductionFactor2Rose(
       const HalfInt& J1p, const HalfInt& J2p, const HalfInt& Jp,
       const HalfInt& J1, const HalfInt& J2, const HalfInt& J,
@@ -96,6 +98,7 @@ namespace am {
     return value;
   }
 
+  inline
   double RacahReductionFactor12DotRose(
       const HalfInt& J1p, const HalfInt& J2p, const HalfInt& Jp,
       const HalfInt& J1, const HalfInt& J2, const HalfInt& J,
@@ -124,6 +127,7 @@ namespace am {
     return value;
   }
 
+  inline
   double RacahReductionFactor12Rose(
       const HalfInt& J1p, const HalfInt& J2p, const HalfInt& Jp,
       const HalfInt& J1, const HalfInt& J2, const HalfInt& J,

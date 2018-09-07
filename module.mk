@@ -5,7 +5,7 @@ $(eval $(begin-module))
 ################################################################
 
 # units
-module_units_h += wigner_gsl wigner_gsl_twice racah_reduction
+module_units_h += wigner_gsl wigner_gsl_twice racah_reduction rme
 module_units_cpp-h += halfint am
 
 # programs

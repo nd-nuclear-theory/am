@@ -12,6 +12,7 @@
 
   + 04/28/18 (mac): Created, based on code from moshinsky_xform.cpp.
   + 06/13/18 (pjf): Add remaining two-system reduction formulae.
+  + 08/10/18 (pjf): Add single-system reduction formula.
 
 ****************************************************************/
 
@@ -21,6 +22,34 @@
 #include "am/wigner_gsl.h"
 
 namespace am {
+
+  inline
+  double RacahReductionFactorRose(
+    const HalfInt& Jp, const HalfInt& J, const HalfInt& Jpp,
+    const HalfInt& J0a, const HalfInt& J0b, const HalfInt& J0
+  )
+  // Calculate coefficient in Racah single-system reduction formula, for case of
+  // tensor product of two operators, applicable to Rose Wigner-Eckart convention.
+  //
+  // See, e.g., Brink & Satchler, Angular momentum, 2ed. (1968), chapter V.
+  //
+  // Arguments:
+  //   Jp (input): bra angular momentum
+  //   J (input): ket angular momentum
+  //   Jpp (input): intermediate state angular momentum
+  //   J0a, J0b, J0 (input): operator angular momenta
+  //
+  // Returns:
+  //   coefficient
+  {
+    assert(AllowedTriangle(J0a, J0b, J0));
+    assert(AllowedTriangle(Jp, J0, J));
+
+    double value = ParitySign(Jp+J0+J)
+      * Hat(Jpp) * Hat(J0)
+      * Wigner6J(Jp, J, J0, J0b, J0a, Jpp);
+    return value;
+  }
 
   inline
   double RacahReductionFactor1Rose(
@@ -134,7 +163,7 @@ namespace am {
       const HalfInt& J0a, const HalfInt& J0b, const HalfInt& J0
     )
   // Calculate coefficient in Racah two-system reduction formula, for case of
-  // scalar product of two operators, applicable to either Rose or Brink-Satchler
+  // tensor product of two operators, applicable to either Rose or Brink-Satchler
   // Wigner-Eckart convention.
   //
   // See, e.g., Brink & Satchler, Angular momentum, 2ed. (1968), Appendix VI.

@@ -11,6 +11,7 @@
   University of Notre Dame
 
   + 08/11/18 (pjf): Created.
+  + 12/03/18 (pjf): Add AngularMomentumOperatorType enum.
 
 ****************************************************************/
 
@@ -27,6 +28,8 @@ namespace am {
   constexpr double kPi = 3.141592653589793238462643383279502884197169399375;
   constexpr double kSqrt4Pi = 3.544907701811032054596334966682290365595098912244;
   constexpr double kInvSqrt4Pi = 0.282094791773878143474039725780386292922025314664;
+
+  enum class AngularMomentumOperatorType : char {kOrbital='l', kSpin='s', kTotal='j'};
 
   inline
   double SphericalHarmonicCRME(const int& lp, const int& l, const int& k)
@@ -127,6 +130,7 @@ namespace am {
   // Returns:
   //   reduced matrix element (double), Rose convention
   {
+    if (J != Jp) return 0;
     // Brink & Satchler (1993), app. VI, p.153
     double value = std::sqrt(double(Jp)*double(Jp+1));
     return value;
@@ -154,9 +158,63 @@ namespace am {
       return 0;
     }
     // Brink & Satchler (1993), app. VI, p.153
-    double value = ParitySign(2*J1p+2*Jp-J+1)
+    double value = ParitySign(J1p+J2p+2*Jp-J+1)
       * std::sqrt(double(J1p)*double(J1p+1)*double(2*J1p+1)*double(2*J+1))
       * Wigner6J(J1p, J1p, 1, J, Jp, J2p);
+    return value;
+  }
+
+  inline
+  double jjJCoupledAngularMomentumJ2RME(
+    const HalfInt& J1p, const HalfInt& J2p, const HalfInt& Jp,
+    const HalfInt& J1, const HalfInt& J2, const HalfInt& J
+  )
+  // Calculate reduced matrix element of angular momentum operator.
+  //
+  // Arguments:
+  //   J1p, J2p, Jp (input): bra angular momenta
+  //   J1, J2, J (input): ket angular momenta
+  //
+  // Returns:
+  //   reduced matrix element (double), Rose convention
+  {
+    assert(AllowedTriangle(J1p, J2p, Jp));
+    assert(AllowedTriangle(J1, J2, J));
+    assert(AllowedTriangle(Jp, 1, J));
+    // Kronecker deltas on (J1p,J1) and (J2p,J2)
+    if ((J1p != J1) || (J2p != J2)) {
+      return 0;
+    }
+    // Brink & Satchler (1993), app. VI, p.153
+    double value = ParitySign(J2p+J1p+2*Jp-J+1)
+      * std::sqrt(double(J2p)*double(J2+1)*double(2*J2p+1)*double(2*J+1))
+      * Wigner6J(J2p, J2p, 1, J, Jp, J1p);
+    return value;
+  }
+
+  inline
+  double jjJCoupledAngularMomentumJRME(
+    const HalfInt& J1p, const HalfInt& J2p, const HalfInt& Jp,
+    const HalfInt& J1, const HalfInt& J2, const HalfInt& J
+  )
+  // Calculate reduced matrix element of angular momentum operator.
+  //
+  // Arguments:
+  //   J1p, J2p, Jp (input): bra angular momenta
+  //   J1, J2, J (input): ket angular momenta
+  //
+  // Returns:
+  //   reduced matrix element (double), Rose convention
+  {
+    assert(AllowedTriangle(J1p, J2p, Jp));
+    assert(AllowedTriangle(J1, J2, J));
+    assert(AllowedTriangle(Jp, 1, J));
+    // Kronecker deltas on (J1p,J1) and (J2p,J2)
+    if ((J1p != J1) || (J2p != J2)) {
+      return 0;
+    }
+    // Brink & Satchler (1993), app. VI, p.153
+    double value = AngularMomentumJRME(Jp, J);
     return value;
   }
 

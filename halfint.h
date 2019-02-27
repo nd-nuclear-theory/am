@@ -70,6 +70,8 @@
     - Add integer multiplication arithmetic assignment operator *=.
     - Add binary integer multiplication operator * as global function
       implemented in terms of *=.
+  02/27/19 (pjf):
+    - Add STL hashing.
 ****************************************************************/
 
 #ifndef HALFINT_H_
@@ -423,7 +425,7 @@ inline bool operator != (const HalfInt& h1, const HalfInt& h2)
 }
 
 ////////////////////////////////////////////////////////////////
-// hashing (support for Boost automatic hash lookup)
+// hashing (support for Boost and STL automatic hash lookup)
 ////////////////////////////////////////////////////////////////
 
 inline
@@ -434,9 +436,19 @@ std::size_t hash_value(const HalfInt& h)
 // just hash an integer to itself, though this does guarantee
 // appropriate restriction of the range to size_t.
 {
-  std::hash<int> int_hash;
-  return int_hash(TwiceValue(h));
+  return std::hash<int>()(TwiceValue(h));
 }
+
+template <>
+struct std::hash<HalfInt>
+{
+  inline
+  std::size_t operator()(const HalfInt& h) const
+  {
+    return std::hash<int>()(TwiceValue(h));
+  }
+};
+
 
 
 ////////////////////////////////////////////////////////////////

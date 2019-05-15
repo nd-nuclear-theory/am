@@ -439,16 +439,33 @@ std::size_t hash_value(const HalfInt& h)
   return std::hash<int>()(TwiceValue(h));
 }
 
-template <>
-struct std::hash<HalfInt>
-{
-  inline
-  std::size_t operator()(const HalfInt& h) const
-  {
-    return std::hash<int>()(TwiceValue(h));
-  }
-};
+// This should work according to C++ standard but fails under gcc 5.3.0 due to
+// bug in implementation of template specializations:
+//
+//    https://stackoverflow.com/a/25594741
+//
+// template <>
+// struct std::hash<HalfInt>
+// {
+//   inline
+//   std::size_t operator()(const HalfInt& h) const
+//   {
+//     return std::hash<int>()(TwiceValue(h));
+//   }
+// };
 
+namespace std
+{
+  template <>
+    struct hash<HalfInt>
+    {
+      inline
+        std::size_t operator()(const HalfInt& h) const
+      {
+        return std::hash<int>()(TwiceValue(h));
+      }
+    };
+}
 
 
 ////////////////////////////////////////////////////////////////

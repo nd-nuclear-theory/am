@@ -12,6 +12,8 @@
 
   + 08/11/18 (pjf): Created.
   + 12/03/18 (pjf): Add AngularMomentumOperatorType enum.
+  + 07/01/19 (pjf): Fix phase on jjJCoupledAngularMomentumJ2RME, clean up to
+    use more consistent phases in general (i.e. use two-system formula).
 
 ****************************************************************/
 
@@ -157,10 +159,10 @@ namespace am {
     if ((J1p != J1) || (J2p != J2)) {
       return 0;
     }
-    // Brink & Satchler (1993), app. VI, p.153
-    double value = ParitySign(J1p+J2p+2*Jp-J+1)
+    // Brink & Satchler (1993), app. VI, p.152
+    double value = ParitySign(1+J2p+J+J1p)
       * std::sqrt(double(J1p)*double(J1p+1)*double(2*J1p+1)*double(2*J+1))
-      * Wigner6J(J1p, J1p, 1, J, Jp, J2p);
+      * Wigner6J(Jp, J, 1, J1, J1p, J2p);
     return value;
   }
 
@@ -185,10 +187,10 @@ namespace am {
     if ((J1p != J1) || (J2p != J2)) {
       return 0;
     }
-    // Brink & Satchler (1993), app. VI, p.153
-    double value = ParitySign(J2p+J1p+2*Jp-J+1)
-      * std::sqrt(double(J2p)*double(J2+1)*double(2*J2p+1)*double(2*J+1))
-      * Wigner6J(J2p, J2p, 1, J, Jp, J1p);
+    // Brink & Satchler (1993), app. VI, p.152
+    double value = ParitySign(1+J1p+Jp+J2)
+      * std::sqrt(double(J2p)*double(J2p+1)*double(2*J2p+1)*double(2*J+1))
+      * Wigner6J(Jp, J, 1, J2, J2p, J1p);
     return value;
   }
 

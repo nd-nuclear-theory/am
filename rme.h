@@ -14,6 +14,7 @@
   + 12/03/18 (pjf): Add AngularMomentumOperatorType enum.
   + 07/01/19 (pjf): Fix phase on jjJCoupledAngularMomentumJ2RME, clean up to
     use more consistent phases in general (i.e. use two-system formula).
+  + 07/07/19 (sp/pjf): Fix Wigner6J->Wigner3J typo in SphericalHarmonicCRME.
 
 ****************************************************************/
 
@@ -46,7 +47,7 @@ namespace am {
   //   reduced matrix element (double), Rose convention
   {
     // Brink & Satchler (1993), app. VI, p.153
-    double value = Hat(l) * ParitySign(lp) * Wigner6J(lp, k, l, 0, 0, 0);
+    double value = Hat(l) * ParitySign(lp) * Wigner3J(lp, k, l, 0, 0, 0);
     return value;
   }
 

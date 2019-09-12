@@ -9,7 +9,8 @@
   Patrick J. Fasano
   University of Notre Dame
 
-  01/10/19 (pjf): Created, based of fmt API documentation.
+  + 01/10/19 (pjf): Created, based of fmt API documentation.
+  + 09/12/19 (pjf): Updated for fmt v6.0.0.
 ****************************************************************/
 
 #ifndef HALFINT_FMT_H_
@@ -23,14 +24,14 @@ namespace fmt {
 template <>
 struct formatter<HalfInt> {
   template <typename ParseContext>
-  constexpr auto parse(ParseContext& ctx) -> decltype(ctx.begin()) { return ctx.begin(); }
+  constexpr auto parse(ParseContext& ctx) { return ctx.begin(); }
 
   template <typename FormatContext>
-  auto format(const HalfInt& h, FormatContext& ctx) -> decltype(ctx.out()) {
-    return format_to(ctx.begin(), "{:s}", h.Str());
+  auto format(const HalfInt& h, FormatContext& ctx) {
+    return format_to(ctx.out(), "{:s}", h.Str());
   }
 };
 
-}
+}  // namespace fmt
 
-#endif
+#endif  // HALFINIT_FMT_H_

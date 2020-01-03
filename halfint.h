@@ -72,17 +72,20 @@
       implemented in terms of *=.
   02/27/19 (pjf):
     - Add STL hashing.
+  12/30/19 (pjf):
+    - Replace assertions and exits with exceptions, for clean use
+      from Python.
 ****************************************************************/
 
 #ifndef HALFINT_H_
 #define HALFINT_H_
 
-#include <cassert>
 #include <cmath> // for sqrt
 #include <cstdlib>
 #include <functional>  // for hash
 #include <iostream>
 #include <string>
+#include <stdexcept>
 #include <utility>
 #include <vector>
 
@@ -261,8 +264,7 @@ inline HalfInt::HalfInt(int numerator, int denominator)
 {
   if (!((denominator==1)||(denominator==2)))
     {
-      std::cerr << "HalfInt constructed with denominator not 1 or 2" << std::endl;
-      std::exit(EXIT_FAILURE);
+      throw std::invalid_argument("HalfInt constructed with denominator not 1 or 2");
     }
   twice_value_ = (2/denominator)*numerator;
 }
@@ -372,7 +374,7 @@ inline HalfInt operator + (const HalfInt& a, const HalfInt& b)
 inline HalfInt operator - (const HalfInt& a, const HalfInt& b)
 {
   HalfInt sum(a);
-  sum -=b;
+  sum -= b;
   return sum;
 }
 
@@ -507,7 +509,7 @@ inline
 int ParitySign(const HalfInt& sum)
 {
   //int remainder = abs(IValue(sum)) % 2;
-  assert(IsInteger(sum));
+  if (!IsInteger(sum)) throw std::invalid_argument("complex phase encounterd in am::ParitySign");
   int remainder = abs(int(sum)) % 2;
   // int sign = (remainder == 0) ? +1 : -1; // folklore says to avoid conditional for performance
   int sign = 1 - 2*remainder;

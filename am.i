@@ -38,7 +38,7 @@
 #include "halfint.h"
 #include "am.h"
 #include "wigner_gsl.h"
-#include "racah_reduction.h"
+// #include "racah_reduction.h"
 %}
 
 ////////////////////////////////////////////////////////////////

@@ -4039,7 +4039,7 @@ SWIG_AsVal_ptrdiff_t (PyObject * obj, ptrdiff_t *val)
 #include "halfint.h"
 #include "am.h"
 #include "wigner_gsl.h"
-#include "racah_reduction.h"
+// #include "racah_reduction.h"
 
 
 extern "C" {

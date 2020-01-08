@@ -10,7 +10,8 @@ from distutils.core import setup, Extension
 am_module = Extension(
     '_am',
     sources=['am_wrap.cpp', 'halfint.cpp', 'am.cpp'],
-    libraries=['gsl']
+    libraries=['gsl'],
+    extra_compile_args=['-std=c++11']
 )
 
 setup (name = 'am',

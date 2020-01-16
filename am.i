@@ -35,6 +35,7 @@
 // include headers
 %{
 #define SWIG_FILE_WITH_INIT
+#include <sstream>
 #include "halfint.h"
 #include "am.h"
 #include "wigner_gsl.h"

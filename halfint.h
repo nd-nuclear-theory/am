@@ -81,6 +81,7 @@
       and thus be `constexpr`-safe.
     - Mark conversions from float/double -> HalfInt as deleted to prevent
       ill-defined behavior.
+    - Add Phase() for complex phase.
 ****************************************************************/
 
 #ifndef HALFINT_H_
@@ -88,6 +89,7 @@
 
 #include <cmath> // for sqrt
 #include <cstdlib>
+#include <complex>
 #include <functional>  // for hash
 #include <iostream>
 #include <string>
@@ -567,6 +569,25 @@ int ParitySign(int sum)
   int remainder = sum&1;
   int sign = 1 - 2*remainder;
   return sign;
+}
+
+// complex phase (-1)^sum
+//
+// For half-integer values, the phase depends only on 2*J mod 4.
+// This implies that the complex phase depends only on the two
+// least-signficant bits of TwiceValue(sum). The least significant
+// bit TwiceValue(sum)&1 is 0 if the phase is real, i.e. 2*J is even,
+// and is 1 if the phase is imaginary. The second-least-significant
+// bit TwiceValue(sum)&2 is 0 if the phase is positive, and 1 if the
+// phase is negative.
+CXX14_CONSTEXPR inline
+std::complex<double> Phase(const HalfInt& sum)
+{
+  // (TwiceValue(sum)&1) -> 0 if 2*sum is even, -> 1 if 2*sum is odd
+  int im = TwiceValue(sum)&1;
+  // (TwiceValue(sum)&2) -> 0 if sum mod 4 is 0 or 1, -> 2 if sum mod 4 is 2 or 3
+  int sign = 1 - (TwiceValue(sum)&2);
+  return std::complex<double>(sign*(1-im), sign*im);
 }
 
 ////////////////////////////////////////////////////////////////

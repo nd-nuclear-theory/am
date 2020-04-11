@@ -1,11 +1,11 @@
 /****************************************************************
-  halfint.cpp                       
+  halfint.cpp
 
   Ke Cai, Veerle Hellemans, Mark A. Caprio
   University of Notre Dame
 
   See header file for documentation.
-                                   
+
 ****************************************************************/
 
 #include "halfint.h"

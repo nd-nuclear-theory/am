@@ -30,9 +30,10 @@ int main(int argc, char **argv)
   //std::cout << "double... " << 1.0 + DValue(HalfInt(1,2)) << std::endl;
   std::cout << "double... " << 1.0 + double(HalfInt(1,2)) << std::endl;
   std::cout << "****" << std::endl;
-  std::cout << "fallacious but lucky... 1.0 + HalfInt(1,2) = " << 1.0 + HalfInt(1,2) << std::endl;
-  std::cout << "fallacious and not lucky... 0.5 + HalfInt(1,2) = " << 0.5 + HalfInt(1,2) << std::endl;
-  std::cout << "****" << std::endl;
+  // should cause compiler failure:
+  // std::cout << "fallacious but lucky... 1.0 + HalfInt(1,2) = " << 1.0 + HalfInt(1,2) << std::endl;
+  // std::cout << "fallacious and not lucky... 0.5 + HalfInt(1,2) = " << 0.5 + HalfInt(1,2) << std::endl;
+  // std::cout << "****" << std::endl;
 
   // std::cout << HalfInt(7,4) << std::endl; 	// causes throw
 
@@ -41,12 +42,12 @@ int main(int argc, char **argv)
 
 
   // std::cout << "****" << std::endl;
-  // 
+  //
   // std::cout << HalfIntBound(HalfInt(1,2),HalfInt(3,2)) << std::endl;
   // std::cout <<	HalfIntBound(HalfInt(1,2),HalfInt(5,2))
-  // 	*HalfIntBound(HalfInt(3,2),HalfInt(7,2)) 
+  // 	*HalfIntBound(HalfInt(3,2),HalfInt(7,2))
   //      <<	HalfIntBound(HalfInt(1,2),HalfInt(5,2))
-  // 	*HalfIntBound(HalfInt(7,2),HalfInt(9,2)) 
+  // 	*HalfIntBound(HalfInt(7,2),HalfInt(9,2))
   //      << std::endl;
   // std::cout << "****" << std::endl;
 
@@ -61,8 +62,12 @@ int main(int argc, char **argv)
   std::cout << ParitySign(-1) << std::endl;
   std::cout << "****" << std::endl;
 
+  // complex phase
+  std::cout << Phase(HalfInt(1,2)) << std::endl;
+  std::cout << "***" << std::endl;
+
   // hashing
-  std::cout << "hash " << HalfInt(1,2).Str() << " " << hash_value(HalfInt(1,2)) << " " 
+  std::cout << "hash " << HalfInt(1,2).Str() << " " << hash_value(HalfInt(1,2)) << " "
             << HalfInt(22,2).Str() << " "  << hash_value(HalfInt(22,2)) << std::endl;
   std::cout << "****" << std::endl;
 

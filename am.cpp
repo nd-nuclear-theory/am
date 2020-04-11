@@ -5,7 +5,7 @@
   University of Notre Dame
 
   See header file for documentation.
-                                   
+
 ****************************************************************/
 
 #include "am.h"
@@ -24,7 +24,7 @@ namespace am {
     result.reserve(entries);
 
     // store results
-    for (HalfInt j = j_min; j <= j_max; ++j) 
+    for (HalfInt j = j_min; j <= j_max; ++j)
       result.push_back(j);
     return result;
   }

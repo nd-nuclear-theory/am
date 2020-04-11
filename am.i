@@ -9,6 +9,8 @@
 // University of Notre Dame
 //
 // + 12/30/19 (pjf): Created initial version.
+// + 04/10/20 (pjf): Re-enable racah_reduction.h and rme.h after
+//   removing assertions.
 ////////////////////////////////////////////////////////////////
 %module am
 %include "typemaps.i"
@@ -27,6 +29,8 @@
     $action
   } catch (const std::invalid_argument& e) {
     SWIG_exception(SWIG_ValueError, e.what());
+  } catch (const std::domain_error& e) {
+    SWIG_exception(SWIG_ValueError, e.what());
   } catch (const std::exception& e) {
     SWIG_exception(SWIG_RuntimeError, e.what());
   }
@@ -39,7 +43,8 @@
 #include "halfint.h"
 #include "am.h"
 #include "wigner_gsl.h"
-// #include "racah_reduction.h"
+#include "racah_reduction.h"
+#include "rme.h"
 %}
 
 ////////////////////////////////////////////////////////////////
@@ -208,6 +213,6 @@ PyObject* HalfInt_dispatch_mul(PyObject* a, PyObject* b) {
 %include "halfint.h"
 %include "am.h"
 %include "wigner_gsl.h"
-// %include "racah_reduction.h"  // DISABLED(pjf) -- contains unsafe assert()
-// %include "rme.h"  // DISABLED(pjf) -- contains unsafe assert()
+%include "racah_reduction.h"
+%include "rme.h"
 

@@ -25,8 +25,8 @@
 #include <cmath>
 #include <stdexcept>
 
-#include "am/wigner_gsl.h"
-#include "am/racah_reduction.h"
+#include "wigner_gsl.h"
+#include "racah_reduction.h"
 
 namespace am {
 

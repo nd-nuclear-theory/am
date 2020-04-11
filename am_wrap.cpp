@@ -3413,14 +3413,15 @@ SWIGINTERN PyObject *SWIG_PyStaticMethod_New(PyObject *SWIGUNUSEDPARM(self), PyO
 #define SWIGTYPE_p_second_type swig_types[8]
 #define SWIGTYPE_p_size_type swig_types[9]
 #define SWIGTYPE_p_std__allocatorT_HalfInt_t swig_types[10]
-#define SWIGTYPE_p_std__invalid_argument swig_types[11]
-#define SWIGTYPE_p_std__pairT_HalfInt_HalfInt_t swig_types[12]
-#define SWIGTYPE_p_std__vectorT_HalfInt_std__allocatorT_HalfInt_t_t swig_types[13]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[14]
-#define SWIGTYPE_p_value_type swig_types[15]
-#define SWIGTYPE_p_vector swig_types[16]
-static swig_type_info *swig_types[18];
-static swig_module_info swig_module = {swig_types, 17, 0, 0, 0, 0};
+#define SWIGTYPE_p_std__complexT_double_t swig_types[11]
+#define SWIGTYPE_p_std__invalid_argument swig_types[12]
+#define SWIGTYPE_p_std__pairT_HalfInt_HalfInt_t swig_types[13]
+#define SWIGTYPE_p_std__vectorT_HalfInt_std__allocatorT_HalfInt_t_t swig_types[14]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[15]
+#define SWIGTYPE_p_value_type swig_types[16]
+#define SWIGTYPE_p_vector swig_types[17]
+static swig_type_info *swig_types[19];
+static swig_module_info swig_module = {swig_types, 18, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -4040,7 +4041,8 @@ SWIG_AsVal_ptrdiff_t (PyObject * obj, ptrdiff_t *val)
 #include "halfint.h"
 #include "am.h"
 #include "wigner_gsl.h"
-// #include "racah_reduction.h"
+#include "racah_reduction.h"
+#include "rme.h"
 
 
 extern "C" {
@@ -5716,6 +5718,13 @@ SWIGINTERN bool HalfInt_operator_Sg_(HalfInt *self,HalfInt const &h2){ return (*
 SWIGINTERN bool HalfInt_operator_Sg__Se_(HalfInt *self,HalfInt const &h2){ return (*self) >= h2; }
 SWIGINTERN bool HalfInt_operator_Sl__Se_(HalfInt *self,HalfInt const &h2){ return (*self) <= h2; }
 SWIGINTERN bool HalfInt_operator_SN__Se_(HalfInt *self,HalfInt const &h2){ return (*self) != h2; }
+
+SWIGINTERNINLINE PyObject *
+SWIG_From_char  (char c) 
+{ 
+  return SWIG_FromCharPtrAndSize(&c,1);
+}
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -6496,6 +6505,8 @@ SWIGINTERN int _wrap_new_HalfIntPair__SWIG_0(PyObject *self, Py_ssize_t nobjs, P
       result = (std::pair< HalfInt,HalfInt > *)new std::pair< HalfInt,HalfInt >();
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -6549,6 +6560,8 @@ SWIGINTERN int _wrap_new_HalfIntPair__SWIG_1(PyObject *self, Py_ssize_t nobjs, P
       result = (std::pair< HalfInt,HalfInt > *)new std::pair< HalfInt,HalfInt >(arg1,arg2);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -6582,6 +6595,8 @@ SWIGINTERN int _wrap_new_HalfIntPair__SWIG_2(PyObject *self, Py_ssize_t nobjs, P
     try {
       result = (std::pair< HalfInt,HalfInt > *)new std::pair< HalfInt,HalfInt >((std::pair< HalfInt,HalfInt > const &)*arg1);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -6752,6 +6767,8 @@ SWIGINTERN PyObject *_wrap_delete_HalfIntPair(PyObject *self, PyObject *args) {
       delete arg1;
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -6786,6 +6803,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector_iterator(PyObject *self, PyObject *args
       result = (swig::SwigPyIterator *)std_vector_Sl_HalfInt_Sg__iterator(arg1,arg2);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -6815,6 +6834,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector___nonzero__(PyObject *self, PyObject *a
     try {
       result = (bool)std_vector_Sl_HalfInt_Sg____nonzero__((std::vector< HalfInt > const *)arg1);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -6846,6 +6867,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector___bool__(PyObject *self, PyObject *args
       result = (bool)std_vector_Sl_HalfInt_Sg____bool__((std::vector< HalfInt > const *)arg1);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -6875,6 +6898,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector___len__(PyObject *self, PyObject *args)
     try {
       result = std_vector_Sl_HalfInt_Sg____len__((std::vector< HalfInt > const *)arg1);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -6928,6 +6953,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector___getslice__(PyObject *self, PyObject *
       }
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -6977,6 +7004,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector___setslice____SWIG_0(PyObject *self, Py
         SWIG_exception_fail(SWIG_ValueError, (&_e)->what());
       }
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -7040,6 +7069,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector___setslice____SWIG_1(PyObject *self, Py
         SWIG_exception_fail(SWIG_ValueError, (&_e)->what());
       }
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -7122,6 +7153,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector___delslice__(PyObject *self, PyObject *
       }
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -7164,6 +7197,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector___delitem____SWIG_0(PyObject *self, Py_
       }
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -7205,6 +7240,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector___getitem____SWIG_0(PyObject *self, Py_
         SWIG_exception_fail(SWIG_ValueError, (&_e)->what());
       }
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -7260,6 +7297,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector___setitem____SWIG_0(PyObject *self, Py_
       }
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -7303,6 +7342,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector___setitem____SWIG_1(PyObject *self, Py_
       }
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -7343,6 +7384,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector___delitem____SWIG_1(PyObject *self, Py_
         SWIG_exception_fail(SWIG_ValueError, (&_e)->what());
       }
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -7419,6 +7462,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector___getitem____SWIG_1(PyObject *self, Py_
         SWIG_exception_fail(SWIG_IndexError, (&_e)->what());
       }
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -7507,6 +7552,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector___setitem____SWIG_2(PyObject *self, Py_
       }
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -7550,6 +7597,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector___setitem____SWIG_3(PyObject *self, Py_
         SWIG_exception_fail(SWIG_ValueError, (&_e)->what());
       }
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -7649,6 +7698,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector_pop(PyObject *self, PyObject *args) {
       }
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -7690,6 +7741,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector_append(PyObject *self, PyObject *args) 
       std_vector_Sl_HalfInt_Sg__append(arg1,(HalfInt const &)*arg2);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -7712,6 +7765,8 @@ SWIGINTERN int _wrap_new_HalfIntVector__SWIG_0(PyObject *self, Py_ssize_t nobjs,
     try {
       result = (std::vector< HalfInt > *)new std::vector< HalfInt >();
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -7747,6 +7802,8 @@ SWIGINTERN int _wrap_new_HalfIntVector__SWIG_1(PyObject *self, Py_ssize_t nobjs,
       result = (std::vector< HalfInt > *)new std::vector< HalfInt >((std::vector< HalfInt > const &)*arg1);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -7779,6 +7836,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector_empty(PyObject *self, PyObject *args) {
       result = (bool)((std::vector< HalfInt > const *)arg1)->empty();
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -7808,6 +7867,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector_size(PyObject *self, PyObject *args) {
     try {
       result = ((std::vector< HalfInt > const *)arg1)->size();
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -7850,6 +7911,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector_swap(PyObject *self, PyObject *args) {
       (arg1)->swap(*arg2);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -7879,6 +7942,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector_begin(PyObject *self, PyObject *args) {
     try {
       result = (arg1)->begin();
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -7911,6 +7976,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector_end(PyObject *self, PyObject *args) {
       result = (arg1)->end();
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -7941,6 +8008,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector_rbegin(PyObject *self, PyObject *args) 
     try {
       result = (arg1)->rbegin();
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -7973,6 +8042,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector_rend(PyObject *self, PyObject *args) {
       result = (arg1)->rend();
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -8002,6 +8073,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector_clear(PyObject *self, PyObject *args) {
     try {
       (arg1)->clear();
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -8033,6 +8106,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector_get_allocator(PyObject *self, PyObject 
       result = ((std::vector< HalfInt > const *)arg1)->get_allocator();
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -8062,6 +8137,8 @@ SWIGINTERN int _wrap_new_HalfIntVector__SWIG_2(PyObject *self, Py_ssize_t nobjs,
       result = (std::vector< HalfInt > *)new std::vector< HalfInt >(arg1);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -8090,6 +8167,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector_pop_back(PyObject *self, PyObject *args
     try {
       (arg1)->pop_back();
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -8126,6 +8205,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector_resize__SWIG_0(PyObject *self, Py_ssize
     try {
       (arg1)->resize(arg2);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -8169,6 +8250,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector_erase__SWIG_0(PyObject *self, Py_ssize_
     try {
       result = std_vector_Sl_HalfInt_Sg__erase__SWIG_0(arg1,arg2);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -8227,6 +8310,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector_erase__SWIG_1(PyObject *self, Py_ssize_
     try {
       result = std_vector_Sl_HalfInt_Sg__erase__SWIG_1(arg1,arg2,arg3);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -8296,6 +8381,8 @@ SWIGINTERN int _wrap_new_HalfIntVector__SWIG_3(PyObject *self, Py_ssize_t nobjs,
     try {
       result = (std::vector< HalfInt > *)new std::vector< HalfInt >(arg1,(std::vector< HalfInt >::value_type const &)*arg2);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -8388,6 +8475,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector_push_back(PyObject *self, PyObject *arg
       (arg1)->push_back((std::vector< HalfInt >::value_type const &)*arg2);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -8420,6 +8509,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector_front(PyObject *self, PyObject *args) {
       result = (std::vector< HalfInt >::value_type *) &((std::vector< HalfInt > const *)arg1)->front();
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -8450,6 +8541,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector_back(PyObject *self, PyObject *args) {
     try {
       result = (std::vector< HalfInt >::value_type *) &((std::vector< HalfInt > const *)arg1)->back();
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -8500,6 +8593,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector_assign(PyObject *self, PyObject *args) 
       (arg1)->assign(arg2,(std::vector< HalfInt >::value_type const &)*arg3);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -8548,6 +8643,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector_resize__SWIG_1(PyObject *self, Py_ssize
     try {
       (arg1)->resize(arg2,(std::vector< HalfInt >::value_type const &)*arg3);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -8633,6 +8730,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector_insert__SWIG_0(PyObject *self, Py_ssize
       result = std_vector_Sl_HalfInt_Sg__insert__SWIG_0(arg1,arg2,(HalfInt const &)*arg3);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -8696,6 +8795,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector_insert__SWIG_1(PyObject *self, Py_ssize
     try {
       std_vector_Sl_HalfInt_Sg__insert__SWIG_1(arg1,arg2,arg3,(HalfInt const &)*arg4);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -8765,6 +8866,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector_reserve(PyObject *self, PyObject *args)
       (arg1)->reserve(arg2);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -8795,6 +8898,8 @@ SWIGINTERN PyObject *_wrap_HalfIntVector_capacity(PyObject *self, PyObject *args
       result = ((std::vector< HalfInt > const *)arg1)->capacity();
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -8823,6 +8928,8 @@ SWIGINTERN PyObject *_wrap_delete_HalfIntVector(PyObject *self, PyObject *args) 
     try {
       delete arg1;
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -8857,6 +8964,8 @@ SWIGINTERN int _wrap_new_HalfInt__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObj
       result = (HalfInt *)new HalfInt();
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -8885,6 +8994,8 @@ SWIGINTERN int _wrap_new_HalfInt__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObj
     try {
       result = (HalfInt *)new HalfInt(arg1);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -8922,6 +9033,8 @@ SWIGINTERN int _wrap_new_HalfInt__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObj
     try {
       result = (HalfInt *)new HalfInt(arg1,arg2);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -8987,6 +9100,8 @@ SWIGINTERN PyObject *_wrap_HalfInt_TwiceValue(PyObject *self, PyObject *args) {
       result = (int)((HalfInt const *)arg1)->TwiceValue();
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -9016,6 +9131,8 @@ SWIGINTERN PyObject *_wrap_HalfInt_IsInteger(PyObject *self, PyObject *args) {
     try {
       result = (bool)((HalfInt const *)arg1)->IsInteger();
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -9047,6 +9164,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___int__(PyObject *self, PyObject *args) {
       result = (int)((HalfInt const *)arg1)->operator int();
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -9076,6 +9195,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___float__(PyObject *self, PyObject *args) {
     try {
       result = (double)((HalfInt const *)arg1)->operator double();
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -9118,6 +9239,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___iadd__(PyObject *self, PyObject *args) {
     try {
       result = (HalfInt *) &(arg1)->operator +=((HalfInt const &)*arg2);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -9163,6 +9286,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___isub__(PyObject *self, PyObject *args) {
       result = (HalfInt *) &(arg1)->operator -=((HalfInt const &)*arg2);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -9206,6 +9331,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___imul__(PyObject *self, PyObject *args) {
       result = (HalfInt *) &(arg1)->operator *=((int const &)*arg2);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -9235,6 +9362,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___pos__(PyObject *self, PyObject *args) {
     try {
       result = ((HalfInt const *)arg1)->operator +();
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -9268,6 +9397,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___neg__(PyObject *self, PyObject *args) {
       result = ((HalfInt const *)arg1)->operator -();
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -9300,6 +9431,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___str__(PyObject *self, PyObject *args) {
       result = ((HalfInt const *)arg1)->Str();
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -9330,6 +9463,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___repr__(PyObject *self, PyObject *args) {
       result = HalfInt___repr__(arg1);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -9359,6 +9494,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___abs__(PyObject *self, PyObject *args) {
     try {
       result = HalfInt___abs__(arg1);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -9399,6 +9536,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___sadd____SWIG_0(PyObject *self, Py_ssize_t n
     try {
       result = HalfInt___sadd____SWIG_0(arg1,(HalfInt const &)*arg2);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -9442,6 +9581,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___sadd____SWIG_1(PyObject *self, Py_ssize_t n
     try {
       result = HalfInt___sadd____SWIG_1(arg1,(int const &)*arg2);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -9529,6 +9670,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___dadd____SWIG_0(PyObject *self, Py_ssize_t n
       result = HalfInt___dadd____SWIG_0(arg1,(HalfInt const &)*arg2);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -9571,6 +9714,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___dadd____SWIG_1(PyObject *self, Py_ssize_t n
     try {
       result = HalfInt___dadd____SWIG_1(arg1,(int const &)*arg2);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -9658,6 +9803,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___ssub____SWIG_0(PyObject *self, Py_ssize_t n
       result = HalfInt___ssub____SWIG_0(arg1,(HalfInt const &)*arg2);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -9700,6 +9847,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___ssub____SWIG_1(PyObject *self, Py_ssize_t n
     try {
       result = HalfInt___ssub____SWIG_1(arg1,(int const &)*arg2);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -9787,6 +9936,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___dsub____SWIG_0(PyObject *self, Py_ssize_t n
       result = HalfInt___dsub____SWIG_0(arg1,(HalfInt const &)*arg2);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -9829,6 +9980,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___dsub____SWIG_1(PyObject *self, Py_ssize_t n
     try {
       result = HalfInt___dsub____SWIG_1(arg1,(int const &)*arg2);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -9917,6 +10070,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___smul__(PyObject *self, PyObject *args) {
       result = HalfInt___smul__(arg1,(int const &)*arg2);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -9959,6 +10114,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___dmul__(PyObject *self, PyObject *args) {
     try {
       result = HalfInt___dmul__(arg1,(int const &)*arg2);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -10003,6 +10160,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___eq__(PyObject *self, PyObject *args) {
     try {
       result = (bool)HalfInt_operator_Se__Se_(arg1,(HalfInt const &)*arg2);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -10050,6 +10209,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___lt__(PyObject *self, PyObject *args) {
       result = (bool)HalfInt_operator_Sl_(arg1,(HalfInt const &)*arg2);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -10095,6 +10256,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___gt__(PyObject *self, PyObject *args) {
     try {
       result = (bool)HalfInt_operator_Sg_(arg1,(HalfInt const &)*arg2);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -10142,6 +10305,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___ge__(PyObject *self, PyObject *args) {
       result = (bool)HalfInt_operator_Sg__Se_(arg1,(HalfInt const &)*arg2);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -10187,6 +10352,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___le__(PyObject *self, PyObject *args) {
     try {
       result = (bool)HalfInt_operator_Sl__Se_(arg1,(HalfInt const &)*arg2);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -10234,6 +10401,8 @@ SWIGINTERN PyObject *_wrap_HalfInt___ne__(PyObject *self, PyObject *args) {
       result = (bool)HalfInt_operator_SN__Se_(arg1,(HalfInt const &)*arg2);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -10266,6 +10435,8 @@ SWIGINTERN PyObject *_wrap_delete_HalfInt(PyObject *self, PyObject *args) {
     try {
       delete arg1;
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -10317,6 +10488,8 @@ SWIGINTERN PyObject *_wrap_TwiceValue(PyObject *self, PyObject *args) {
       result = (int)TwiceValue((HalfInt const &)*arg1);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -10352,6 +10525,8 @@ SWIGINTERN PyObject *_wrap_IsInteger(PyObject *self, PyObject *args) {
     try {
       result = (bool)IsInteger((HalfInt const &)*arg1);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -10389,6 +10564,8 @@ SWIGINTERN PyObject *_wrap_hash_value(PyObject *self, PyObject *args) {
       result = hash_value((HalfInt const &)*arg1);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -10425,6 +10602,8 @@ SWIGINTERN PyObject *_wrap_abs(PyObject *self, PyObject *args) {
       result = abs((HalfInt const &)*arg1);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -10459,6 +10638,8 @@ SWIGINTERN PyObject *_wrap_Hat__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObjec
       result = (double)Hat((HalfInt const &)*arg1);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -10489,6 +10670,8 @@ SWIGINTERN PyObject *_wrap_Hat__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObjec
     try {
       result = (double)Hat(arg1);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -10569,6 +10752,8 @@ SWIGINTERN PyObject *_wrap_ParitySign__SWIG_0(PyObject *self, Py_ssize_t nobjs, 
       result = (int)ParitySign((HalfInt const &)*arg1);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -10599,6 +10784,8 @@ SWIGINTERN PyObject *_wrap_ParitySign__SWIG_1(PyObject *self, Py_ssize_t nobjs, 
     try {
       result = (int)ParitySign(arg1);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -10658,6 +10845,44 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_Phase(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  HalfInt *arg1 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::complex< double > result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Phase" "', argument " "1"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Phase" "', argument " "1"" of type '" "HalfInt const &""'"); 
+  }
+  arg1 = reinterpret_cast< HalfInt * >(argp1);
+  {
+    try {
+      result = Phase((HalfInt const &)*arg1);
+    } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  resultobj = SWIG_NewPointerObj((new std::complex< double >(static_cast< const std::complex< double >& >(result))), SWIGTYPE_p_std__complexT_double_t, SWIG_POINTER_OWN |  0 );
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_dim__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   HalfInt *arg1 = 0 ;
@@ -10678,6 +10903,8 @@ SWIGINTERN PyObject *_wrap_dim__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObjec
     try {
       result = (int)am::dim((HalfInt const &)*arg1);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -10709,6 +10936,8 @@ SWIGINTERN PyObject *_wrap_dim__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObjec
     try {
       result = (double)am::dim(arg1);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -10812,6 +11041,8 @@ SWIGINTERN PyObject *_wrap_AllowedTriangle(PyObject *self, PyObject *args) {
       result = (bool)am::AllowedTriangle((HalfInt const &)*arg1,(HalfInt const &)*arg2,(HalfInt const &)*arg3);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -10862,6 +11093,8 @@ SWIGINTERN PyObject *_wrap_ProductAngularMomenta(PyObject *self, PyObject *args)
       result = am::ProductAngularMomenta((HalfInt const &)*arg1,(HalfInt const &)*arg2);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -10909,6 +11142,8 @@ SWIGINTERN PyObject *_wrap_ProductAngularMomentumRange(PyObject *self, PyObject 
     try {
       result = am::ProductAngularMomentumRange((HalfInt const &)*arg1,(HalfInt const &)*arg2);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -10961,6 +11196,8 @@ SWIGINTERN PyObject *_wrap_AngularMomentumRangeIntersection(PyObject *self, PyOb
     try {
       result = am::AngularMomentumRangeIntersection((std::pair< HalfInt,HalfInt > const &)*arg1,(std::pair< HalfInt,HalfInt > const &)*arg2);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -11053,6 +11290,8 @@ SWIGINTERN PyObject *_wrap_Wigner3J(PyObject *self, PyObject *args) {
     try {
       result = (double)am::Wigner3J((HalfInt const &)*arg1,(HalfInt const &)*arg2,(HalfInt const &)*arg3,(HalfInt const &)*arg4,(HalfInt const &)*arg5,(HalfInt const &)*arg6);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -11154,6 +11393,8 @@ SWIGINTERN PyObject *_wrap_ClebschGordan(PyObject *self, PyObject *args) {
       result = (double)am::ClebschGordan((HalfInt const &)*arg1,(HalfInt const &)*arg2,(HalfInt const &)*arg3,(HalfInt const &)*arg4,(HalfInt const &)*arg5,(HalfInt const &)*arg6);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -11253,6 +11494,8 @@ SWIGINTERN PyObject *_wrap_Wigner6J(PyObject *self, PyObject *args) {
     try {
       result = (double)am::Wigner6J((HalfInt const &)*arg1,(HalfInt const &)*arg2,(HalfInt const &)*arg3,(HalfInt const &)*arg4,(HalfInt const &)*arg5,(HalfInt const &)*arg6);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -11354,6 +11597,8 @@ SWIGINTERN PyObject *_wrap_Unitary6J(PyObject *self, PyObject *args) {
       result = (double)am::Unitary6J((HalfInt const &)*arg1,(HalfInt const &)*arg2,(HalfInt const &)*arg3,(HalfInt const &)*arg4,(HalfInt const &)*arg5,(HalfInt const &)*arg6);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -11453,6 +11698,8 @@ SWIGINTERN PyObject *_wrap_Unitary6JZ(PyObject *self, PyObject *args) {
     try {
       result = (double)am::Unitary6JZ((HalfInt const &)*arg1,(HalfInt const &)*arg2,(HalfInt const &)*arg3,(HalfInt const &)*arg4,(HalfInt const &)*arg5,(HalfInt const &)*arg6);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -11586,6 +11833,8 @@ SWIGINTERN PyObject *_wrap_Wigner9J(PyObject *self, PyObject *args) {
     try {
       result = (double)am::Wigner9J((HalfInt const &)*arg1,(HalfInt const &)*arg2,(HalfInt const &)*arg3,(HalfInt const &)*arg4,(HalfInt const &)*arg5,(HalfInt const &)*arg6,(HalfInt const &)*arg7,(HalfInt const &)*arg8,(HalfInt const &)*arg9);
     } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -11726,6 +11975,8 @@ SWIGINTERN PyObject *_wrap_Unitary9J(PyObject *self, PyObject *args) {
       result = (double)am::Unitary9J((HalfInt const &)*arg1,(HalfInt const &)*arg2,(HalfInt const &)*arg3,(HalfInt const &)*arg4,(HalfInt const &)*arg5,(HalfInt const &)*arg6,(HalfInt const &)*arg7,(HalfInt const &)*arg8,(HalfInt const &)*arg9);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::exception& e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
@@ -11755,6 +12006,1407 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_RacahReductionFactorRose(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  HalfInt *arg1 = 0 ;
+  HalfInt *arg2 = 0 ;
+  HalfInt *arg3 = 0 ;
+  HalfInt *arg4 = 0 ;
+  HalfInt *arg5 = 0 ;
+  HalfInt *arg6 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  void *argp5 = 0 ;
+  int res5 = 0 ;
+  void *argp6 = 0 ;
+  int res6 = 0 ;
+  PyObject *swig_obj[6] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "RacahReductionFactorRose", 6, 6, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RacahReductionFactorRose" "', argument " "1"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactorRose" "', argument " "1"" of type '" "HalfInt const &""'"); 
+  }
+  arg1 = reinterpret_cast< HalfInt * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "RacahReductionFactorRose" "', argument " "2"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactorRose" "', argument " "2"" of type '" "HalfInt const &""'"); 
+  }
+  arg2 = reinterpret_cast< HalfInt * >(argp2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "RacahReductionFactorRose" "', argument " "3"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactorRose" "', argument " "3"" of type '" "HalfInt const &""'"); 
+  }
+  arg3 = reinterpret_cast< HalfInt * >(argp3);
+  res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "RacahReductionFactorRose" "', argument " "4"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp4) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactorRose" "', argument " "4"" of type '" "HalfInt const &""'"); 
+  }
+  arg4 = reinterpret_cast< HalfInt * >(argp4);
+  res5 = SWIG_ConvertPtr(swig_obj[4], &argp5, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res5)) {
+    SWIG_exception_fail(SWIG_ArgError(res5), "in method '" "RacahReductionFactorRose" "', argument " "5"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp5) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactorRose" "', argument " "5"" of type '" "HalfInt const &""'"); 
+  }
+  arg5 = reinterpret_cast< HalfInt * >(argp5);
+  res6 = SWIG_ConvertPtr(swig_obj[5], &argp6, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res6)) {
+    SWIG_exception_fail(SWIG_ArgError(res6), "in method '" "RacahReductionFactorRose" "', argument " "6"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp6) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactorRose" "', argument " "6"" of type '" "HalfInt const &""'"); 
+  }
+  arg6 = reinterpret_cast< HalfInt * >(argp6);
+  {
+    try {
+      result = (double)am::RacahReductionFactorRose((HalfInt const &)*arg1,(HalfInt const &)*arg2,(HalfInt const &)*arg3,(HalfInt const &)*arg4,(HalfInt const &)*arg5,(HalfInt const &)*arg6);
+    } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  if (SWIG_IsNewObj(res5)) delete arg5;
+  if (SWIG_IsNewObj(res6)) delete arg6;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  if (SWIG_IsNewObj(res5)) delete arg5;
+  if (SWIG_IsNewObj(res6)) delete arg6;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_RacahReductionFactor1Rose(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  HalfInt *arg1 = 0 ;
+  HalfInt *arg2 = 0 ;
+  HalfInt *arg3 = 0 ;
+  HalfInt *arg4 = 0 ;
+  HalfInt *arg5 = 0 ;
+  HalfInt *arg6 = 0 ;
+  HalfInt *arg7 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  void *argp5 = 0 ;
+  int res5 = 0 ;
+  void *argp6 = 0 ;
+  int res6 = 0 ;
+  void *argp7 = 0 ;
+  int res7 = 0 ;
+  PyObject *swig_obj[7] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "RacahReductionFactor1Rose", 7, 7, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RacahReductionFactor1Rose" "', argument " "1"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor1Rose" "', argument " "1"" of type '" "HalfInt const &""'"); 
+  }
+  arg1 = reinterpret_cast< HalfInt * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "RacahReductionFactor1Rose" "', argument " "2"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor1Rose" "', argument " "2"" of type '" "HalfInt const &""'"); 
+  }
+  arg2 = reinterpret_cast< HalfInt * >(argp2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "RacahReductionFactor1Rose" "', argument " "3"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor1Rose" "', argument " "3"" of type '" "HalfInt const &""'"); 
+  }
+  arg3 = reinterpret_cast< HalfInt * >(argp3);
+  res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "RacahReductionFactor1Rose" "', argument " "4"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp4) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor1Rose" "', argument " "4"" of type '" "HalfInt const &""'"); 
+  }
+  arg4 = reinterpret_cast< HalfInt * >(argp4);
+  res5 = SWIG_ConvertPtr(swig_obj[4], &argp5, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res5)) {
+    SWIG_exception_fail(SWIG_ArgError(res5), "in method '" "RacahReductionFactor1Rose" "', argument " "5"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp5) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor1Rose" "', argument " "5"" of type '" "HalfInt const &""'"); 
+  }
+  arg5 = reinterpret_cast< HalfInt * >(argp5);
+  res6 = SWIG_ConvertPtr(swig_obj[5], &argp6, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res6)) {
+    SWIG_exception_fail(SWIG_ArgError(res6), "in method '" "RacahReductionFactor1Rose" "', argument " "6"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp6) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor1Rose" "', argument " "6"" of type '" "HalfInt const &""'"); 
+  }
+  arg6 = reinterpret_cast< HalfInt * >(argp6);
+  res7 = SWIG_ConvertPtr(swig_obj[6], &argp7, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res7)) {
+    SWIG_exception_fail(SWIG_ArgError(res7), "in method '" "RacahReductionFactor1Rose" "', argument " "7"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp7) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor1Rose" "', argument " "7"" of type '" "HalfInt const &""'"); 
+  }
+  arg7 = reinterpret_cast< HalfInt * >(argp7);
+  {
+    try {
+      result = (double)am::RacahReductionFactor1Rose((HalfInt const &)*arg1,(HalfInt const &)*arg2,(HalfInt const &)*arg3,(HalfInt const &)*arg4,(HalfInt const &)*arg5,(HalfInt const &)*arg6,(HalfInt const &)*arg7);
+    } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  if (SWIG_IsNewObj(res5)) delete arg5;
+  if (SWIG_IsNewObj(res6)) delete arg6;
+  if (SWIG_IsNewObj(res7)) delete arg7;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  if (SWIG_IsNewObj(res5)) delete arg5;
+  if (SWIG_IsNewObj(res6)) delete arg6;
+  if (SWIG_IsNewObj(res7)) delete arg7;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_RacahReductionFactor2Rose(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  HalfInt *arg1 = 0 ;
+  HalfInt *arg2 = 0 ;
+  HalfInt *arg3 = 0 ;
+  HalfInt *arg4 = 0 ;
+  HalfInt *arg5 = 0 ;
+  HalfInt *arg6 = 0 ;
+  HalfInt *arg7 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  void *argp5 = 0 ;
+  int res5 = 0 ;
+  void *argp6 = 0 ;
+  int res6 = 0 ;
+  void *argp7 = 0 ;
+  int res7 = 0 ;
+  PyObject *swig_obj[7] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "RacahReductionFactor2Rose", 7, 7, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RacahReductionFactor2Rose" "', argument " "1"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor2Rose" "', argument " "1"" of type '" "HalfInt const &""'"); 
+  }
+  arg1 = reinterpret_cast< HalfInt * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "RacahReductionFactor2Rose" "', argument " "2"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor2Rose" "', argument " "2"" of type '" "HalfInt const &""'"); 
+  }
+  arg2 = reinterpret_cast< HalfInt * >(argp2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "RacahReductionFactor2Rose" "', argument " "3"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor2Rose" "', argument " "3"" of type '" "HalfInt const &""'"); 
+  }
+  arg3 = reinterpret_cast< HalfInt * >(argp3);
+  res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "RacahReductionFactor2Rose" "', argument " "4"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp4) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor2Rose" "', argument " "4"" of type '" "HalfInt const &""'"); 
+  }
+  arg4 = reinterpret_cast< HalfInt * >(argp4);
+  res5 = SWIG_ConvertPtr(swig_obj[4], &argp5, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res5)) {
+    SWIG_exception_fail(SWIG_ArgError(res5), "in method '" "RacahReductionFactor2Rose" "', argument " "5"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp5) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor2Rose" "', argument " "5"" of type '" "HalfInt const &""'"); 
+  }
+  arg5 = reinterpret_cast< HalfInt * >(argp5);
+  res6 = SWIG_ConvertPtr(swig_obj[5], &argp6, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res6)) {
+    SWIG_exception_fail(SWIG_ArgError(res6), "in method '" "RacahReductionFactor2Rose" "', argument " "6"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp6) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor2Rose" "', argument " "6"" of type '" "HalfInt const &""'"); 
+  }
+  arg6 = reinterpret_cast< HalfInt * >(argp6);
+  res7 = SWIG_ConvertPtr(swig_obj[6], &argp7, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res7)) {
+    SWIG_exception_fail(SWIG_ArgError(res7), "in method '" "RacahReductionFactor2Rose" "', argument " "7"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp7) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor2Rose" "', argument " "7"" of type '" "HalfInt const &""'"); 
+  }
+  arg7 = reinterpret_cast< HalfInt * >(argp7);
+  {
+    try {
+      result = (double)am::RacahReductionFactor2Rose((HalfInt const &)*arg1,(HalfInt const &)*arg2,(HalfInt const &)*arg3,(HalfInt const &)*arg4,(HalfInt const &)*arg5,(HalfInt const &)*arg6,(HalfInt const &)*arg7);
+    } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  if (SWIG_IsNewObj(res5)) delete arg5;
+  if (SWIG_IsNewObj(res6)) delete arg6;
+  if (SWIG_IsNewObj(res7)) delete arg7;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  if (SWIG_IsNewObj(res5)) delete arg5;
+  if (SWIG_IsNewObj(res6)) delete arg6;
+  if (SWIG_IsNewObj(res7)) delete arg7;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_RacahReductionFactor12DotRose(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  HalfInt *arg1 = 0 ;
+  HalfInt *arg2 = 0 ;
+  HalfInt *arg3 = 0 ;
+  HalfInt *arg4 = 0 ;
+  HalfInt *arg5 = 0 ;
+  HalfInt *arg6 = 0 ;
+  HalfInt *arg7 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  void *argp5 = 0 ;
+  int res5 = 0 ;
+  void *argp6 = 0 ;
+  int res6 = 0 ;
+  void *argp7 = 0 ;
+  int res7 = 0 ;
+  PyObject *swig_obj[7] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "RacahReductionFactor12DotRose", 7, 7, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RacahReductionFactor12DotRose" "', argument " "1"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor12DotRose" "', argument " "1"" of type '" "HalfInt const &""'"); 
+  }
+  arg1 = reinterpret_cast< HalfInt * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "RacahReductionFactor12DotRose" "', argument " "2"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor12DotRose" "', argument " "2"" of type '" "HalfInt const &""'"); 
+  }
+  arg2 = reinterpret_cast< HalfInt * >(argp2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "RacahReductionFactor12DotRose" "', argument " "3"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor12DotRose" "', argument " "3"" of type '" "HalfInt const &""'"); 
+  }
+  arg3 = reinterpret_cast< HalfInt * >(argp3);
+  res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "RacahReductionFactor12DotRose" "', argument " "4"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp4) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor12DotRose" "', argument " "4"" of type '" "HalfInt const &""'"); 
+  }
+  arg4 = reinterpret_cast< HalfInt * >(argp4);
+  res5 = SWIG_ConvertPtr(swig_obj[4], &argp5, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res5)) {
+    SWIG_exception_fail(SWIG_ArgError(res5), "in method '" "RacahReductionFactor12DotRose" "', argument " "5"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp5) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor12DotRose" "', argument " "5"" of type '" "HalfInt const &""'"); 
+  }
+  arg5 = reinterpret_cast< HalfInt * >(argp5);
+  res6 = SWIG_ConvertPtr(swig_obj[5], &argp6, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res6)) {
+    SWIG_exception_fail(SWIG_ArgError(res6), "in method '" "RacahReductionFactor12DotRose" "', argument " "6"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp6) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor12DotRose" "', argument " "6"" of type '" "HalfInt const &""'"); 
+  }
+  arg6 = reinterpret_cast< HalfInt * >(argp6);
+  res7 = SWIG_ConvertPtr(swig_obj[6], &argp7, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res7)) {
+    SWIG_exception_fail(SWIG_ArgError(res7), "in method '" "RacahReductionFactor12DotRose" "', argument " "7"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp7) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor12DotRose" "', argument " "7"" of type '" "HalfInt const &""'"); 
+  }
+  arg7 = reinterpret_cast< HalfInt * >(argp7);
+  {
+    try {
+      result = (double)am::RacahReductionFactor12DotRose((HalfInt const &)*arg1,(HalfInt const &)*arg2,(HalfInt const &)*arg3,(HalfInt const &)*arg4,(HalfInt const &)*arg5,(HalfInt const &)*arg6,(HalfInt const &)*arg7);
+    } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  if (SWIG_IsNewObj(res5)) delete arg5;
+  if (SWIG_IsNewObj(res6)) delete arg6;
+  if (SWIG_IsNewObj(res7)) delete arg7;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  if (SWIG_IsNewObj(res5)) delete arg5;
+  if (SWIG_IsNewObj(res6)) delete arg6;
+  if (SWIG_IsNewObj(res7)) delete arg7;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_RacahReductionFactor12Rose(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  HalfInt *arg1 = 0 ;
+  HalfInt *arg2 = 0 ;
+  HalfInt *arg3 = 0 ;
+  HalfInt *arg4 = 0 ;
+  HalfInt *arg5 = 0 ;
+  HalfInt *arg6 = 0 ;
+  HalfInt *arg7 = 0 ;
+  HalfInt *arg8 = 0 ;
+  HalfInt *arg9 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  void *argp5 = 0 ;
+  int res5 = 0 ;
+  void *argp6 = 0 ;
+  int res6 = 0 ;
+  void *argp7 = 0 ;
+  int res7 = 0 ;
+  void *argp8 = 0 ;
+  int res8 = 0 ;
+  void *argp9 = 0 ;
+  int res9 = 0 ;
+  PyObject *swig_obj[9] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "RacahReductionFactor12Rose", 9, 9, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RacahReductionFactor12Rose" "', argument " "1"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor12Rose" "', argument " "1"" of type '" "HalfInt const &""'"); 
+  }
+  arg1 = reinterpret_cast< HalfInt * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "RacahReductionFactor12Rose" "', argument " "2"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor12Rose" "', argument " "2"" of type '" "HalfInt const &""'"); 
+  }
+  arg2 = reinterpret_cast< HalfInt * >(argp2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "RacahReductionFactor12Rose" "', argument " "3"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor12Rose" "', argument " "3"" of type '" "HalfInt const &""'"); 
+  }
+  arg3 = reinterpret_cast< HalfInt * >(argp3);
+  res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "RacahReductionFactor12Rose" "', argument " "4"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp4) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor12Rose" "', argument " "4"" of type '" "HalfInt const &""'"); 
+  }
+  arg4 = reinterpret_cast< HalfInt * >(argp4);
+  res5 = SWIG_ConvertPtr(swig_obj[4], &argp5, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res5)) {
+    SWIG_exception_fail(SWIG_ArgError(res5), "in method '" "RacahReductionFactor12Rose" "', argument " "5"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp5) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor12Rose" "', argument " "5"" of type '" "HalfInt const &""'"); 
+  }
+  arg5 = reinterpret_cast< HalfInt * >(argp5);
+  res6 = SWIG_ConvertPtr(swig_obj[5], &argp6, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res6)) {
+    SWIG_exception_fail(SWIG_ArgError(res6), "in method '" "RacahReductionFactor12Rose" "', argument " "6"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp6) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor12Rose" "', argument " "6"" of type '" "HalfInt const &""'"); 
+  }
+  arg6 = reinterpret_cast< HalfInt * >(argp6);
+  res7 = SWIG_ConvertPtr(swig_obj[6], &argp7, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res7)) {
+    SWIG_exception_fail(SWIG_ArgError(res7), "in method '" "RacahReductionFactor12Rose" "', argument " "7"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp7) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor12Rose" "', argument " "7"" of type '" "HalfInt const &""'"); 
+  }
+  arg7 = reinterpret_cast< HalfInt * >(argp7);
+  res8 = SWIG_ConvertPtr(swig_obj[7], &argp8, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res8)) {
+    SWIG_exception_fail(SWIG_ArgError(res8), "in method '" "RacahReductionFactor12Rose" "', argument " "8"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp8) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor12Rose" "', argument " "8"" of type '" "HalfInt const &""'"); 
+  }
+  arg8 = reinterpret_cast< HalfInt * >(argp8);
+  res9 = SWIG_ConvertPtr(swig_obj[8], &argp9, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res9)) {
+    SWIG_exception_fail(SWIG_ArgError(res9), "in method '" "RacahReductionFactor12Rose" "', argument " "9"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp9) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor12Rose" "', argument " "9"" of type '" "HalfInt const &""'"); 
+  }
+  arg9 = reinterpret_cast< HalfInt * >(argp9);
+  {
+    try {
+      result = (double)am::RacahReductionFactor12Rose((HalfInt const &)*arg1,(HalfInt const &)*arg2,(HalfInt const &)*arg3,(HalfInt const &)*arg4,(HalfInt const &)*arg5,(HalfInt const &)*arg6,(HalfInt const &)*arg7,(HalfInt const &)*arg8,(HalfInt const &)*arg9);
+    } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  if (SWIG_IsNewObj(res5)) delete arg5;
+  if (SWIG_IsNewObj(res6)) delete arg6;
+  if (SWIG_IsNewObj(res7)) delete arg7;
+  if (SWIG_IsNewObj(res8)) delete arg8;
+  if (SWIG_IsNewObj(res9)) delete arg9;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  if (SWIG_IsNewObj(res5)) delete arg5;
+  if (SWIG_IsNewObj(res6)) delete arg6;
+  if (SWIG_IsNewObj(res7)) delete arg7;
+  if (SWIG_IsNewObj(res8)) delete arg8;
+  if (SWIG_IsNewObj(res9)) delete arg9;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_RacahReductionFactor21Rose(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  HalfInt *arg1 = 0 ;
+  HalfInt *arg2 = 0 ;
+  HalfInt *arg3 = 0 ;
+  HalfInt *arg4 = 0 ;
+  HalfInt *arg5 = 0 ;
+  HalfInt *arg6 = 0 ;
+  HalfInt *arg7 = 0 ;
+  HalfInt *arg8 = 0 ;
+  HalfInt *arg9 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  void *argp5 = 0 ;
+  int res5 = 0 ;
+  void *argp6 = 0 ;
+  int res6 = 0 ;
+  void *argp7 = 0 ;
+  int res7 = 0 ;
+  void *argp8 = 0 ;
+  int res8 = 0 ;
+  void *argp9 = 0 ;
+  int res9 = 0 ;
+  PyObject *swig_obj[9] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "RacahReductionFactor21Rose", 9, 9, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RacahReductionFactor21Rose" "', argument " "1"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor21Rose" "', argument " "1"" of type '" "HalfInt const &""'"); 
+  }
+  arg1 = reinterpret_cast< HalfInt * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "RacahReductionFactor21Rose" "', argument " "2"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor21Rose" "', argument " "2"" of type '" "HalfInt const &""'"); 
+  }
+  arg2 = reinterpret_cast< HalfInt * >(argp2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "RacahReductionFactor21Rose" "', argument " "3"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor21Rose" "', argument " "3"" of type '" "HalfInt const &""'"); 
+  }
+  arg3 = reinterpret_cast< HalfInt * >(argp3);
+  res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "RacahReductionFactor21Rose" "', argument " "4"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp4) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor21Rose" "', argument " "4"" of type '" "HalfInt const &""'"); 
+  }
+  arg4 = reinterpret_cast< HalfInt * >(argp4);
+  res5 = SWIG_ConvertPtr(swig_obj[4], &argp5, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res5)) {
+    SWIG_exception_fail(SWIG_ArgError(res5), "in method '" "RacahReductionFactor21Rose" "', argument " "5"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp5) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor21Rose" "', argument " "5"" of type '" "HalfInt const &""'"); 
+  }
+  arg5 = reinterpret_cast< HalfInt * >(argp5);
+  res6 = SWIG_ConvertPtr(swig_obj[5], &argp6, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res6)) {
+    SWIG_exception_fail(SWIG_ArgError(res6), "in method '" "RacahReductionFactor21Rose" "', argument " "6"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp6) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor21Rose" "', argument " "6"" of type '" "HalfInt const &""'"); 
+  }
+  arg6 = reinterpret_cast< HalfInt * >(argp6);
+  res7 = SWIG_ConvertPtr(swig_obj[6], &argp7, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res7)) {
+    SWIG_exception_fail(SWIG_ArgError(res7), "in method '" "RacahReductionFactor21Rose" "', argument " "7"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp7) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor21Rose" "', argument " "7"" of type '" "HalfInt const &""'"); 
+  }
+  arg7 = reinterpret_cast< HalfInt * >(argp7);
+  res8 = SWIG_ConvertPtr(swig_obj[7], &argp8, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res8)) {
+    SWIG_exception_fail(SWIG_ArgError(res8), "in method '" "RacahReductionFactor21Rose" "', argument " "8"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp8) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor21Rose" "', argument " "8"" of type '" "HalfInt const &""'"); 
+  }
+  arg8 = reinterpret_cast< HalfInt * >(argp8);
+  res9 = SWIG_ConvertPtr(swig_obj[8], &argp9, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res9)) {
+    SWIG_exception_fail(SWIG_ArgError(res9), "in method '" "RacahReductionFactor21Rose" "', argument " "9"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp9) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RacahReductionFactor21Rose" "', argument " "9"" of type '" "HalfInt const &""'"); 
+  }
+  arg9 = reinterpret_cast< HalfInt * >(argp9);
+  {
+    try {
+      result = (double)am::RacahReductionFactor21Rose((HalfInt const &)*arg1,(HalfInt const &)*arg2,(HalfInt const &)*arg3,(HalfInt const &)*arg4,(HalfInt const &)*arg5,(HalfInt const &)*arg6,(HalfInt const &)*arg7,(HalfInt const &)*arg8,(HalfInt const &)*arg9);
+    } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  if (SWIG_IsNewObj(res5)) delete arg5;
+  if (SWIG_IsNewObj(res6)) delete arg6;
+  if (SWIG_IsNewObj(res7)) delete arg7;
+  if (SWIG_IsNewObj(res8)) delete arg8;
+  if (SWIG_IsNewObj(res9)) delete arg9;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  if (SWIG_IsNewObj(res5)) delete arg5;
+  if (SWIG_IsNewObj(res6)) delete arg6;
+  if (SWIG_IsNewObj(res7)) delete arg7;
+  if (SWIG_IsNewObj(res8)) delete arg8;
+  if (SWIG_IsNewObj(res9)) delete arg9;
+  return NULL;
+}
+
+
+SWIGINTERN int Swig_var_kPi_set(PyObject *) {
+  SWIG_Error(SWIG_AttributeError,"Variable kPi is read-only.");
+  return 1;
+}
+
+
+SWIGINTERN PyObject *Swig_var_kPi_get(void) {
+  PyObject *pyobj = 0;
+  PyObject *self = 0;
+  
+  (void)self;
+  pyobj = SWIG_From_double(static_cast< double >(am::kPi));
+  return pyobj;
+}
+
+
+SWIGINTERN int Swig_var_kSqrt4Pi_set(PyObject *) {
+  SWIG_Error(SWIG_AttributeError,"Variable kSqrt4Pi is read-only.");
+  return 1;
+}
+
+
+SWIGINTERN PyObject *Swig_var_kSqrt4Pi_get(void) {
+  PyObject *pyobj = 0;
+  PyObject *self = 0;
+  
+  (void)self;
+  pyobj = SWIG_From_double(static_cast< double >(am::kSqrt4Pi));
+  return pyobj;
+}
+
+
+SWIGINTERN int Swig_var_kInvSqrt4Pi_set(PyObject *) {
+  SWIG_Error(SWIG_AttributeError,"Variable kInvSqrt4Pi is read-only.");
+  return 1;
+}
+
+
+SWIGINTERN PyObject *Swig_var_kInvSqrt4Pi_get(void) {
+  PyObject *pyobj = 0;
+  PyObject *self = 0;
+  
+  (void)self;
+  pyobj = SWIG_From_double(static_cast< double >(am::kInvSqrt4Pi));
+  return pyobj;
+}
+
+
+SWIGINTERN PyObject *_wrap_SphericalHarmonicCRME(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  int *arg1 = 0 ;
+  int *arg2 = 0 ;
+  int *arg3 = 0 ;
+  int temp1 ;
+  int val1 ;
+  int ecode1 = 0 ;
+  int temp2 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  int temp3 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "SphericalHarmonicCRME", 3, 3, swig_obj)) SWIG_fail;
+  ecode1 = SWIG_AsVal_int(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "SphericalHarmonicCRME" "', argument " "1"" of type '" "int""'");
+  } 
+  temp1 = static_cast< int >(val1);
+  arg1 = &temp1;
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "SphericalHarmonicCRME" "', argument " "2"" of type '" "int""'");
+  } 
+  temp2 = static_cast< int >(val2);
+  arg2 = &temp2;
+  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "SphericalHarmonicCRME" "', argument " "3"" of type '" "int""'");
+  } 
+  temp3 = static_cast< int >(val3);
+  arg3 = &temp3;
+  {
+    try {
+      result = (double)am::SphericalHarmonicCRME((int const &)*arg1,(int const &)*arg2,(int const &)*arg3);
+    } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_LJCoupledSphericalHarmonicCRME(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  int *arg1 = 0 ;
+  HalfInt *arg2 = 0 ;
+  int *arg3 = 0 ;
+  HalfInt *arg4 = 0 ;
+  int *arg5 = 0 ;
+  int temp1 ;
+  int val1 ;
+  int ecode1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  int temp3 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  int temp5 ;
+  int val5 ;
+  int ecode5 = 0 ;
+  PyObject *swig_obj[5] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "LJCoupledSphericalHarmonicCRME", 5, 5, swig_obj)) SWIG_fail;
+  ecode1 = SWIG_AsVal_int(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "LJCoupledSphericalHarmonicCRME" "', argument " "1"" of type '" "int""'");
+  } 
+  temp1 = static_cast< int >(val1);
+  arg1 = &temp1;
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "LJCoupledSphericalHarmonicCRME" "', argument " "2"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "LJCoupledSphericalHarmonicCRME" "', argument " "2"" of type '" "HalfInt const &""'"); 
+  }
+  arg2 = reinterpret_cast< HalfInt * >(argp2);
+  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "LJCoupledSphericalHarmonicCRME" "', argument " "3"" of type '" "int""'");
+  } 
+  temp3 = static_cast< int >(val3);
+  arg3 = &temp3;
+  res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "LJCoupledSphericalHarmonicCRME" "', argument " "4"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp4) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "LJCoupledSphericalHarmonicCRME" "', argument " "4"" of type '" "HalfInt const &""'"); 
+  }
+  arg4 = reinterpret_cast< HalfInt * >(argp4);
+  ecode5 = SWIG_AsVal_int(swig_obj[4], &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "LJCoupledSphericalHarmonicCRME" "', argument " "5"" of type '" "int""'");
+  } 
+  temp5 = static_cast< int >(val5);
+  arg5 = &temp5;
+  {
+    try {
+      result = (double)am::LJCoupledSphericalHarmonicCRME((int const &)*arg1,(HalfInt const &)*arg2,(int const &)*arg3,(HalfInt const &)*arg4,(int const &)*arg5);
+    } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_SphericalHarmonicYRME(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  int *arg1 = 0 ;
+  int *arg2 = 0 ;
+  int *arg3 = 0 ;
+  int temp1 ;
+  int val1 ;
+  int ecode1 = 0 ;
+  int temp2 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  int temp3 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "SphericalHarmonicYRME", 3, 3, swig_obj)) SWIG_fail;
+  ecode1 = SWIG_AsVal_int(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "SphericalHarmonicYRME" "', argument " "1"" of type '" "int""'");
+  } 
+  temp1 = static_cast< int >(val1);
+  arg1 = &temp1;
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "SphericalHarmonicYRME" "', argument " "2"" of type '" "int""'");
+  } 
+  temp2 = static_cast< int >(val2);
+  arg2 = &temp2;
+  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "SphericalHarmonicYRME" "', argument " "3"" of type '" "int""'");
+  } 
+  temp3 = static_cast< int >(val3);
+  arg3 = &temp3;
+  {
+    try {
+      result = (double)am::SphericalHarmonicYRME((int const &)*arg1,(int const &)*arg2,(int const &)*arg3);
+    } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_LJCoupledSphericalHarmonicYRME(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  int *arg1 = 0 ;
+  HalfInt *arg2 = 0 ;
+  int *arg3 = 0 ;
+  HalfInt *arg4 = 0 ;
+  int *arg5 = 0 ;
+  int temp1 ;
+  int val1 ;
+  int ecode1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  int temp3 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  int temp5 ;
+  int val5 ;
+  int ecode5 = 0 ;
+  PyObject *swig_obj[5] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "LJCoupledSphericalHarmonicYRME", 5, 5, swig_obj)) SWIG_fail;
+  ecode1 = SWIG_AsVal_int(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "LJCoupledSphericalHarmonicYRME" "', argument " "1"" of type '" "int""'");
+  } 
+  temp1 = static_cast< int >(val1);
+  arg1 = &temp1;
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "LJCoupledSphericalHarmonicYRME" "', argument " "2"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "LJCoupledSphericalHarmonicYRME" "', argument " "2"" of type '" "HalfInt const &""'"); 
+  }
+  arg2 = reinterpret_cast< HalfInt * >(argp2);
+  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "LJCoupledSphericalHarmonicYRME" "', argument " "3"" of type '" "int""'");
+  } 
+  temp3 = static_cast< int >(val3);
+  arg3 = &temp3;
+  res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "LJCoupledSphericalHarmonicYRME" "', argument " "4"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp4) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "LJCoupledSphericalHarmonicYRME" "', argument " "4"" of type '" "HalfInt const &""'"); 
+  }
+  arg4 = reinterpret_cast< HalfInt * >(argp4);
+  ecode5 = SWIG_AsVal_int(swig_obj[4], &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "LJCoupledSphericalHarmonicYRME" "', argument " "5"" of type '" "int""'");
+  } 
+  temp5 = static_cast< int >(val5);
+  arg5 = &temp5;
+  {
+    try {
+      result = (double)am::LJCoupledSphericalHarmonicYRME((int const &)*arg1,(HalfInt const &)*arg2,(int const &)*arg3,(HalfInt const &)*arg4,(int const &)*arg5);
+    } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AngularMomentumJRME(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  HalfInt *arg1 = 0 ;
+  HalfInt *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "AngularMomentumJRME", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AngularMomentumJRME" "', argument " "1"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "AngularMomentumJRME" "', argument " "1"" of type '" "HalfInt const &""'"); 
+  }
+  arg1 = reinterpret_cast< HalfInt * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "AngularMomentumJRME" "', argument " "2"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "AngularMomentumJRME" "', argument " "2"" of type '" "HalfInt const &""'"); 
+  }
+  arg2 = reinterpret_cast< HalfInt * >(argp2);
+  {
+    try {
+      result = (double)am::AngularMomentumJRME((HalfInt const &)*arg1,(HalfInt const &)*arg2);
+    } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_jjJCoupledAngularMomentumJ1RME(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  HalfInt *arg1 = 0 ;
+  HalfInt *arg2 = 0 ;
+  HalfInt *arg3 = 0 ;
+  HalfInt *arg4 = 0 ;
+  HalfInt *arg5 = 0 ;
+  HalfInt *arg6 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  void *argp5 = 0 ;
+  int res5 = 0 ;
+  void *argp6 = 0 ;
+  int res6 = 0 ;
+  PyObject *swig_obj[6] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "jjJCoupledAngularMomentumJ1RME", 6, 6, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "jjJCoupledAngularMomentumJ1RME" "', argument " "1"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "jjJCoupledAngularMomentumJ1RME" "', argument " "1"" of type '" "HalfInt const &""'"); 
+  }
+  arg1 = reinterpret_cast< HalfInt * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "jjJCoupledAngularMomentumJ1RME" "', argument " "2"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "jjJCoupledAngularMomentumJ1RME" "', argument " "2"" of type '" "HalfInt const &""'"); 
+  }
+  arg2 = reinterpret_cast< HalfInt * >(argp2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "jjJCoupledAngularMomentumJ1RME" "', argument " "3"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "jjJCoupledAngularMomentumJ1RME" "', argument " "3"" of type '" "HalfInt const &""'"); 
+  }
+  arg3 = reinterpret_cast< HalfInt * >(argp3);
+  res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "jjJCoupledAngularMomentumJ1RME" "', argument " "4"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp4) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "jjJCoupledAngularMomentumJ1RME" "', argument " "4"" of type '" "HalfInt const &""'"); 
+  }
+  arg4 = reinterpret_cast< HalfInt * >(argp4);
+  res5 = SWIG_ConvertPtr(swig_obj[4], &argp5, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res5)) {
+    SWIG_exception_fail(SWIG_ArgError(res5), "in method '" "jjJCoupledAngularMomentumJ1RME" "', argument " "5"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp5) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "jjJCoupledAngularMomentumJ1RME" "', argument " "5"" of type '" "HalfInt const &""'"); 
+  }
+  arg5 = reinterpret_cast< HalfInt * >(argp5);
+  res6 = SWIG_ConvertPtr(swig_obj[5], &argp6, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res6)) {
+    SWIG_exception_fail(SWIG_ArgError(res6), "in method '" "jjJCoupledAngularMomentumJ1RME" "', argument " "6"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp6) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "jjJCoupledAngularMomentumJ1RME" "', argument " "6"" of type '" "HalfInt const &""'"); 
+  }
+  arg6 = reinterpret_cast< HalfInt * >(argp6);
+  {
+    try {
+      result = (double)am::jjJCoupledAngularMomentumJ1RME((HalfInt const &)*arg1,(HalfInt const &)*arg2,(HalfInt const &)*arg3,(HalfInt const &)*arg4,(HalfInt const &)*arg5,(HalfInt const &)*arg6);
+    } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  if (SWIG_IsNewObj(res5)) delete arg5;
+  if (SWIG_IsNewObj(res6)) delete arg6;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  if (SWIG_IsNewObj(res5)) delete arg5;
+  if (SWIG_IsNewObj(res6)) delete arg6;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_jjJCoupledAngularMomentumJ2RME(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  HalfInt *arg1 = 0 ;
+  HalfInt *arg2 = 0 ;
+  HalfInt *arg3 = 0 ;
+  HalfInt *arg4 = 0 ;
+  HalfInt *arg5 = 0 ;
+  HalfInt *arg6 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  void *argp5 = 0 ;
+  int res5 = 0 ;
+  void *argp6 = 0 ;
+  int res6 = 0 ;
+  PyObject *swig_obj[6] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "jjJCoupledAngularMomentumJ2RME", 6, 6, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "jjJCoupledAngularMomentumJ2RME" "', argument " "1"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "jjJCoupledAngularMomentumJ2RME" "', argument " "1"" of type '" "HalfInt const &""'"); 
+  }
+  arg1 = reinterpret_cast< HalfInt * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "jjJCoupledAngularMomentumJ2RME" "', argument " "2"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "jjJCoupledAngularMomentumJ2RME" "', argument " "2"" of type '" "HalfInt const &""'"); 
+  }
+  arg2 = reinterpret_cast< HalfInt * >(argp2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "jjJCoupledAngularMomentumJ2RME" "', argument " "3"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "jjJCoupledAngularMomentumJ2RME" "', argument " "3"" of type '" "HalfInt const &""'"); 
+  }
+  arg3 = reinterpret_cast< HalfInt * >(argp3);
+  res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "jjJCoupledAngularMomentumJ2RME" "', argument " "4"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp4) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "jjJCoupledAngularMomentumJ2RME" "', argument " "4"" of type '" "HalfInt const &""'"); 
+  }
+  arg4 = reinterpret_cast< HalfInt * >(argp4);
+  res5 = SWIG_ConvertPtr(swig_obj[4], &argp5, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res5)) {
+    SWIG_exception_fail(SWIG_ArgError(res5), "in method '" "jjJCoupledAngularMomentumJ2RME" "', argument " "5"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp5) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "jjJCoupledAngularMomentumJ2RME" "', argument " "5"" of type '" "HalfInt const &""'"); 
+  }
+  arg5 = reinterpret_cast< HalfInt * >(argp5);
+  res6 = SWIG_ConvertPtr(swig_obj[5], &argp6, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res6)) {
+    SWIG_exception_fail(SWIG_ArgError(res6), "in method '" "jjJCoupledAngularMomentumJ2RME" "', argument " "6"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp6) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "jjJCoupledAngularMomentumJ2RME" "', argument " "6"" of type '" "HalfInt const &""'"); 
+  }
+  arg6 = reinterpret_cast< HalfInt * >(argp6);
+  {
+    try {
+      result = (double)am::jjJCoupledAngularMomentumJ2RME((HalfInt const &)*arg1,(HalfInt const &)*arg2,(HalfInt const &)*arg3,(HalfInt const &)*arg4,(HalfInt const &)*arg5,(HalfInt const &)*arg6);
+    } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  if (SWIG_IsNewObj(res5)) delete arg5;
+  if (SWIG_IsNewObj(res6)) delete arg6;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  if (SWIG_IsNewObj(res5)) delete arg5;
+  if (SWIG_IsNewObj(res6)) delete arg6;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_jjJCoupledAngularMomentumJRME(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  HalfInt *arg1 = 0 ;
+  HalfInt *arg2 = 0 ;
+  HalfInt *arg3 = 0 ;
+  HalfInt *arg4 = 0 ;
+  HalfInt *arg5 = 0 ;
+  HalfInt *arg6 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  void *argp5 = 0 ;
+  int res5 = 0 ;
+  void *argp6 = 0 ;
+  int res6 = 0 ;
+  PyObject *swig_obj[6] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "jjJCoupledAngularMomentumJRME", 6, 6, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "jjJCoupledAngularMomentumJRME" "', argument " "1"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "jjJCoupledAngularMomentumJRME" "', argument " "1"" of type '" "HalfInt const &""'"); 
+  }
+  arg1 = reinterpret_cast< HalfInt * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "jjJCoupledAngularMomentumJRME" "', argument " "2"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "jjJCoupledAngularMomentumJRME" "', argument " "2"" of type '" "HalfInt const &""'"); 
+  }
+  arg2 = reinterpret_cast< HalfInt * >(argp2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "jjJCoupledAngularMomentumJRME" "', argument " "3"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "jjJCoupledAngularMomentumJRME" "', argument " "3"" of type '" "HalfInt const &""'"); 
+  }
+  arg3 = reinterpret_cast< HalfInt * >(argp3);
+  res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "jjJCoupledAngularMomentumJRME" "', argument " "4"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp4) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "jjJCoupledAngularMomentumJRME" "', argument " "4"" of type '" "HalfInt const &""'"); 
+  }
+  arg4 = reinterpret_cast< HalfInt * >(argp4);
+  res5 = SWIG_ConvertPtr(swig_obj[4], &argp5, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res5)) {
+    SWIG_exception_fail(SWIG_ArgError(res5), "in method '" "jjJCoupledAngularMomentumJRME" "', argument " "5"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp5) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "jjJCoupledAngularMomentumJRME" "', argument " "5"" of type '" "HalfInt const &""'"); 
+  }
+  arg5 = reinterpret_cast< HalfInt * >(argp5);
+  res6 = SWIG_ConvertPtr(swig_obj[5], &argp6, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
+  if (!SWIG_IsOK(res6)) {
+    SWIG_exception_fail(SWIG_ArgError(res6), "in method '" "jjJCoupledAngularMomentumJRME" "', argument " "6"" of type '" "HalfInt const &""'"); 
+  }
+  if (!argp6) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "jjJCoupledAngularMomentumJRME" "', argument " "6"" of type '" "HalfInt const &""'"); 
+  }
+  arg6 = reinterpret_cast< HalfInt * >(argp6);
+  {
+    try {
+      result = (double)am::jjJCoupledAngularMomentumJRME((HalfInt const &)*arg1,(HalfInt const &)*arg2,(HalfInt const &)*arg3,(HalfInt const &)*arg4,(HalfInt const &)*arg5,(HalfInt const &)*arg6);
+    } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  if (SWIG_IsNewObj(res5)) delete arg5;
+  if (SWIG_IsNewObj(res6)) delete arg6;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  if (SWIG_IsNewObj(res5)) delete arg5;
+  if (SWIG_IsNewObj(res6)) delete arg6;
+  return NULL;
+}
+
+
 static PyMethodDef SwigMethods[] = {
 	 { "SWIG_PyInstanceMethod_New", SWIG_PyInstanceMethod_New, METH_O, NULL},
 	 { "TwiceValue", _wrap_TwiceValue, METH_O, "TwiceValue(HalfInt h) -> int"},
@@ -11769,6 +13421,7 @@ static PyMethodDef SwigMethods[] = {
 		"ParitySign(HalfInt sum) -> int\n"
 		"ParitySign(int sum) -> int\n"
 		""},
+	 { "Phase", _wrap_Phase, METH_O, "Phase(HalfInt sum) -> std::complex< double >"},
 	 { "dim", _wrap_dim, METH_VARARGS, "\n"
 		"dim(HalfInt j) -> int\n"
 		"dim(int j) -> double\n"
@@ -11784,6 +13437,20 @@ static PyMethodDef SwigMethods[] = {
 	 { "Unitary6JZ", _wrap_Unitary6JZ, METH_VARARGS, "Unitary6JZ(HalfInt ja, HalfInt jb, HalfInt jc, HalfInt jd, HalfInt je, HalfInt jf) -> double"},
 	 { "Wigner9J", _wrap_Wigner9J, METH_VARARGS, "Wigner9J(HalfInt ja, HalfInt jb, HalfInt jc, HalfInt jd, HalfInt je, HalfInt jf, HalfInt jg, HalfInt jh, HalfInt ji) -> double"},
 	 { "Unitary9J", _wrap_Unitary9J, METH_VARARGS, "Unitary9J(HalfInt ja, HalfInt jb, HalfInt jc, HalfInt jd, HalfInt je, HalfInt jf, HalfInt jg, HalfInt jh, HalfInt ji) -> double"},
+	 { "RacahReductionFactorRose", _wrap_RacahReductionFactorRose, METH_VARARGS, "RacahReductionFactorRose(HalfInt Jp, HalfInt J, HalfInt Jpp, HalfInt J0a, HalfInt J0b, HalfInt J0) -> double"},
+	 { "RacahReductionFactor1Rose", _wrap_RacahReductionFactor1Rose, METH_VARARGS, "RacahReductionFactor1Rose(HalfInt J1p, HalfInt J2p, HalfInt Jp, HalfInt J1, HalfInt J2, HalfInt J, HalfInt J0) -> double"},
+	 { "RacahReductionFactor2Rose", _wrap_RacahReductionFactor2Rose, METH_VARARGS, "RacahReductionFactor2Rose(HalfInt J1p, HalfInt J2p, HalfInt Jp, HalfInt J1, HalfInt J2, HalfInt J, HalfInt J0) -> double"},
+	 { "RacahReductionFactor12DotRose", _wrap_RacahReductionFactor12DotRose, METH_VARARGS, "RacahReductionFactor12DotRose(HalfInt J1p, HalfInt J2p, HalfInt Jp, HalfInt J1, HalfInt J2, HalfInt J, HalfInt J0) -> double"},
+	 { "RacahReductionFactor12Rose", _wrap_RacahReductionFactor12Rose, METH_VARARGS, "RacahReductionFactor12Rose(HalfInt J1p, HalfInt J2p, HalfInt Jp, HalfInt J1, HalfInt J2, HalfInt J, HalfInt J0a, HalfInt J0b, HalfInt J0) -> double"},
+	 { "RacahReductionFactor21Rose", _wrap_RacahReductionFactor21Rose, METH_VARARGS, "RacahReductionFactor21Rose(HalfInt J1p, HalfInt J2p, HalfInt Jp, HalfInt J1, HalfInt J2, HalfInt J, HalfInt J0a, HalfInt J0b, HalfInt J0) -> double"},
+	 { "SphericalHarmonicCRME", _wrap_SphericalHarmonicCRME, METH_VARARGS, "SphericalHarmonicCRME(int const & lp, int const & l, int const & k) -> double"},
+	 { "LJCoupledSphericalHarmonicCRME", _wrap_LJCoupledSphericalHarmonicCRME, METH_VARARGS, "LJCoupledSphericalHarmonicCRME(int const & lp, HalfInt jp, int const & l, HalfInt j, int const & k) -> double"},
+	 { "SphericalHarmonicYRME", _wrap_SphericalHarmonicYRME, METH_VARARGS, "SphericalHarmonicYRME(int const & lp, int const & l, int const & k) -> double"},
+	 { "LJCoupledSphericalHarmonicYRME", _wrap_LJCoupledSphericalHarmonicYRME, METH_VARARGS, "LJCoupledSphericalHarmonicYRME(int const & lp, HalfInt jp, int const & l, HalfInt j, int const & k) -> double"},
+	 { "AngularMomentumJRME", _wrap_AngularMomentumJRME, METH_VARARGS, "AngularMomentumJRME(HalfInt Jp, HalfInt J) -> double"},
+	 { "jjJCoupledAngularMomentumJ1RME", _wrap_jjJCoupledAngularMomentumJ1RME, METH_VARARGS, "jjJCoupledAngularMomentumJ1RME(HalfInt J1p, HalfInt J2p, HalfInt Jp, HalfInt J1, HalfInt J2, HalfInt J) -> double"},
+	 { "jjJCoupledAngularMomentumJ2RME", _wrap_jjJCoupledAngularMomentumJ2RME, METH_VARARGS, "jjJCoupledAngularMomentumJ2RME(HalfInt J1p, HalfInt J2p, HalfInt Jp, HalfInt J1, HalfInt J2, HalfInt J) -> double"},
+	 { "jjJCoupledAngularMomentumJRME", _wrap_jjJCoupledAngularMomentumJRME, METH_VARARGS, "jjJCoupledAngularMomentumJRME(HalfInt J1p, HalfInt J2p, HalfInt Jp, HalfInt J1, HalfInt J2, HalfInt J) -> double"},
 	 { NULL, NULL, 0, NULL }
 };
 
@@ -12761,6 +14428,7 @@ static swig_type_info _swigt__p_pair = {"_p_pair", "pair *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_second_type = {"_p_second_type", "second_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_size_type = {"_p_size_type", "size_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__allocatorT_HalfInt_t = {"_p_std__allocatorT_HalfInt_t", "std::vector< HalfInt >::allocator_type *|std::allocator< HalfInt > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__complexT_double_t = {"_p_std__complexT_double_t", "std::complex< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__invalid_argument = {"_p_std__invalid_argument", "std::invalid_argument *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_HalfInt_HalfInt_t = {"_p_std__pairT_HalfInt_HalfInt_t", "std::pair< HalfInt,HalfInt > *", 0, 0, (void*)&SwigPyBuiltin__std__pairT_HalfInt_HalfInt_t_clientdata, 0};
 static swig_type_info _swigt__p_std__vectorT_HalfInt_std__allocatorT_HalfInt_t_t = {"_p_std__vectorT_HalfInt_std__allocatorT_HalfInt_t_t", "std::vector< HalfInt,std::allocator< HalfInt > > *|std::vector< HalfInt > *", 0, 0, (void*)&SwigPyBuiltin__std__vectorT_HalfInt_t_clientdata, 0};
@@ -12780,6 +14448,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_second_type,
   &_swigt__p_size_type,
   &_swigt__p_std__allocatorT_HalfInt_t,
+  &_swigt__p_std__complexT_double_t,
   &_swigt__p_std__invalid_argument,
   &_swigt__p_std__pairT_HalfInt_HalfInt_t,
   &_swigt__p_std__vectorT_HalfInt_std__allocatorT_HalfInt_t_t,
@@ -12799,6 +14468,7 @@ static swig_cast_info _swigc__p_pair[] = {  {&_swigt__p_pair, 0, 0, 0},{0, 0, 0,
 static swig_cast_info _swigc__p_second_type[] = {  {&_swigt__p_second_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_size_type[] = {  {&_swigt__p_size_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__allocatorT_HalfInt_t[] = {  {&_swigt__p_std__allocatorT_HalfInt_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__complexT_double_t[] = {  {&_swigt__p_std__complexT_double_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__invalid_argument[] = {  {&_swigt__p_std__invalid_argument, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_HalfInt_HalfInt_t[] = {  {&_swigt__p_std__pairT_HalfInt_HalfInt_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_HalfInt_std__allocatorT_HalfInt_t_t[] = {  {&_swigt__p_std__vectorT_HalfInt_std__allocatorT_HalfInt_t_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -12818,6 +14488,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_second_type,
   _swigc__p_size_type,
   _swigc__p_std__allocatorT_HalfInt_t,
+  _swigc__p_std__complexT_double_t,
   _swigc__p_std__invalid_argument,
   _swigc__p_std__pairT_HalfInt_HalfInt_t,
   _swigc__p_std__vectorT_HalfInt_std__allocatorT_HalfInt_t_t,
@@ -13651,6 +15322,30 @@ SWIG_init(void) {
   PyModule_AddObject(m, "HalfInt", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "HalfInt");
   d = md;
+  globals = SWIG_globals();
+  if (!globals) {
+    PyErr_SetString(PyExc_TypeError, "Failure to create SWIG globals.");
+#if PY_VERSION_HEX >= 0x03000000
+    return NULL;
+#else
+    return;
+#endif
+  }
+  PyDict_SetItemString(md, "cvar", globals);
+  Py_DECREF(globals);
+  SwigPyBuiltin_AddPublicSymbol(public_interface, "cvar");
+  SWIG_addvarlink(globals, "kPi", Swig_var_kPi_get, Swig_var_kPi_set);
+  PyDict_SetItemString(md, "kPi", PyObject_GetAttrString(globals, "kPi"));
+  SwigPyBuiltin_AddPublicSymbol(public_interface, "kPi");
+  SWIG_addvarlink(globals, "kSqrt4Pi", Swig_var_kSqrt4Pi_get, Swig_var_kSqrt4Pi_set);
+  PyDict_SetItemString(md, "kSqrt4Pi", PyObject_GetAttrString(globals, "kSqrt4Pi"));
+  SwigPyBuiltin_AddPublicSymbol(public_interface, "kSqrt4Pi");
+  SWIG_addvarlink(globals, "kInvSqrt4Pi", Swig_var_kInvSqrt4Pi_get, Swig_var_kInvSqrt4Pi_set);
+  PyDict_SetItemString(md, "kInvSqrt4Pi", PyObject_GetAttrString(globals, "kInvSqrt4Pi"));
+  SwigPyBuiltin_AddPublicSymbol(public_interface, "kInvSqrt4Pi");
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "AngularMomentumOperatorType_kOrbital",SWIG_From_char(static_cast< char >(am::AngularMomentumOperatorType::kOrbital)));
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "AngularMomentumOperatorType_kSpin",SWIG_From_char(static_cast< char >(am::AngularMomentumOperatorType::kSpin)));
+  SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "AngularMomentumOperatorType_kTotal",SWIG_From_char(static_cast< char >(am::AngularMomentumOperatorType::kTotal)));
 #if PY_VERSION_HEX >= 0x03000000
   return m;
 #else

@@ -79,6 +79,8 @@
     - Make most HalfInt operations `constexpr` when using C++14.
     - Change implementation of ParitySign to use bitwise operations
       and thus be `constexpr`-safe.
+    - Mark conversions from float/double -> HalfInt as deleted to prevent
+      ill-defined behavior.
 ****************************************************************/
 
 #ifndef HALFINT_H_
@@ -137,6 +139,11 @@ class HalfInt
   //     HalfInt(2,1) constructs 4/2
   CXX14_CONSTEXPR
   HalfInt(int, int);
+
+  // prevent construction from floating-point
+  // EX: HalfInt(1.5) --> compile error
+  HalfInt(float) = delete;
+  HalfInt(double) = delete;
 
   ////////////////////////////////////////////////////////////////
   // accessors and conversion operators

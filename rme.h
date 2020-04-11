@@ -15,6 +15,7 @@
   + 07/01/19 (pjf): Fix phase on jjJCoupledAngularMomentumJ2RME, clean up to
     use more consistent phases in general (i.e. use two-system formula).
   + 07/07/19 (sp/pjf): Fix Wigner6J->Wigner3J typo in SphericalHarmonicCRME.
+  + 04/10/20 (pjf): Replace assertions with exceptions.
 
 ****************************************************************/
 
@@ -22,6 +23,7 @@
 #define RME_H_
 
 #include <cmath>
+#include <stdexcept>
 
 #include "am/wigner_gsl.h"
 #include "am/racah_reduction.h"
@@ -46,6 +48,7 @@ namespace am {
   // Returns:
   //   reduced matrix element (double), Rose convention
   {
+    if (!AllowedTriangle(lp, k, l)) throw std::domain_error("triangle disallowed");
     // Brink & Satchler (1993), app. VI, p.153
     double value = Hat(l) * ParitySign(lp) * Wigner3J(lp, k, l, 0, 0, 0);
     return value;
@@ -68,8 +71,8 @@ namespace am {
   // Returns:
   //   reduced matrix element (double), Rose convention
   {
-    assert(AllowedTriangle(lp, HalfInt(1, 2), jp));
-    assert(AllowedTriangle(l, HalfInt(1, 2), j));
+    if (!AllowedTriangle(lp, HalfInt(1, 2), jp)) throw std::domain_error("triangle disallowed");
+    if (!AllowedTriangle(l, HalfInt(1, 2), j)) throw std::domain_error("triangle disallowed");
 
     // parity constraint
     if ((lp+l+k)%2 != 0) {
@@ -153,9 +156,9 @@ namespace am {
   // Returns:
   //   reduced matrix element (double), Rose convention
   {
-    assert(AllowedTriangle(J1p, J2p, Jp));
-    assert(AllowedTriangle(J1, J2, J));
-    assert(AllowedTriangle(Jp, 1, J));
+    if (!AllowedTriangle(J1p, J2p, Jp)) throw std::domain_error("triangle disallowed");
+    if (!AllowedTriangle(J1, J2, J)) throw std::domain_error("triangle disallowed");
+    if (!AllowedTriangle(Jp, 1, J)) throw std::domain_error("triangle disallowed");
     // Kronecker deltas on (J1p,J1) and (J2p,J2)
     if ((J1p != J1) || (J2p != J2)) {
       return 0;
@@ -181,9 +184,9 @@ namespace am {
   // Returns:
   //   reduced matrix element (double), Rose convention
   {
-    assert(AllowedTriangle(J1p, J2p, Jp));
-    assert(AllowedTriangle(J1, J2, J));
-    assert(AllowedTriangle(Jp, 1, J));
+    if (!AllowedTriangle(J1p, J2p, Jp)) throw std::domain_error("triangle disallowed");
+    if (!AllowedTriangle(J1, J2, J)) throw std::domain_error("triangle disallowed");
+    if (!AllowedTriangle(Jp, 1, J)) throw std::domain_error("triangle disallowed");
     // Kronecker deltas on (J1p,J1) and (J2p,J2)
     if ((J1p != J1) || (J2p != J2)) {
       return 0;
@@ -209,9 +212,9 @@ namespace am {
   // Returns:
   //   reduced matrix element (double), Rose convention
   {
-    assert(AllowedTriangle(J1p, J2p, Jp));
-    assert(AllowedTriangle(J1, J2, J));
-    assert(AllowedTriangle(Jp, 1, J));
+    if (!AllowedTriangle(J1p, J2p, Jp)) throw std::domain_error("triangle disallowed");
+    if (!AllowedTriangle(J1, J2, J)) throw std::domain_error("triangle disallowed");
+    if (!AllowedTriangle(Jp, 1, J)) throw std::domain_error("triangle disallowed");
     // Kronecker deltas on (J1p,J1) and (J2p,J2)
     if ((J1p != J1) || (J2p != J2)) {
       return 0;

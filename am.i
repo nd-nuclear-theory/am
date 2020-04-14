@@ -15,9 +15,10 @@
 %module am
 %include "typemaps.i"
 %include "exception.i"
+%include "std_complex.i"
+%include "std_pair.i"
 %include "std_string.i"
 %include "std_vector.i"
-%include "std_pair.i"
 //%include "numpy.i"
 
 // enable docstrings
@@ -46,6 +47,11 @@
 #include "racah_reduction.h"
 #include "rme.h"
 %}
+
+// ignore global am constants
+%ignore am::kPi;
+%ignore am::kSqrt4Pi;
+%ignore am::kInvSqrt4Pi;
 
 ////////////////////////////////////////////////////////////////
 // Set up Python slots for HalfInt, for implementing the Python

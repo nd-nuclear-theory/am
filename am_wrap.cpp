@@ -3413,15 +3413,14 @@ SWIGINTERN PyObject *SWIG_PyStaticMethod_New(PyObject *SWIGUNUSEDPARM(self), PyO
 #define SWIGTYPE_p_second_type swig_types[8]
 #define SWIGTYPE_p_size_type swig_types[9]
 #define SWIGTYPE_p_std__allocatorT_HalfInt_t swig_types[10]
-#define SWIGTYPE_p_std__complexT_double_t swig_types[11]
-#define SWIGTYPE_p_std__invalid_argument swig_types[12]
-#define SWIGTYPE_p_std__pairT_HalfInt_HalfInt_t swig_types[13]
-#define SWIGTYPE_p_std__vectorT_HalfInt_std__allocatorT_HalfInt_t_t swig_types[14]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[15]
-#define SWIGTYPE_p_value_type swig_types[16]
-#define SWIGTYPE_p_vector swig_types[17]
-static swig_type_info *swig_types[19];
-static swig_module_info swig_module = {swig_types, 18, 0, 0, 0, 0};
+#define SWIGTYPE_p_std__invalid_argument swig_types[11]
+#define SWIGTYPE_p_std__pairT_HalfInt_HalfInt_t swig_types[12]
+#define SWIGTYPE_p_std__vectorT_HalfInt_std__allocatorT_HalfInt_t_t swig_types[13]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[14]
+#define SWIGTYPE_p_value_type swig_types[15]
+#define SWIGTYPE_p_vector swig_types[16]
+static swig_type_info *swig_types[18];
+static swig_module_info swig_module = {swig_types, 17, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -3528,16 +3527,7 @@ namespace swig {
 #include <stddef.h>
 
 
-#include <string>
-
-
-#include <iostream>
-
-#if PY_VERSION_HEX >= 0x03020000
-# define SWIGPY_SLICE_ARG(obj) ((PyObject*) (obj))
-#else
-# define SWIGPY_SLICE_ARG(obj) ((PySliceObject*) (obj))
-#endif
+#include <complex> 
 
 
 #include <typeinfo>
@@ -3548,6 +3538,21 @@ namespace swig {
 #  if __GNUC__ == 2 && __GNUC_MINOR <= 96
 #     define SWIG_STD_NOMODERN_STL
 #  endif
+#endif
+
+
+#include <string>
+
+
+#include <utility>
+
+
+#include <iostream>
+
+#if PY_VERSION_HEX >= 0x03020000
+# define SWIGPY_SLICE_ARG(obj) ((PyObject*) (obj))
+#else
+# define SWIGPY_SLICE_ARG(obj) ((PySliceObject*) (obj))
 #endif
 
 
@@ -4031,9 +4036,6 @@ SWIG_AsVal_ptrdiff_t (PyObject * obj, ptrdiff_t *val)
 
 
 #include <vector>
-
-
-#include <utility>
 
 
 #define SWIG_FILE_WITH_INIT
@@ -5718,6 +5720,19 @@ SWIGINTERN bool HalfInt_operator_Sg_(HalfInt *self,HalfInt const &h2){ return (*
 SWIGINTERN bool HalfInt_operator_Sg__Se_(HalfInt *self,HalfInt const &h2){ return (*self) >= h2; }
 SWIGINTERN bool HalfInt_operator_Sl__Se_(HalfInt *self,HalfInt const &h2){ return (*self) <= h2; }
 SWIGINTERN bool HalfInt_operator_SN__Se_(HalfInt *self,HalfInt const &h2){ return (*self) != h2; }
+
+SWIGINTERNINLINE PyObject*
+SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/usr/local/share/swig/4.0.1/typemaps/swigmacros.swg,104,%ifcplusplus@*/
+
+const std::complex<double>&
+
+
+
+/*@SWIG@*/ c)
+{
+  return PyComplex_FromDoubles(std::real(c), std::imag(c));
+}
+
 
 SWIGINTERNINLINE PyObject *
 SWIG_From_char  (char c) 
@@ -10874,7 +10889,7 @@ SWIGINTERN PyObject *_wrap_Phase(PyObject *self, PyObject *args) {
       SWIG_exception(SWIG_RuntimeError, e.what());
     }
   }
-  resultobj = SWIG_NewPointerObj((new std::complex< double >(static_cast< const std::complex< double >& >(result))), SWIGTYPE_p_std__complexT_double_t, SWIG_POINTER_OWN |  0 );
+  resultobj = SWIG_From_std_complex_Sl_double_Sg_(static_cast< std::complex<double> >(result));
   if (SWIG_IsNewObj(res1)) delete arg1;
   return resultobj;
 fail:
@@ -12735,54 +12750,6 @@ fail:
 }
 
 
-SWIGINTERN int Swig_var_kPi_set(PyObject *) {
-  SWIG_Error(SWIG_AttributeError,"Variable kPi is read-only.");
-  return 1;
-}
-
-
-SWIGINTERN PyObject *Swig_var_kPi_get(void) {
-  PyObject *pyobj = 0;
-  PyObject *self = 0;
-  
-  (void)self;
-  pyobj = SWIG_From_double(static_cast< double >(am::kPi));
-  return pyobj;
-}
-
-
-SWIGINTERN int Swig_var_kSqrt4Pi_set(PyObject *) {
-  SWIG_Error(SWIG_AttributeError,"Variable kSqrt4Pi is read-only.");
-  return 1;
-}
-
-
-SWIGINTERN PyObject *Swig_var_kSqrt4Pi_get(void) {
-  PyObject *pyobj = 0;
-  PyObject *self = 0;
-  
-  (void)self;
-  pyobj = SWIG_From_double(static_cast< double >(am::kSqrt4Pi));
-  return pyobj;
-}
-
-
-SWIGINTERN int Swig_var_kInvSqrt4Pi_set(PyObject *) {
-  SWIG_Error(SWIG_AttributeError,"Variable kInvSqrt4Pi is read-only.");
-  return 1;
-}
-
-
-SWIGINTERN PyObject *Swig_var_kInvSqrt4Pi_get(void) {
-  PyObject *pyobj = 0;
-  PyObject *self = 0;
-  
-  (void)self;
-  pyobj = SWIG_From_double(static_cast< double >(am::kInvSqrt4Pi));
-  return pyobj;
-}
-
-
 SWIGINTERN PyObject *_wrap_SphericalHarmonicCRME(PyObject *self, PyObject *args) {
   PyObject *resultobj = 0;
   int *arg1 = 0 ;
@@ -14428,7 +14395,6 @@ static swig_type_info _swigt__p_pair = {"_p_pair", "pair *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_second_type = {"_p_second_type", "second_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_size_type = {"_p_size_type", "size_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__allocatorT_HalfInt_t = {"_p_std__allocatorT_HalfInt_t", "std::vector< HalfInt >::allocator_type *|std::allocator< HalfInt > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__complexT_double_t = {"_p_std__complexT_double_t", "std::complex< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__invalid_argument = {"_p_std__invalid_argument", "std::invalid_argument *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_HalfInt_HalfInt_t = {"_p_std__pairT_HalfInt_HalfInt_t", "std::pair< HalfInt,HalfInt > *", 0, 0, (void*)&SwigPyBuiltin__std__pairT_HalfInt_HalfInt_t_clientdata, 0};
 static swig_type_info _swigt__p_std__vectorT_HalfInt_std__allocatorT_HalfInt_t_t = {"_p_std__vectorT_HalfInt_std__allocatorT_HalfInt_t_t", "std::vector< HalfInt,std::allocator< HalfInt > > *|std::vector< HalfInt > *", 0, 0, (void*)&SwigPyBuiltin__std__vectorT_HalfInt_t_clientdata, 0};
@@ -14448,7 +14414,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_second_type,
   &_swigt__p_size_type,
   &_swigt__p_std__allocatorT_HalfInt_t,
-  &_swigt__p_std__complexT_double_t,
   &_swigt__p_std__invalid_argument,
   &_swigt__p_std__pairT_HalfInt_HalfInt_t,
   &_swigt__p_std__vectorT_HalfInt_std__allocatorT_HalfInt_t_t,
@@ -14468,7 +14433,6 @@ static swig_cast_info _swigc__p_pair[] = {  {&_swigt__p_pair, 0, 0, 0},{0, 0, 0,
 static swig_cast_info _swigc__p_second_type[] = {  {&_swigt__p_second_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_size_type[] = {  {&_swigt__p_size_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__allocatorT_HalfInt_t[] = {  {&_swigt__p_std__allocatorT_HalfInt_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__complexT_double_t[] = {  {&_swigt__p_std__complexT_double_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__invalid_argument[] = {  {&_swigt__p_std__invalid_argument, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_HalfInt_HalfInt_t[] = {  {&_swigt__p_std__pairT_HalfInt_HalfInt_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_HalfInt_std__allocatorT_HalfInt_t_t[] = {  {&_swigt__p_std__vectorT_HalfInt_std__allocatorT_HalfInt_t_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -14488,7 +14452,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_second_type,
   _swigc__p_size_type,
   _swigc__p_std__allocatorT_HalfInt_t,
-  _swigc__p_std__complexT_double_t,
   _swigc__p_std__invalid_argument,
   _swigc__p_std__pairT_HalfInt_HalfInt_t,
   _swigc__p_std__vectorT_HalfInt_std__allocatorT_HalfInt_t_t,
@@ -15322,27 +15285,6 @@ SWIG_init(void) {
   PyModule_AddObject(m, "HalfInt", (PyObject *)builtin_pytype);
   SwigPyBuiltin_AddPublicSymbol(public_interface, "HalfInt");
   d = md;
-  globals = SWIG_globals();
-  if (!globals) {
-    PyErr_SetString(PyExc_TypeError, "Failure to create SWIG globals.");
-#if PY_VERSION_HEX >= 0x03000000
-    return NULL;
-#else
-    return;
-#endif
-  }
-  PyDict_SetItemString(md, "cvar", globals);
-  Py_DECREF(globals);
-  SwigPyBuiltin_AddPublicSymbol(public_interface, "cvar");
-  SWIG_addvarlink(globals, "kPi", Swig_var_kPi_get, Swig_var_kPi_set);
-  PyDict_SetItemString(md, "kPi", PyObject_GetAttrString(globals, "kPi"));
-  SwigPyBuiltin_AddPublicSymbol(public_interface, "kPi");
-  SWIG_addvarlink(globals, "kSqrt4Pi", Swig_var_kSqrt4Pi_get, Swig_var_kSqrt4Pi_set);
-  PyDict_SetItemString(md, "kSqrt4Pi", PyObject_GetAttrString(globals, "kSqrt4Pi"));
-  SwigPyBuiltin_AddPublicSymbol(public_interface, "kSqrt4Pi");
-  SWIG_addvarlink(globals, "kInvSqrt4Pi", Swig_var_kInvSqrt4Pi_get, Swig_var_kInvSqrt4Pi_set);
-  PyDict_SetItemString(md, "kInvSqrt4Pi", PyObject_GetAttrString(globals, "kInvSqrt4Pi"));
-  SwigPyBuiltin_AddPublicSymbol(public_interface, "kInvSqrt4Pi");
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "AngularMomentumOperatorType_kOrbital",SWIG_From_char(static_cast< char >(am::AngularMomentumOperatorType::kOrbital)));
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "AngularMomentumOperatorType_kSpin",SWIG_From_char(static_cast< char >(am::AngularMomentumOperatorType::kSpin)));
   SWIG_Python_SetConstant(d, d == md ? public_interface : NULL, "AngularMomentumOperatorType_kTotal",SWIG_From_char(static_cast< char >(am::AngularMomentumOperatorType::kTotal)));

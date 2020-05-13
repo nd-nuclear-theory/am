@@ -12,6 +12,10 @@
 
   + 08/11/18 (pjf): Created.
   + 12/03/18 (pjf): Add AngularMomentumOperatorType enum.
+  + 07/01/19 (pjf): Fix phase on jjJCoupledAngularMomentumJ2RME, clean up to
+    use more consistent phases in general (i.e. use two-system formula).
+  + 07/07/19 (sp/pjf): Fix Wigner6J->Wigner3J typo in SphericalHarmonicCRME.
+  + 04/10/20 (pjf): Replace assertions with exceptions.
 
 ****************************************************************/
 
@@ -19,9 +23,10 @@
 #define RME_H_
 
 #include <cmath>
+#include <stdexcept>
 
-#include "am/wigner_gsl.h"
-#include "am/racah_reduction.h"
+#include "wigner_gsl.h"
+#include "racah_reduction.h"
 
 namespace am {
 
@@ -43,8 +48,9 @@ namespace am {
   // Returns:
   //   reduced matrix element (double), Rose convention
   {
+    if (!AllowedTriangle(lp, k, l)) throw std::domain_error("triangle disallowed");
     // Brink & Satchler (1993), app. VI, p.153
-    double value = Hat(l) * ParitySign(lp) * Wigner6J(lp, k, l, 0, 0, 0);
+    double value = Hat(l) * ParitySign(lp) * Wigner3J(lp, k, l, 0, 0, 0);
     return value;
   }
 
@@ -65,8 +71,8 @@ namespace am {
   // Returns:
   //   reduced matrix element (double), Rose convention
   {
-    assert(AllowedTriangle(lp, HalfInt(1, 2), jp));
-    assert(AllowedTriangle(l, HalfInt(1, 2), j));
+    if (!AllowedTriangle(lp, HalfInt(1, 2), jp)) throw std::domain_error("triangle disallowed");
+    if (!AllowedTriangle(l, HalfInt(1, 2), j)) throw std::domain_error("triangle disallowed");
 
     // parity constraint
     if ((lp+l+k)%2 != 0) {
@@ -150,17 +156,17 @@ namespace am {
   // Returns:
   //   reduced matrix element (double), Rose convention
   {
-    assert(AllowedTriangle(J1p, J2p, Jp));
-    assert(AllowedTriangle(J1, J2, J));
-    assert(AllowedTriangle(Jp, 1, J));
+    if (!AllowedTriangle(J1p, J2p, Jp)) throw std::domain_error("triangle disallowed");
+    if (!AllowedTriangle(J1, J2, J)) throw std::domain_error("triangle disallowed");
+    if (!AllowedTriangle(Jp, 1, J)) throw std::domain_error("triangle disallowed");
     // Kronecker deltas on (J1p,J1) and (J2p,J2)
     if ((J1p != J1) || (J2p != J2)) {
       return 0;
     }
-    // Brink & Satchler (1993), app. VI, p.153
-    double value = ParitySign(J1p+J2p+2*Jp-J+1)
+    // Brink & Satchler (1993), app. VI, p.152
+    double value = ParitySign(1+J2p+J+J1p)
       * std::sqrt(double(J1p)*double(J1p+1)*double(2*J1p+1)*double(2*J+1))
-      * Wigner6J(J1p, J1p, 1, J, Jp, J2p);
+      * Wigner6J(Jp, J, 1, J1, J1p, J2p);
     return value;
   }
 
@@ -178,17 +184,17 @@ namespace am {
   // Returns:
   //   reduced matrix element (double), Rose convention
   {
-    assert(AllowedTriangle(J1p, J2p, Jp));
-    assert(AllowedTriangle(J1, J2, J));
-    assert(AllowedTriangle(Jp, 1, J));
+    if (!AllowedTriangle(J1p, J2p, Jp)) throw std::domain_error("triangle disallowed");
+    if (!AllowedTriangle(J1, J2, J)) throw std::domain_error("triangle disallowed");
+    if (!AllowedTriangle(Jp, 1, J)) throw std::domain_error("triangle disallowed");
     // Kronecker deltas on (J1p,J1) and (J2p,J2)
     if ((J1p != J1) || (J2p != J2)) {
       return 0;
     }
-    // Brink & Satchler (1993), app. VI, p.153
-    double value = ParitySign(J2p+J1p+2*Jp-J+1)
-      * std::sqrt(double(J2p)*double(J2+1)*double(2*J2p+1)*double(2*J+1))
-      * Wigner6J(J2p, J2p, 1, J, Jp, J1p);
+    // Brink & Satchler (1993), app. VI, p.152
+    double value = ParitySign(1+J1p+Jp+J2)
+      * std::sqrt(double(J2p)*double(J2p+1)*double(2*J2p+1)*double(2*J+1))
+      * Wigner6J(Jp, J, 1, J2, J2p, J1p);
     return value;
   }
 
@@ -206,9 +212,9 @@ namespace am {
   // Returns:
   //   reduced matrix element (double), Rose convention
   {
-    assert(AllowedTriangle(J1p, J2p, Jp));
-    assert(AllowedTriangle(J1, J2, J));
-    assert(AllowedTriangle(Jp, 1, J));
+    if (!AllowedTriangle(J1p, J2p, Jp)) throw std::domain_error("triangle disallowed");
+    if (!AllowedTriangle(J1, J2, J)) throw std::domain_error("triangle disallowed");
+    if (!AllowedTriangle(Jp, 1, J)) throw std::domain_error("triangle disallowed");
     // Kronecker deltas on (J1p,J1) and (J2p,J2)
     if ((J1p != J1) || (J2p != J2)) {
       return 0;

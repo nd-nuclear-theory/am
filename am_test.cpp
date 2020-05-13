@@ -1,6 +1,6 @@
 /******************************************************************************
   am_test.cpp
- 
+
   Mark A. Caprio
   University of Notre Dame
 
@@ -17,10 +17,10 @@ int main(int argc, char **argv)
 
   // angular momentum tests
   // Examples: {1, 2, 2}, {1, 0, 2}, {1, 2, 3/2}, {1, 3/2, 3/2}
-  std::cout << am::AllowedTriangle(1,2,2) << " " 
+  std::cout << am::AllowedTriangle(1,2,2) << " "
 	    << am::AllowedTriangle(1,0,2) << " "
-	    << am::AllowedTriangle(1,2,HalfInt(3,2)) << " " 
-	    << am::AllowedTriangle(1,HalfInt(3,2),HalfInt(3,2)) << " " 
+	    << am::AllowedTriangle(1,2,HalfInt(3,2)) << " "
+	    << am::AllowedTriangle(1,HalfInt(3,2),HalfInt(3,2)) << " "
 	    << std::endl;
 
   // angular momentum product
@@ -36,17 +36,17 @@ int main(int argc, char **argv)
 
   // angular momentum range arithmetic
   std::cout << "range intersection" << std::endl;
-  HalfInt::pair r1(1,5);
-  HalfInt::pair r2(3,6);
-  HalfInt::pair r12 = am::AngularMomentumRangeIntersection(r1,r2);
+  constexpr HalfInt::pair r1(1,5);
+  constexpr HalfInt::pair r2(3,6);
+  constexpr HalfInt::pair r12 = am::AngularMomentumRangeIntersection(r1,r2);
   std::cout << r1 << r2 << "->" << r12 << std::endl;
   HalfInt::pair r3(4,7);
   HalfInt::pair r123 = am::AngularMomentumRangeIntersection(r1,r2,r3);  // variadic form
   std::cout << r1 << r2 << r3 << "->" << r123 << std::endl;
 
-  HalfInt::pair r1x(1,5);
-  HalfInt::pair r2x(7,9);
-  HalfInt::pair rx = am::AngularMomentumRangeIntersection(r1x,r2x);
+  constexpr HalfInt::pair r1x(1,5);
+  constexpr HalfInt::pair r2x(7,9);
+  constexpr HalfInt::pair rx = am::AngularMomentumRangeIntersection(r1x,r2x);
   std::cout << r1x << r2x << "->" << rx << std::endl;
   std::cout << "****" << std::endl;
 

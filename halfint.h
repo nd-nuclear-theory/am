@@ -72,19 +72,40 @@
       implemented in terms of *=.
   02/27/19 (pjf):
     - Add STL hashing.
+  12/30/19 (pjf):
+    - Replace assertions and exits with exceptions, for clean use
+      from Python.
+  03/31/20 (pjf):
+    - Make most HalfInt operations `constexpr` when using C++14.
+    - Change implementation of ParitySign to use bitwise operations
+      and thus be `constexpr`-safe.
+    - Mark conversions from float/double -> HalfInt as deleted to prevent
+      ill-defined behavior.
+    - Add Phase() for complex phase.
 ****************************************************************/
 
 #ifndef HALFINT_H_
 #define HALFINT_H_
 
-#include <cassert>
 #include <cmath> // for sqrt
 #include <cstdlib>
+#include <complex>
 #include <functional>  // for hash
 #include <iostream>
 #include <string>
+#include <stdexcept>
 #include <utility>
 #include <vector>
+
+// constexpr is not flexible enough in C++11; only enable it if
+// compiling with C++14 or later
+#ifndef CXX14_CONSTEXPR
+  #if __cplusplus >= 201402L
+    #define CXX14_CONSTEXPR constexpr
+  #else
+    #define CXX14_CONSTEXPR
+  #endif
+#endif
 
 class HalfInt
 {
@@ -107,16 +128,24 @@ class HalfInt
   // since only data member needs copying
 
   // default constructor: initializes value to zero
+  CXX14_CONSTEXPR
   HalfInt() : twice_value_(0) {};
 
   // conversion from integer
   // EX: HalfInt(1) constructs 2/2, HalfInt(2) constructs 4/2
+  CXX14_CONSTEXPR
   HalfInt(int);
 
   // construct from numerator and denominator
   // EX: HalfInt(1,2) constructs 1/2, HalfInt(2, 2) constructs 1,
   //     HalfInt(2,1) constructs 4/2
+  CXX14_CONSTEXPR
   HalfInt(int, int);
+
+  // prevent construction from floating-point
+  // EX: HalfInt(1.5) --> compile error
+  HalfInt(float) = delete;
+  HalfInt(double) = delete;
 
   ////////////////////////////////////////////////////////////////
   // accessors and conversion operators
@@ -126,36 +155,21 @@ class HalfInt
   // functions by the same name, to permit more natural mathematical
   // notation, e.g., IsInteger(h).
 
+  CXX14_CONSTEXPR
   int TwiceValue() const
   // return twice value as type int
   {
     return twice_value_;
   };
 
+  CXX14_CONSTEXPR
   bool IsInteger() const
   // Test for integer value.
   {
     return !(twice_value_%2);
   }
 
-  // int IValue() const
-  // // return value as type int, by truncation
-  // //
-  // // This is the "safe" version with test for integer value, as
-  // // opposed to the conversion operator int().
-  // //
-  // // DEPRECATED in favor of conversion operator, except in cases where
-  // // safety check is desired.  But, even there, an
-  // // assert(h.IsInteger()) would likely be preferable.
-  // {
-  //   if ((twice_value_ % 2) != 0)
-  //     {
-  //       std::cerr << "HalfInt::IValue called for nonintegral HalfInt value" << std::endl;
-  //       std::exit(EXIT_FAILURE);
-  //     }
-  //   return twice_value_/2;
-  // };
-
+  CXX14_CONSTEXPR
   explicit operator int() const
   // conversion to int by truncation
   //
@@ -180,6 +194,7 @@ class HalfInt
   //   return static_cast<double>(twice_value_)/2;
   // };
 
+  CXX14_CONSTEXPR
   explicit operator float() const
   // conversion operators for float
   //
@@ -199,8 +214,9 @@ class HalfInt
     return static_cast<float>(twice_value_)/2;
   }
 
+  CXX14_CONSTEXPR
   explicit operator double() const
-  // conversion operators for float
+  // conversion operators for double
   //
   // See notes for float().
   {
@@ -215,21 +231,21 @@ class HalfInt
   // note: operator = is synthesized assignment operator
 
   // operators return reference to allow for chained (a+=b)+=c structures
-  HalfInt& operator +=(const HalfInt&);
-  HalfInt& operator -=(const HalfInt&);
-  HalfInt& operator *=(const int&);
+  CXX14_CONSTEXPR HalfInt& operator +=(const HalfInt&);
+  CXX14_CONSTEXPR HalfInt& operator -=(const HalfInt&);
+  CXX14_CONSTEXPR HalfInt& operator *=(const int&);
 
   ////////////////////////////////////////////////////////////////
   // unary arithmetic operators
   ////////////////////////////////////////////////////////////////
 
-  HalfInt operator +() const;
-  HalfInt operator -() const;
+  CXX14_CONSTEXPR HalfInt operator +() const;
+  CXX14_CONSTEXPR HalfInt operator -() const;
 
-  HalfInt& operator ++(); // prefix ++, increments then returns reference
-  HalfInt operator ++(int); // postfix ++, returns value then increments
-  HalfInt& operator --(); // prefix --, increments then returns reference
-  HalfInt operator --(int); // postfix --, returns value then increments
+  CXX14_CONSTEXPR HalfInt& operator ++(); // prefix ++, increments then returns reference
+  CXX14_CONSTEXPR HalfInt operator ++(int); // postfix ++, returns value then increments
+  CXX14_CONSTEXPR HalfInt& operator --(); // prefix --, increments then returns reference
+  CXX14_CONSTEXPR HalfInt operator --(int); // postfix --, returns value then increments
 
   ////////////////////////////////////////////////////////////////
   // string conversion
@@ -252,37 +268,40 @@ class HalfInt
 // constructors
 ////////////////////////////////////////////////////////////////
 
+CXX14_CONSTEXPR
 inline HalfInt::HalfInt(int value)
-{
-  twice_value_ = 2*value;
-}
+  : twice_value_(2*value)
+{}
 
+CXX14_CONSTEXPR
 inline HalfInt::HalfInt(int numerator, int denominator)
+  : twice_value_((2/denominator)*numerator)
 {
   if (!((denominator==1)||(denominator==2)))
     {
-      std::cerr << "HalfInt constructed with denominator not 1 or 2" << std::endl;
-      std::exit(EXIT_FAILURE);
+      throw std::invalid_argument("HalfInt constructed with denominator not 1 or 2");
     }
-  twice_value_ = (2/denominator)*numerator;
 }
 
 ////////////////////////////////////////////////////////////////
 // arithmetic assignment operators
 ////////////////////////////////////////////////////////////////
 
+CXX14_CONSTEXPR
 inline HalfInt& HalfInt::operator +=(const HalfInt& b)
 {
   twice_value_ += b.twice_value_;
   return *this;
 }
 
+CXX14_CONSTEXPR
 inline HalfInt& HalfInt::operator -=(const HalfInt& b)
 {
   twice_value_ -= b.twice_value_;
   return *this;
 }
 
+CXX14_CONSTEXPR
 inline HalfInt& HalfInt::operator *=(const int& b)
 {
   twice_value_ *= b;
@@ -293,11 +312,13 @@ inline HalfInt& HalfInt::operator *=(const int& b)
 // nonmember accessor functions
 ////////////////////////////////////////////////////////////////
 
+CXX14_CONSTEXPR
 inline int TwiceValue(const HalfInt& h)
 {
   return (h.TwiceValue());
 }
 
+CXX14_CONSTEXPR
 inline bool IsInteger(const HalfInt& h)
 {
   return (h.IsInteger());
@@ -319,11 +340,13 @@ inline bool IsInteger(const HalfInt& h)
 // unary arithmetic operators
 ////////////////////////////////////////////////////////////////
 
+CXX14_CONSTEXPR
 inline HalfInt HalfInt::operator + () const
 {
   return *this;
 };
 
+CXX14_CONSTEXPR
 inline HalfInt HalfInt::operator - () const
 {
   HalfInt negative;
@@ -331,12 +354,14 @@ inline HalfInt HalfInt::operator - () const
   return negative;
 };
 
+CXX14_CONSTEXPR
 inline HalfInt& HalfInt::operator ++ ()
 {
   twice_value_ += 2;
   return *this;
 }
 
+CXX14_CONSTEXPR
 inline HalfInt HalfInt::operator ++ (int)
 {
   HalfInt h = *this;
@@ -344,12 +369,14 @@ inline HalfInt HalfInt::operator ++ (int)
   return h;
 }
 
+CXX14_CONSTEXPR
 inline HalfInt& HalfInt::operator -- ()
 {
   twice_value_ -= 2;
   return *this;
 }
 
+CXX14_CONSTEXPR
 inline HalfInt HalfInt::operator -- (int)
 {
   HalfInt h = *this;
@@ -362,6 +389,7 @@ inline HalfInt HalfInt::operator -- (int)
 // binary arithmetic operators
 ////////////////////////////////////////////////////////////////
 
+CXX14_CONSTEXPR
 inline HalfInt operator + (const HalfInt& a, const HalfInt& b)
 {
   HalfInt sum(a);
@@ -369,13 +397,15 @@ inline HalfInt operator + (const HalfInt& a, const HalfInt& b)
   return sum;
 }
 
+CXX14_CONSTEXPR
 inline HalfInt operator - (const HalfInt& a, const HalfInt& b)
 {
   HalfInt sum(a);
-  sum -=b;
+  sum -= b;
   return sum;
 }
 
+CXX14_CONSTEXPR
 inline HalfInt operator * (const HalfInt& a, const int& b)
 {
   HalfInt product(a);
@@ -383,6 +413,7 @@ inline HalfInt operator * (const HalfInt& a, const int& b)
   return product;
 }
 
+CXX14_CONSTEXPR
 inline HalfInt operator * (const int& a, const HalfInt& b)
 {
   HalfInt product(b);
@@ -394,31 +425,37 @@ inline HalfInt operator * (const int& a, const HalfInt& b)
 // relational operators
 ////////////////////////////////////////////////////////////////
 
+CXX14_CONSTEXPR
 inline bool operator == (const HalfInt& h1, const HalfInt& h2)
 {
   return h1.TwiceValue() == h2.TwiceValue();
 }
 
+CXX14_CONSTEXPR
 inline bool operator < (const HalfInt& h1, const HalfInt& h2)
 {
   return h1.TwiceValue() < h2.TwiceValue();
 }
 
+CXX14_CONSTEXPR
 inline bool operator > (const HalfInt& h1, const HalfInt& h2)
 {
   return !((h1==h2)||(h1<h2));
 }
 
+CXX14_CONSTEXPR
 inline bool operator >= (const HalfInt& h1, const HalfInt& h2)
 {
   return !(h1 < h2);
 }
 
+CXX14_CONSTEXPR
 inline bool operator <= (const HalfInt& h1, const HalfInt& h2)
 {
   return ((h1 < h2)||(h1 == h2));
 }
 
+CXX14_CONSTEXPR
 inline bool operator != (const HalfInt& h1, const HalfInt& h2)
 {
   return !(h1 == h2);
@@ -467,6 +504,7 @@ struct std::hash<HalfInt>
 // arithmetic functions
 ////////////////////////////////////////////////////////////////
 
+CXX14_CONSTEXPR
 inline HalfInt abs(const HalfInt& h)
 // Calculate absolute value.
 {
@@ -502,24 +540,54 @@ double Hat(int j)
 // does suffice for the present purpose (checking evenness or
 // oddness).  Without abs(), e.g., ParitySign(-1) can result in
 // failure, from a remainder result other than 0 or 1.
+//
+// Alternatively, we can assume that integers are stored in two's
+// complement (which is guaranteed in C++20), and check oddness with
+// a bitwise operation (int(sum)&1) or (TwiceValue(sum)&2). This also
+// allows us to make the function `constexpr`.
 
-inline
+CXX14_CONSTEXPR inline
 int ParitySign(const HalfInt& sum)
 {
-  //int remainder = abs(IValue(sum)) % 2;
-  assert(IsInteger(sum));
-  int remainder = abs(int(sum)) % 2;
-  // int sign = (remainder == 0) ? +1 : -1; // folklore says to avoid conditional for performance
+  if (!IsInteger(sum)) throw std::invalid_argument("complex phase encounterd in am::ParitySign");
+
+  //////// simple implementation ////////
+  // int remainder = abs(int(sum)) % 2;
+  // // int sign = (remainder == 0) ? +1 : -1; // folklore says to avoid conditional for performance
+  // int sign = 1 - 2*remainder;
+
+  //////// "clever" implementation ////////
+  // (TwiceValue(sum)&2) -> 0 if sum is even, -> 2 if sum is odd
+  int sign = 1 - (TwiceValue(sum)&2);
+
+  return sign;
+}
+
+CXX14_CONSTEXPR inline
+int ParitySign(int sum)
+{
+  int remainder = sum&1;
   int sign = 1 - 2*remainder;
   return sign;
 }
 
-inline
-int ParitySign(int sum)
+// complex phase (-1)^sum
+//
+// For half-integer values, the phase depends only on 2*J mod 4.
+// This implies that the complex phase depends only on the two
+// least-signficant bits of TwiceValue(sum). The least significant
+// bit TwiceValue(sum)&1 is 0 if the phase is real, i.e. 2*J is even,
+// and is 1 if the phase is imaginary. The second-least-significant
+// bit TwiceValue(sum)&2 is 0 if the phase is positive, and 1 if the
+// phase is negative.
+CXX14_CONSTEXPR inline
+std::complex<double> Phase(const HalfInt& sum)
 {
-  int remainder = abs(sum) % 2;
-  int sign = 1 - 2*remainder;
-  return sign;
+  // (TwiceValue(sum)&1) -> 0 if 2*sum is even, -> 1 if 2*sum is odd
+  int im = TwiceValue(sum)&1;
+  // (TwiceValue(sum)&2) -> 0 if sum mod 4 is 0 or 1, -> 2 if sum mod 4 is 2 or 3
+  int sign = 1 - (TwiceValue(sum)&2);
+  return std::complex<double>(sign*(1-im), sign*im);
 }
 
 ////////////////////////////////////////////////////////////////
@@ -532,4 +600,4 @@ std::ostream& operator<< (std::ostream&, const HalfInt&);
 
 std::ostream& operator<< (std::ostream&, const HalfInt::pair&);
 
-#endif
+#endif  // HALFINT_H_

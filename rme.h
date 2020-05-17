@@ -1,7 +1,11 @@
 /****************************************************************
   rme.h
 
-  Defines standard reduced matrix elements in Rose convention.
+  Defines standard reduced matrix elements in Rose (?) convention.
+
+  TODO (mac, 05/17/20): Fix up documentation conflicts.  Comments within
+  individual docstrings, as well as global module documentation, are
+  contradictory as to whether RMEs are in Racah (=Edmonds) or Rose convention.
 
   Takes HalfInt angular momentum arguments, i.e., based on wigner_gsl.
 

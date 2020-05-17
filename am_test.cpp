@@ -43,7 +43,6 @@ int main(int argc, char **argv)
   HalfInt::pair r3(4,7);
   HalfInt::pair r123 = am::AngularMomentumRangeIntersection(r1,r2,r3);  // variadic form
   std::cout << r1 << r2 << r3 << "->" << r123 << std::endl;
-
   constexpr HalfInt::pair r1x(1,5);
   constexpr HalfInt::pair r2x(7,9);
   constexpr HalfInt::pair rx = am::AngularMomentumRangeIntersection(r1x,r2x);
@@ -63,8 +62,6 @@ int main(int argc, char **argv)
   std::cout << am::Wigner9J(6,3,7,4,5,3,9,8,10) << std::endl;
   std::cout << "Unitary 9-J: Expect -0.364006..." << std::endl;
   std::cout << am::Unitary9J(6,3,7,4,5,3,9,8,10) << std::endl;
-
-
   std::cout << "****" << std::endl;
 
   // termination

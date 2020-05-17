@@ -6,6 +6,8 @@
   TODO (mac, 05/17/20): Fix up documentation conflicts.  Comments within
   individual docstrings, as well as global module documentation, are
   contradictory as to whether RMEs are in Racah (=Edmonds) or Rose convention.
+  Also, clarify whether or not formulas attributed to Brink and Satchler differ
+  in phase from straight Edmonds convention in these cases?
 
   Takes HalfInt angular momentum arguments, i.e., based on wigner_gsl.
 

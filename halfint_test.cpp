@@ -54,6 +54,10 @@ int main(int argc, char **argv)
   std::cout << int(HalfInt(4,2)) << " " << int(HalfInt(3,2)) << " " << int(HalfInt(-3,2)) << std::endl;
   std::cout << "****" << std::endl;
 
+  // comparison (with automatic upgrade of int)
+  std::cout << "comparison: " << (HalfInt(1,2) >= 0) << " " << (HalfInt(1,2) >= 1) << std::endl;
+  std::cout << "****" << std::endl;
+  
   // hat arithmetic
   std::cout << Hat(HalfInt(1,2)) << " " << Hat(1) << std::endl;
   std::cout << "****" << std::endl;

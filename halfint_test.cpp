@@ -7,10 +7,13 @@
 
 ******************************************************************************/
 
-#include "halfint.h"
-
 #include <string>
 #include <algorithm>
+
+#include "fmt/format.h"
+
+#include "halfint.h"
+#include "am/halfint_fmt.h"
 
 int main(int argc, char **argv)
 {
@@ -29,6 +32,22 @@ int main(int argc, char **argv)
   std::cout << 1+HalfInt(1,2) << std::endl;
   //std::cout << "double... " << 1.0 + DValue(HalfInt(1,2)) << std::endl;
   std::cout << "double... " << 1.0 + double(HalfInt(1,2)) << std::endl;
+  std::cout << "****" << std::endl;
+  // check conversion to and from string
+  std::cout << "check conversion to string and back" << std::endl;
+  for (HalfInt j(-100000); j <= 100000; j += HalfInt(1,2))
+  {
+    float j_f;
+    std::string j_str = fmt::format("{:f}", j);
+    std::istringstream j_stream(j_str);
+    j_stream >> j_f;
+    HalfInt j_conv = HalfInt(2*j_f, 2);
+    if (j!=j_conv)
+      std::cout << fmt::format(
+          "{:g} -> HalfInt(2*{:.1f},2) -> {:g}, {}",
+          j, j_f, j_conv, j == j_conv
+        ) << std::endl;
+  }
   std::cout << "****" << std::endl;
   // should cause compiler failure:
   // std::cout << "fallacious but lucky... 1.0 + HalfInt(1,2) = " << 1.0 + HalfInt(1,2) << std::endl;

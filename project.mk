@@ -52,5 +52,5 @@ CPPFLAGS += -DHAVE_INLINE
 CPPFLAGS += -I..
 
 # link to neghboring libraries
-## LDFLAGS += -L../am -L../mcutils
-## LDLIBS +=  -lam -lmcutils
+LDFLAGS += -L../fmt
+LDLIBS +=  -lfmt

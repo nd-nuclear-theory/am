@@ -12,6 +12,7 @@
   + 01/10/19 (pjf): Created, based of fmt API documentation.
   + 09/12/19 (pjf): Updated for fmt v6.0.0.
   + 02/27/20 (pjf): Provide multiple (basic) formatting modes.
+  + 05/18/20 (pjf): Fix C++11 compatibility.
 ****************************************************************/
 
 #ifndef HALFINT_FMT_H_
@@ -27,7 +28,7 @@ struct formatter<HalfInt> {
   char presentation = 'g';
 
   template <typename ParseContext>
-  constexpr auto parse(ParseContext& ctx) {
+  FMT_CONSTEXPR auto parse(ParseContext& ctx) -> decltype(ctx.begin()) {
     auto it = ctx.begin(), end = ctx.end();
     if (it != end && (*it == 'd' || *it == 'f' || *it == 'g')) presentation = *it++;
 
@@ -40,7 +41,7 @@ struct formatter<HalfInt> {
   }
 
   template <typename FormatContext>
-  constexpr auto format(const HalfInt& h, FormatContext& ctx) {
+  FMT_CONSTEXPR auto format(const HalfInt& h, FormatContext& ctx) -> decltype(ctx.out()) {
     if (presentation == 'f')
     {
       return format_to(ctx.out(), "{:.1f}", float(h));

@@ -36,16 +36,16 @@ int main(int argc, char **argv)
 
   // angular momentum range arithmetic
   std::cout << "range intersection" << std::endl;
-  constexpr HalfInt::pair r1(1,5);
-  constexpr HalfInt::pair r2(3,6);
-  constexpr HalfInt::pair r12 = am::AngularMomentumRangeIntersection(r1,r2);
+  CXX14_CONSTEXPR HalfInt::pair r1(1,5);
+  CXX14_CONSTEXPR HalfInt::pair r2(3,6);
+  CXX14_CONSTEXPR HalfInt::pair r12 = am::AngularMomentumRangeIntersection(r1,r2);
   std::cout << r1 << r2 << "->" << r12 << std::endl;
   HalfInt::pair r3(4,7);
   HalfInt::pair r123 = am::AngularMomentumRangeIntersection(r1,r2,r3);  // variadic form
   std::cout << r1 << r2 << r3 << "->" << r123 << std::endl;
-  constexpr HalfInt::pair r1x(1,5);
-  constexpr HalfInt::pair r2x(7,9);
-  constexpr HalfInt::pair rx = am::AngularMomentumRangeIntersection(r1x,r2x);
+  CXX14_CONSTEXPR HalfInt::pair r1x(1,5);
+  CXX14_CONSTEXPR HalfInt::pair r2x(7,9);
+  CXX14_CONSTEXPR HalfInt::pair rx = am::AngularMomentumRangeIntersection(r1x,r2x);
   std::cout << r1x << r2x << "->" << rx << std::endl;
   std::cout << "****" << std::endl;
 

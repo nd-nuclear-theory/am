@@ -5,12 +5,18 @@
 //
 // Language: SWIG input
 //
+// SWIG command for generating am_wrap.cpp and am.py:
+//
+//     > swig -python -c++ -cppext cpp -builtin -fastdispatch -py3 am.i
+//
 // Patrick J. Fasano
 // University of Notre Dame
 //
 // + 12/30/19 (pjf): Created initial version.
 // + 04/10/20 (pjf): Re-enable racah_reduction.h and rme.h after
 //   removing assertions.
+// + 05/18/20 (pjf): Correctly expose hashing so that dicts work
+//   as expected.
 ////////////////////////////////////////////////////////////////
 %module am
 %include "typemaps.i"
@@ -76,7 +82,7 @@
 %rename(__str__) HalfInt::Str;
 %feature("python:slot", "tp_repr", functype="reprfunc") HalfInt::__repr__;
 %extend HalfInt {
-  std::string __repr__()
+  std::string __repr__() const
   {
     std::ostringstream ss;
     ss << "HalfInt(";
@@ -92,7 +98,14 @@
 // register abs(const HalfInt&) as provider of absolute
 %feature("python:slot", "nb_absolute", functype="unaryfunc") HalfInt::__abs__;
 %extend HalfInt {
-  HalfInt __abs__() { return abs(*$self); }
+  HalfInt __abs__() const { return abs(*$self); }
+}
+
+// allow hashing of HalfInt for use in dict
+%ignore hash_value;
+%feature("python:slot", "tp_hash", functype="hashfunc") HalfInt::__hash__;
+%extend HalfInt {
+  std::size_t __hash__() const { return hash_value(*$self); }
 }
 
 // extend HalfInt with arithmetic operations, which will be exposed to Python

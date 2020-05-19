@@ -2,17 +2,14 @@
 
     TODO (mac, 05/17/20): Finish porting tests.
 
-    TODO (mac, 05/17/20): HalfInt seems to fail as a dictionary key?
-    Demonstrate and debug.
+    TODO (pjf, 05/17/20): Demonstrate HalfInt as dict key.
 
         >>> import am
         >>> d = {am.HalfInt(1,2):999}
         >>> d
         {HalfInt(1,2): 999}
         >>> d[am.HalfInt(1,2)]
-        Traceback (most recent call last):
-          File "<stdin>", line 1, in <module>
-        KeyError: HalfInt(1,2)
+        999
 
 
     Language: Python 3
@@ -52,13 +49,13 @@ if (__name__=="__main__"):
     print("{}".format(am.TwiceValue(am.HalfInt(3,2))))
     print("{}".format(max(am.HalfInt(5,2),am.HalfInt(1,2))))
     print("{}".format(min(am.HalfInt(5,2),am.HalfInt(1,2))))
-    
+
     # // std::cout << HalfInt(7,4) << std::endl; 	// causes throw
-    # 
+    #
     # // std::cout << HalfInt(4,2).IValue() << " " << IValue(HalfInt(4,2)) << std::endl;
     # // std::cout << HalfInt(1,2).IValue() << std::endl; 	// causes throw
-    # 
-    # 
+    #
+    #
     # // std::cout << "****" << std::endl;
     # //
     # // std::cout << HalfIntBound(HalfInt(1,2),HalfInt(3,2)) << std::endl;
@@ -68,22 +65,22 @@ if (__name__=="__main__"):
     # // 	*HalfIntBound(HalfInt(7,2),HalfInt(9,2))
     # //      << std::endl;
     # // std::cout << "****" << std::endl;
-    # 
+    #
     # std::cout << int(HalfInt(4,2)) << " " << int(HalfInt(3,2)) << " " << int(HalfInt(-3,2)) << std::endl;
     # std::cout << "****" << std::endl;
-    # 
+    #
     # // hat arithmetic
     # std::cout << Hat(HalfInt(1,2)) << " " << Hat(1) << std::endl;
     # std::cout << "****" << std::endl;
-    # 
+    #
     # // parity sign
     # std::cout << ParitySign(-1) << std::endl;
     # std::cout << "****" << std::endl;
-    # 
+    #
     # // complex phase
     # std::cout << Phase(HalfInt(1,2)) << std::endl;
     # std::cout << "***" << std::endl;
-    # 
+    #
     # // hashing
     # std::cout << "hash " << HalfInt(1,2).Str() << " " << hash_value(HalfInt(1,2)) << " "
     #           << HalfInt(22,2).Str() << " "  << hash_value(HalfInt(22,2)) << std::endl;

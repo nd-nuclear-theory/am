@@ -5693,7 +5693,7 @@ SWIG_From_std_string  (const std::string& s)
   return SWIG_FromCharPtrAndSize(s.data(), s.size());
 }
 
-SWIGINTERN std::string HalfInt___repr__(HalfInt *self){
+SWIGINTERN std::string HalfInt___repr__(HalfInt const *self){
     std::ostringstream ss;
     ss << "HalfInt(";
     if (self->IsInteger())
@@ -5703,7 +5703,8 @@ SWIGINTERN std::string HalfInt___repr__(HalfInt *self){
     ss << ")";
     return ss.str();
   }
-SWIGINTERN HalfInt HalfInt___abs__(HalfInt *self){ return abs(*self); }
+SWIGINTERN HalfInt HalfInt___abs__(HalfInt const *self){ return abs(*self); }
+SWIGINTERN std::size_t HalfInt___hash__(HalfInt const *self){ return hash_value(*self); }
 SWIGINTERN HalfInt HalfInt___sadd____SWIG_0(HalfInt *self,HalfInt const &a){ return (*self) + a; }
 SWIGINTERN HalfInt HalfInt___sadd____SWIG_1(HalfInt *self,int const &a){ return (*self) + a; }
 SWIGINTERN HalfInt HalfInt___dadd____SWIG_0(HalfInt *self,HalfInt const &a){ return a + (*self); }
@@ -9470,12 +9471,12 @@ SWIGINTERN PyObject *_wrap_HalfInt___repr__(PyObject *self, PyObject *args) {
   if (!SWIG_Python_UnpackTuple(args, "HalfInt___repr__", 0, 0, 0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_HalfInt, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "HalfInt___repr__" "', argument " "1"" of type '" "HalfInt *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "HalfInt___repr__" "', argument " "1"" of type '" "HalfInt const *""'"); 
   }
   arg1 = reinterpret_cast< HalfInt * >(argp1);
   {
     try {
-      result = HalfInt___repr__(arg1);
+      result = HalfInt___repr__((HalfInt const *)arg1);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::domain_error& e) {
@@ -9502,12 +9503,12 @@ SWIGINTERN PyObject *_wrap_HalfInt___abs__(PyObject *self, PyObject *args) {
   if (!SWIG_Python_UnpackTuple(args, "HalfInt___abs__", 0, 0, 0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_HalfInt, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "HalfInt___abs__" "', argument " "1"" of type '" "HalfInt *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "HalfInt___abs__" "', argument " "1"" of type '" "HalfInt const *""'"); 
   }
   arg1 = reinterpret_cast< HalfInt * >(argp1);
   {
     try {
-      result = HalfInt___abs__(arg1);
+      result = HalfInt___abs__((HalfInt const *)arg1);
     } catch (const std::invalid_argument& e) {
       SWIG_exception(SWIG_ValueError, e.what());
     } catch (const std::domain_error& e) {
@@ -9517,6 +9518,38 @@ SWIGINTERN PyObject *_wrap_HalfInt___abs__(PyObject *self, PyObject *args) {
     }
   }
   resultobj = SWIG_NewPointerObj((new HalfInt(static_cast< const HalfInt& >(result))), SWIGTYPE_p_HalfInt, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_HalfInt___hash__(PyObject *self, PyObject *args) {
+  PyObject *resultobj = 0;
+  HalfInt *arg1 = (HalfInt *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::size_t result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "HalfInt___hash__", 0, 0, 0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_HalfInt, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "HalfInt___hash__" "', argument " "1"" of type '" "HalfInt const *""'"); 
+  }
+  arg1 = reinterpret_cast< HalfInt * >(argp1);
+  {
+    try {
+      result = HalfInt___hash__((HalfInt const *)arg1);
+    } catch (const std::invalid_argument& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::domain_error& e) {
+      SWIG_exception(SWIG_ValueError, e.what());
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
   return NULL;
@@ -10478,6 +10511,8 @@ SWIGPY_REPRFUNC_CLOSURE(_wrap_HalfInt___repr__) /* defines _wrap_HalfInt___repr_
 
 SWIGPY_UNARYFUNC_CLOSURE(_wrap_HalfInt___abs__) /* defines _wrap_HalfInt___abs___unaryfunc_closure */
 
+SWIGPY_HASHFUNC_CLOSURE(_wrap_HalfInt___hash__) /* defines _wrap_HalfInt___hash___hashfunc_closure */
+
 SWIGPY_DESTRUCTOR_CLOSURE(_wrap_delete_HalfInt) /* defines _wrap_delete_HalfInt_destructor_closure */
 
 SWIGINTERN PyObject *_wrap_TwiceValue(PyObject *self, PyObject *args) {
@@ -10548,44 +10583,6 @@ SWIGINTERN PyObject *_wrap_IsInteger(PyObject *self, PyObject *args) {
     }
   }
   resultobj = SWIG_From_bool(static_cast< bool >(result));
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_hash_value(PyObject *self, PyObject *args) {
-  PyObject *resultobj = 0;
-  HalfInt *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  std::size_t result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_HalfInt,  0  | SWIG_POINTER_IMPLICIT_CONV);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "hash_value" "', argument " "1"" of type '" "HalfInt const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "hash_value" "', argument " "1"" of type '" "HalfInt const &""'"); 
-  }
-  arg1 = reinterpret_cast< HalfInt * >(argp1);
-  {
-    try {
-      result = hash_value((HalfInt const &)*arg1);
-    } catch (const std::invalid_argument& e) {
-      SWIG_exception(SWIG_ValueError, e.what());
-    } catch (const std::domain_error& e) {
-      SWIG_exception(SWIG_ValueError, e.what());
-    } catch (const std::exception& e) {
-      SWIG_exception(SWIG_RuntimeError, e.what());
-    }
-  }
-  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   if (SWIG_IsNewObj(res1)) delete arg1;
   return resultobj;
 fail:
@@ -13378,7 +13375,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "SWIG_PyInstanceMethod_New", SWIG_PyInstanceMethod_New, METH_O, NULL},
 	 { "TwiceValue", _wrap_TwiceValue, METH_O, "TwiceValue(HalfInt h) -> int"},
 	 { "IsInteger", _wrap_IsInteger, METH_O, "IsInteger(HalfInt h) -> bool"},
-	 { "hash_value", _wrap_hash_value, METH_O, "hash_value(HalfInt h) -> std::size_t"},
 	 { "abs", _wrap_abs, METH_O, "abs(HalfInt h) -> HalfInt"},
 	 { "Hat", _wrap_Hat, METH_VARARGS, "\n"
 		"Hat(HalfInt j) -> double\n"
@@ -14172,6 +14168,7 @@ SWIGINTERN PyMethodDef SwigPyBuiltin__HalfInt_methods[] = {
   { "__str__", _wrap_HalfInt___str__, METH_NOARGS, "__str__(HalfInt self) -> std::string" },
   { "__repr__", _wrap_HalfInt___repr__, METH_NOARGS, "__repr__(HalfInt self) -> std::string" },
   { "__abs__", _wrap_HalfInt___abs__, METH_NOARGS, "__abs__(HalfInt self) -> HalfInt" },
+  { "__hash__", _wrap_HalfInt___hash__, METH_NOARGS, "__hash__(HalfInt self) -> std::size_t" },
   { "__sadd__", _wrap_HalfInt___sadd__, METH_VARARGS, "\n"
 		"__sadd__(HalfInt self, HalfInt a) -> HalfInt\n"
 		"__sadd__(HalfInt self, int const & a) -> HalfInt\n"
@@ -14223,7 +14220,7 @@ static PyHeapTypeObject SwigPyBuiltin__HalfInt_type = {
     &SwigPyBuiltin__HalfInt_type.as_number,   /* tp_as_number */
     &SwigPyBuiltin__HalfInt_type.as_sequence, /* tp_as_sequence */
     &SwigPyBuiltin__HalfInt_type.as_mapping,  /* tp_as_mapping */
-    SwigPyObject_hash,                        /* tp_hash */
+    _wrap_HalfInt___hash___hashfunc_closure,  /* tp_hash */
     (ternaryfunc) 0,                          /* tp_call */
     _wrap_HalfInt___str___reprfunc_closure,   /* tp_str */
     (getattrofunc) 0,                         /* tp_getattro */

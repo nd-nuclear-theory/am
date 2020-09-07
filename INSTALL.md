@@ -12,3 +12,9 @@ For use as a Python module, install using distutils/pip:
 --- OR ---
 % pip install --user .
 ```
+
+Note, you may need to set `CFLAGS` and/or `LDFLAGS` so that
+distutils/pip can find GSL, e.g.:
+```
+% CFLAGS="-I$GSL_DIR/include -L$GSL_DIR/lib" pip install -v --user .
+```

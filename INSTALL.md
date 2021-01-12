@@ -16,5 +16,5 @@ For use as a Python module, install using distutils/pip:
 Note, you may need to set `CFLAGS` and/or `LDFLAGS` so that
 distutils/pip can find GSL, e.g.:
 ```
-% CFLAGS="-I$GSL_DIR/include -L$GSL_DIR/lib" pip install -v --user .
+% env CFLAGS="-I$GSL_DIR/include -L$GSL_DIR/lib" pip install -v --user .
 ```

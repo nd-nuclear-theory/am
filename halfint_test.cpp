@@ -18,21 +18,20 @@
 int main(int argc, char **argv)
 {
 
-  // HalfInt tests
+  // HalfInt arithmetic tests
   std::cout << HalfInt(3) << " "  << HalfInt(3,1) << " " << HalfInt(3,2) << std::endl;
-  std::cout << TwiceValue(HalfInt(3,2)) << std::endl;
+  std::cout << TwiceValue(HalfInt(3,2)) << " " << HalfInt(3,2).TwiceValue() << std::endl;
   std::cout << std::max(HalfInt(5,2),HalfInt(1,2)) << std::endl;
   std::cout << std::min(HalfInt(5,2),HalfInt(1,2)) << std::endl;
   std::cout << HalfInt(-1,2) << " -> " << abs(HalfInt(-1,2)) << std::endl;
   std::cout << HalfInt(7,2) << " -> " << abs(HalfInt(7,2)) << std::endl;
   std::cout << -HalfInt(1,2) << std::endl;
   std::cout << HalfInt(1)+HalfInt(1,2) << std::endl;
-  // UNNECESSARY: std::cout << zero + HalfInt(1,2) << std::endl;
   std::cout << 0+HalfInt(1,2) << std::endl;
   std::cout << 1+HalfInt(1,2) << std::endl;
-  //std::cout << "double... " << 1.0 + DValue(HalfInt(1,2)) << std::endl;
   std::cout << "double... " << 1.0 + double(HalfInt(1,2)) << std::endl;
   std::cout << "****" << std::endl;
+
   // check conversion to and from string
   std::cout << "check conversion to string and back" << std::endl;
   for (HalfInt j(-100000); j <= 100000; j += HalfInt(1,2))
@@ -49,27 +48,16 @@ int main(int argc, char **argv)
         ) << std::endl;
   }
   std::cout << "****" << std::endl;
+
   // should cause compiler failure:
   // std::cout << "fallacious but lucky... 1.0 + HalfInt(1,2) = " << 1.0 + HalfInt(1,2) << std::endl;
   // std::cout << "fallacious and not lucky... 0.5 + HalfInt(1,2) = " << 0.5 + HalfInt(1,2) << std::endl;
   // std::cout << "****" << std::endl;
 
+  // invalid denominator
   // std::cout << HalfInt(7,4) << std::endl; 	// causes throw
 
-  // std::cout << HalfInt(4,2).IValue() << " " << IValue(HalfInt(4,2)) << std::endl;
-  // std::cout << HalfInt(1,2).IValue() << std::endl; 	// causes throw
-
-
-  // std::cout << "****" << std::endl;
-  //
-  // std::cout << HalfIntBound(HalfInt(1,2),HalfInt(3,2)) << std::endl;
-  // std::cout <<	HalfIntBound(HalfInt(1,2),HalfInt(5,2))
-  // 	*HalfIntBound(HalfInt(3,2),HalfInt(7,2))
-  //      <<	HalfIntBound(HalfInt(1,2),HalfInt(5,2))
-  // 	*HalfIntBound(HalfInt(7,2),HalfInt(9,2))
-  //      << std::endl;
-  // std::cout << "****" << std::endl;
-
+  // integer truncation
   std::cout << int(HalfInt(4,2)) << " " << int(HalfInt(3,2)) << " " << int(HalfInt(-3,2)) << std::endl;
   std::cout << "****" << std::endl;
 
@@ -82,7 +70,7 @@ int main(int argc, char **argv)
   std::cout << "****" << std::endl;
 
   // parity sign
-  std::cout << ParitySign(-1) << std::endl;
+  std::cout << ParitySign(-1) << " " << ParitySign(HalfInt(-2,2)) << std::endl;
   std::cout << "****" << std::endl;
 
   // complex phase

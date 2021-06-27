@@ -186,14 +186,6 @@ class HalfInt
   // floating point accessors and conversion operators
   ////////////////////////////////////////////////////////////////
 
-  // double DValue() const
-  // // return value as type double
-  // //
-  // // DEPRECATED in favor of conversion operator.
-  // {
-  //   return static_cast<double>(twice_value_)/2;
-  // };
-
   CXX14_CONSTEXPR
   explicit operator float() const
   // conversion operators for float
@@ -323,18 +315,6 @@ inline bool IsInteger(const HalfInt& h)
 {
   return (h.IsInteger());
 }
-
-// inline int IValue(const HalfInt& h)
-// // DEPRECATED in favor of C++11 conversion operator.
-// {
-//   return (h.IValue());
-// }
-
-// inline double DValue(const HalfInt& h)
-// // DEPRECATED in favor of C++11 conversion operator.
-// {
-//   return (h.DValue());
-// }
 
 ////////////////////////////////////////////////////////////////
 // unary arithmetic operators

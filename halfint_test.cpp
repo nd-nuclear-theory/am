@@ -18,9 +18,11 @@
 int main(int argc, char **argv)
 {
 
+  unsigned int three = 3;
   // HalfInt arithmetic tests
   std::cout << HalfInt(3) << " "  << HalfInt(3,1) << " " << HalfInt(3,2) << std::endl;
   std::cout << TwiceValue(HalfInt(3,2)) << " " << HalfInt(3,2).TwiceValue() << std::endl;
+  std::cout << HalfInt(three) << " "  << HalfInt(three,1) << " " << HalfInt(three,2) << std::endl;
   std::cout << std::max(HalfInt(5,2),HalfInt(1,2)) << std::endl;
   std::cout << std::min(HalfInt(5,2),HalfInt(1,2)) << std::endl;
   std::cout << HalfInt(-1,2) << " -> " << abs(HalfInt(-1,2)) << std::endl;
@@ -64,7 +66,7 @@ int main(int argc, char **argv)
   // comparison (with automatic upgrade of int)
   std::cout << "comparison: " << (HalfInt(1,2) >= 0) << " " << (HalfInt(1,2) >= 1) << std::endl;
   std::cout << "****" << std::endl;
-  
+
   // hat arithmetic
   std::cout << Hat(HalfInt(1,2)) << " " << Hat(1) << std::endl;
   std::cout << "****" << std::endl;

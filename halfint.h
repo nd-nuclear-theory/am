@@ -82,6 +82,7 @@
     - Mark conversions from float/double -> HalfInt as deleted to prevent
       ill-defined behavior.
     - Add Phase() for complex phase.
+  08/05/21 (pjf): Allow HalfInt to be constructed from arbitrary integral types.
 ****************************************************************/
 
 #ifndef HALFINT_H_
@@ -133,19 +134,32 @@ class HalfInt
 
   // conversion from integer
   // EX: HalfInt(1) constructs 2/2, HalfInt(2) constructs 4/2
+  template<typename T, typename = std::enable_if_t<std::is_integral_v<T>>>
   CXX14_CONSTEXPR
-  HalfInt(int);
+  HalfInt(T);
 
   // construct from numerator and denominator
   // EX: HalfInt(1,2) constructs 1/2, HalfInt(2, 2) constructs 1,
   //     HalfInt(2,1) constructs 4/2
+  template<
+    typename T, typename U,
+    typename = std::enable_if_t<std::is_arithmetic_v<T>>,
+    typename = std::enable_if_t<std::is_integral_v<U>>
+    >
   CXX14_CONSTEXPR
-  HalfInt(int, int);
+  HalfInt(T, U);
 
   // prevent construction from floating-point
   // EX: HalfInt(1.5) --> compile error
   HalfInt(float) = delete;
   HalfInt(double) = delete;
+
+  // these are currently not deleted, since it can be useful to
+  // construct a HalfInt using, e.g., HalfInt(2*j,2) when j is float
+  // template<typename T> HalfInt(float, T) = delete;
+  // template<typename T> HalfInt(double, T) = delete;
+  // template<typename T> HalfInt(T, float) = delete;
+  // template<typename T> HalfInt(T, double) = delete;
 
   ////////////////////////////////////////////////////////////////
   // accessors and conversion operators
@@ -260,13 +274,15 @@ class HalfInt
 // constructors
 ////////////////////////////////////////////////////////////////
 
+template<typename T, typename>
 CXX14_CONSTEXPR
-inline HalfInt::HalfInt(int value)
+inline HalfInt::HalfInt(T value)
   : twice_value_(2*value)
 {}
 
+template<typename T, typename U, typename, typename>
 CXX14_CONSTEXPR
-inline HalfInt::HalfInt(int numerator, int denominator)
+inline HalfInt::HalfInt(T numerator, U denominator)
   : twice_value_((2/denominator)*numerator)
 {
   if (!((denominator==1)||(denominator==2)))

@@ -135,7 +135,7 @@ class HalfInt
 
   // conversion from integer
   // EX: HalfInt(1) constructs 2/2, HalfInt(2) constructs 4/2
-  template<typename T, typename = std::enable_if_t<std::is_integral_v<T>>>
+  template<typename T, std::enable_if_t<std::is_integral_v<T>, T>* = nullptr>
   CXX14_CONSTEXPR
   HalfInt(T);
 
@@ -144,8 +144,8 @@ class HalfInt
   //     HalfInt(2,1) constructs 4/2
   template<
     typename T, typename U,
-    typename = std::enable_if_t<std::is_arithmetic_v<T>>,
-    typename = std::enable_if_t<std::is_integral_v<U>>
+    std::enable_if_t<std::is_arithmetic_v<T>, T>* = nullptr,
+    std::enable_if_t<std::is_integral_v<U>, U>* = nullptr
     >
   CXX14_CONSTEXPR
   HalfInt(T, U);
@@ -184,7 +184,7 @@ class HalfInt
     return !(twice_value_%2);
   }
 
-  template<typename T, std::enable_if_t<std::is_integral_v<T>,bool> = true>
+  template<typename T, std::enable_if_t<std::is_integral_v<T>>* = nullptr>
   CXX14_CONSTEXPR
   explicit operator T() const
   // conversion to int by truncation
@@ -202,7 +202,7 @@ class HalfInt
   // floating point accessors and conversion operators
   ////////////////////////////////////////////////////////////////
 
-  template<typename T, std::enable_if_t<std::is_floating_point_v<T>, bool> = true>
+  template<typename T, std::enable_if_t<std::is_floating_point_v<T>>* = nullptr>
   CXX14_CONSTEXPR
   explicit operator T() const
   // conversion operators for float
@@ -268,13 +268,15 @@ class HalfInt
 // constructors
 ////////////////////////////////////////////////////////////////
 
-template<typename T, typename>
+template<typename T, std::enable_if_t<std::is_integral_v<T>, T>*>
 CXX14_CONSTEXPR
 inline HalfInt::HalfInt(T value)
   : twice_value_(2*value)
 {}
 
-template<typename T, typename U, typename, typename>
+template<typename T, typename U,
+    std::enable_if_t<std::is_arithmetic_v<T>, T>*,
+    std::enable_if_t<std::is_integral_v<U>, U>*>
 CXX14_CONSTEXPR
 inline HalfInt::HalfInt(T numerator, U denominator)
   : twice_value_((2/denominator)*numerator)

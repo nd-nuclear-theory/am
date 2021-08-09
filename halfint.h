@@ -83,6 +83,7 @@
       ill-defined behavior.
     - Add Phase() for complex phase.
   08/05/21 (pjf): Allow HalfInt to be constructed from arbitrary integral types.
+  08/09/21 (pjf): Templatize conversion operators.
 ****************************************************************/
 
 #ifndef HALFINT_H_
@@ -183,8 +184,9 @@ class HalfInt
     return !(twice_value_%2);
   }
 
+  template<typename T, std::enable_if_t<std::is_integral_v<T>,bool> = true>
   CXX14_CONSTEXPR
-  explicit operator int() const
+  explicit operator T() const
   // conversion to int by truncation
   //
   // See also: http://stackoverflow.com/questions/4824278/c-defining-a-type-cast
@@ -200,8 +202,9 @@ class HalfInt
   // floating point accessors and conversion operators
   ////////////////////////////////////////////////////////////////
 
+  template<typename T, std::enable_if_t<std::is_floating_point_v<T>, bool> = true>
   CXX14_CONSTEXPR
-  explicit operator float() const
+  explicit operator T() const
   // conversion operators for float
   //
   // See also: http://stackoverflow.com/questions/4824278/c-defining-a-type-cast
@@ -217,16 +220,7 @@ class HalfInt
   // e.g., 1 + 1/2 -> 2/2 + 1/2 -> 3/2 vs. 1 + 1/2 -> 1.0 + 0.5
   // -> 1.5.
   {
-    return static_cast<float>(twice_value_)/2;
-  }
-
-  CXX14_CONSTEXPR
-  explicit operator double() const
-  // conversion operators for double
-  //
-  // See notes for float().
-  {
-    return static_cast<double>(twice_value_)/2;
+    return static_cast<T>(twice_value_)/2;
   }
 
 

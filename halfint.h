@@ -94,6 +94,7 @@
 #include <complex>
 #include <functional>  // for hash
 #include <iostream>
+#include <limits>
 #include <string>
 #include <stdexcept>
 #include <utility>
@@ -591,5 +592,48 @@ std::complex<double> Phase(const HalfInt& sum)
 std::ostream& operator<< (std::ostream&, const HalfInt&);
 
 std::ostream& operator<< (std::ostream&, const HalfInt::pair&);
+
+////////////////////////////////////////////////////////////////
+// numeric limits
+////////////////////////////////////////////////////////////////
+namespace std
+{
+template<> class numeric_limits<HalfInt>
+{
+  static constexpr auto is_specialized = true;
+  static constexpr auto is_signed = std::numeric_limits<int>::is_signed;
+  static constexpr auto is_integer = false;
+  static constexpr auto is_exact = true;
+  static constexpr auto has_infinity = std::numeric_limits<int>::has_infinity;
+  static constexpr auto has_quiet_NaN = std::numeric_limits<int>::has_quiet_NaN;
+  static constexpr auto has_signaling_NaN = std::numeric_limits<int>::has_signaling_NaN;
+  static constexpr auto has_denorm = std::numeric_limits<int>::has_denorm;
+  static constexpr auto has_denorm_loss = std::numeric_limits<int>::has_denorm_loss;
+  static constexpr auto round_style = std::numeric_limits<int>::round_style;
+  static constexpr auto is_iec559 = std::numeric_limits<int>::is_iec559;
+  static constexpr auto is_bounded = std::numeric_limits<int>::is_bounded;
+  static constexpr auto is_modulo = std::numeric_limits<int>::is_modulo;
+  static constexpr auto digits = std::numeric_limits<int>::digits - 1;
+  static constexpr auto digits10 = int(float(digits) * 0.301029996);  // digits * log10(2)
+  static constexpr auto max_digits10 = std::numeric_limits<int>::max_digits10;
+  static constexpr auto radix = std::numeric_limits<int>::radix;
+  static constexpr auto min_exponent = std::numeric_limits<int>::min_exponent;
+  static constexpr auto min_exponent10 = std::numeric_limits<int>::min_exponent10;
+  static constexpr auto max_exponent = std::numeric_limits<int>::max_exponent;
+  static constexpr auto max_exponent10 = std::numeric_limits<int>::max_exponent10;
+  static constexpr auto traps = false;
+  static constexpr auto tinyness_before = std::numeric_limits<int>::tinyness_before;
+
+  static constexpr HalfInt min() { return HalfInt(std::numeric_limits<int>::min(), 2); }
+  static constexpr HalfInt max() { return HalfInt(std::numeric_limits<int>::max(), 2); }
+  static constexpr HalfInt epsilon() { return 0; }
+  static constexpr HalfInt round_error() { return 0; }
+  static constexpr HalfInt infinity() { return 0; }
+  static constexpr HalfInt quiet_NaN() { return 0; }
+  static constexpr HalfInt signaling_NaN() { return 0; }
+  static constexpr HalfInt denorm_min() { return 0; }
+};
+
+}  // namespace std
 
 #endif  // HALFINT_H_

@@ -10,6 +10,8 @@
 
 #include "am.h"
 
+#include "halfint.h"
+
 namespace am {
 
   HalfInt::vector ProductAngularMomenta(const HalfInt& j1, const HalfInt& j2)

@@ -35,7 +35,7 @@
 #ifndef AM_H_
 #define AM_H_
 
-#include <iostream>
+#include <algorithm>
 
 #include "halfint.h"
 

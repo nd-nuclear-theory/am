@@ -9,6 +9,9 @@
 # all executables on Cygwin
 *.exe
 
+# build directories
+/build*
+
 # Doxygen-generated docs
 doc/html/
 doc/latex/

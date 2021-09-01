@@ -35,9 +35,23 @@ if(NOT TARGET fmt::fmt)
   find_package(fmt)
 endif()
 
+if(NOT TARGET GSL::gsl)
+  find_package(GSL REQUIRED)
+endif()
+
+# ##############################################################################
+# link dependencies
+# ##############################################################################
+
+target_link_libraries(am PUBLIC m GSL::gsl)
+
+# ##############################################################################
+# link optional dependencies
+# ##############################################################################
+
 if(TARGET fmt::fmt)
   list(APPEND am_headers halfint_fmt.h)
-  target_link_libraries(am fmt::fmt)
+  target_link_libraries(am PUBLIC fmt::fmt)
   message(STATUS "building am with fmt support")
 endif()
 

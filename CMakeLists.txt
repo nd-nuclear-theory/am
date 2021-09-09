@@ -12,20 +12,14 @@ endif()
 
 project(am CXX)
 
+if(AM_MASTER_PROJECT AND NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
+
 # specify the C++ standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_EXTENSIONS False)
-
-# add headers and sources
-set(am_headers am.h halfint.h racah_reduction.h rme.h wigner_gsl.h
-               wigner_gsl_twice.h
-)
-set(am_sources am.cpp halfint.cpp)
-
-# define am library and add source files
-add_library(am ${am_sources})
-add_library(am::am ALIAS am)
 
 # ##############################################################################
 # find external projects/dependencies
@@ -40,19 +34,40 @@ if(NOT TARGET GSL::gsl)
 endif()
 
 # ##############################################################################
+# define am headers and sources
+# ##############################################################################
+
+# define units
+set(am_UNITS_H wigner_gsl wigner_gsl_twice racah_reduction rme)
+set(am_UNITS_H_CPP am halfint)
+if(TARGET fmt::fmt)
+  list(APPEND am_UNITS_H halfint_fmt)
+  message(STATUS "building am with fmt support")
+endif()
+
+# construct lists of headers and sources
+set(am_HEADERS ${am_UNITS_H} ${am_UNITS_H_CPP})
+list(TRANSFORM am_HEADERS APPEND .h)
+set(am_SOURCES ${am_UNITS_H_CPP})
+list(TRANSFORM am_SOURCES APPEND .cpp)
+
+# define am library and add source files
+add_library(am ${am_SOURCES})
+add_library(am::am ALIAS am)
+foreach(header IN LISTS am_HEADERS)
+  target_sources(
+    am INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${header}>
+                 $<INSTALL_INTERFACE:include/am/${header}>
+  )
+endforeach()
+
+# ##############################################################################
 # link dependencies
 # ##############################################################################
 
 target_link_libraries(am PUBLIC m GSL::gsl)
-
-# ##############################################################################
-# link optional dependencies
-# ##############################################################################
-
 if(TARGET fmt::fmt)
-  list(APPEND am_headers halfint_fmt.h)
-  target_link_libraries(am PUBLIC fmt::fmt)
-  message(STATUS "building am with fmt support")
+  target_link_libraries(am INTERFACE fmt::fmt)
 endif()
 
 # ##############################################################################
@@ -68,7 +83,7 @@ target_include_directories(
 # ##############################################################################
 install(TARGETS am EXPORT amTargets)
 # if(TARGET fmt::fmt) install(TARGETS fmt::fmt EXPORT amTargets ) endif()
-install(FILES ${am_headers} DESTINATION include/am)
+install(FILES ${am_HEADERS} DESTINATION include/am)
 
 install(
   EXPORT amTargets
@@ -103,3 +118,21 @@ export(
   NAMESPACE am::
   FILE "${CMAKE_CURRENT_BINARY_DIR}/amTargets.cmake"
 )
+
+# ##############################################################################
+# define tests
+# ##############################################################################
+
+set(am_TEST_NAMES halfint_test am_test)
+
+add_custom_target(am_tests)
+foreach(test_name IN LISTS am_TEST_NAMES)
+  add_executable(${test_name} EXCLUDE_FROM_ALL ${test_name}.cpp)
+  target_link_libraries(${test_name} am::am)
+  add_dependencies(am_tests ${test_name})
+endforeach()
+
+if(AM_MASTER_PROJECT)
+  add_custom_target(tests)
+  add_dependencies(tests am_tests)
+endif()

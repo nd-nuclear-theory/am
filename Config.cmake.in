@@ -7,7 +7,7 @@ get_target_property(
   am_INTERFACE_LINK_LIBRARIES am::am INTERFACE_LINK_LIBRARIES
 )
 
-find_dependency(GSL REQUIRED)
+find_dependency(GSL)
 if(fmt::fmt IN_LIST am_INTERFACE_LINK_LIBRARIES)
-  find_dependency(fmt REQUIRED)
+  find_dependency(fmt)
 endif()

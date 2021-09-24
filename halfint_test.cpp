@@ -2,7 +2,7 @@
 
   halfint_test.cpp
 
-  M. A. Caprio
+  M. A. Caprio, P. J. Fasano
   University of Notre Dame
 
 ******************************************************************************/
@@ -21,6 +21,7 @@ int main(int argc, char **argv)
   unsigned int three = 3;
   // HalfInt arithmetic tests
   std::cout << HalfInt(3) << " "  << HalfInt(3,1) << " " << HalfInt(3,2) << std::endl;
+  std::cout << 3_hi << " "  << 1.5_hi << " " << 12.5_hi << std::endl;
   std::cout << TwiceValue(HalfInt(3,2)) << " " << HalfInt(3,2).TwiceValue() << std::endl;
   std::cout << HalfInt(three) << " "  << HalfInt(three,1) << " " << HalfInt(three,2) << std::endl;
   std::cout << std::max(HalfInt(5,2),HalfInt(1,2)) << std::endl;

@@ -84,6 +84,7 @@
     - Add Phase() for complex phase.
   08/05/21 (pjf): Allow HalfInt to be constructed from arbitrary integral types.
   08/09/21 (pjf): Templatize conversion operators.
+  09/24/21 (pjf): Add user-defined literal _hi.
 ****************************************************************/
 
 #ifndef HALFINT_H_
@@ -287,6 +288,43 @@ inline HalfInt::HalfInt(T numerator, U denominator)
     {
       throw std::invalid_argument("HalfInt constructed with denominator not 1 or 2");
     }
+}
+
+////////////////////////////////////////////////////////////////
+// literal
+////////////////////////////////////////////////////////////////
+
+template<char... str>
+constexpr HalfInt operator""_hi()
+{
+    constexpr char chars[sizeof...(str)] = {str...};
+    constexpr bool has_dot = ((str == '.') || ...);
+    static_assert(
+        !has_dot
+        || (sizeof...(str)>=1 && chars[sizeof...(str)-1]=='.')
+        || (sizeof...(str)>=2 && chars[sizeof...(str)-2]=='.'),
+        "only one digit allowed after decimal point in HalfInt literal"
+      );
+    constexpr char last_c = (sizeof...(str)>0) ? chars[sizeof...(str)-1] : 0;
+    static_assert(
+        !has_dot
+        || (last_c == '.' || last_c == '0' || last_c == '5'),
+        "HalfInt literal must be half-integer"
+      );
+
+    HalfInt h{0};
+    int i = 0;
+    for (char c : chars)
+    {
+        ++i;
+        if (c == '.')
+            break;
+        h *= 10;
+        h += c -'0';
+    }
+    if (has_dot && last_c == '5')
+        h += HalfInt(1,2);
+    return h;
 }
 
 ////////////////////////////////////////////////////////////////

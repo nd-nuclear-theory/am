@@ -1,15 +1,12 @@
 /****************************************************************
   rme.h
 
-  Defines standard reduced matrix elements in Rose (?) convention.
+  Defines standard reduced matrix elements from angular momentum theory.
 
-  TODO (mac, 05/17/20): Fix up documentation conflicts.  Comments within
-  individual docstrings, as well as global module documentation, are
-  contradictory as to whether RMEs are in Racah (=Edmonds) or Rose convention.
-  Also, clarify whether or not formulas attributed to Brink and Satchler differ
-  in phase from straight Edmonds convention in these cases?
+  All RMEs are in Rose convention.  Since the operators are of integer rank,
+  these are equivalently in Brink and Satchler convention.
 
-  Takes HalfInt angular momentum arguments, i.e., based on wigner_gsl.
+  Functions take HalfInt angular momentum arguments, i.e., based on wigner_gsl.
 
   Language: C++
 
@@ -44,7 +41,12 @@ namespace am {
 
   inline
   double SphericalHarmonicCRME(const int& lp, const int& l, const int& k)
-  // Calculate reduced matrix element of spherical harmonic, Racah normalization.
+  // Calculate reduced matrix element of the "C" spherical harmonic in l basis.
+  //
+  // This is the spherical harmonic in Racah's normalization [Brink & Satchler
+  // (1993), app. IV, p. 145]:
+  //
+  //    Y_k = [(2*k+1)/(4*pi)]^(1/2) * C_k
   //
   // Arguments:
   //   lp (int): bra orbital angular momentum
@@ -64,8 +66,12 @@ namespace am {
   double LJCoupledSphericalHarmonicCRME(
     const int& lp, const HalfInt& jp, const int& l, const HalfInt& j,
     const int& k)
-  // Calculate reduced matrix element of spherical harmonic in lj-coupled scheme,
-  // Racah normalization.
+  // Calculate reduced matrix element of the "C" spherical harmonic in lj-coupled basis.
+  //
+  // This is the spherical harmonic in Racah's normalization [Brink & Satchler
+  // (1993), app. IV, p. 145]:
+  //
+  //    Y_k = [(2*k+1)/(4*pi)]^(1/2) * C_k
   //
   // Arguments:
   //   lp (int): bra orbital angular momentum
@@ -93,7 +99,7 @@ namespace am {
 
   inline
   double SphericalHarmonicYRME(const int& lp, const int& l, const int& k)
-  // Calculate reduced matrix element of spherical harmonic.
+  // Calculate reduced matrix element of spherical harmonic in l basis.
   //
   // Arguments:
   //   lp (int): bra orbital angular momentum
@@ -103,6 +109,8 @@ namespace am {
   // Returns:
   //   reduced matrix element (double), Rose convention
   {
+    // by converting normalization from RME for "C" spherical harmonic
+    //
     // Brink & Satchler (1993), app. IV, p. 145
     double value = Hat(k) * kInvSqrt4Pi
       * SphericalHarmonicCRME(lp, l, k);
@@ -125,6 +133,8 @@ namespace am {
   // Returns:
   //   reduced matrix element (double), Rose convention
   {
+    // by converting normalization from RME for "C" spherical harmonic
+    //
     // Brink & Satchler (1993), app. IV, p. 145
     double value = Hat(k) * kInvSqrt4Pi
       * LJCoupledSphericalHarmonicCRME(lp, jp, l, j, k);

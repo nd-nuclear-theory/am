@@ -19,8 +19,10 @@
     use more consistent phases in general (i.e. use two-system formula).
   + 07/07/19 (sp/pjf): Fix Wigner6J->Wigner3J typo in SphericalHarmonicCRME.
   + 04/10/20 (pjf): Replace assertions with exceptions.
-  + 03/04/22 (pjf): Use macro AM_EXCEPTIONS to toggle between throwing
+  + 03/04/22 (pjf):
+    - Use macro AM_EXCEPTIONS to toggle between throwing
       exceptions and simply returning zero.
+    - Use C++20 math constants if available.
 
 ****************************************************************/
 
@@ -29,15 +31,25 @@
 
 #include <cmath>
 #include <stdexcept>
+#include <version>
+#ifdef __cpp_lib_math_constants
+#  include <numbers>
+#endif
 
 #include "wigner_gsl.h"
 #include "racah_reduction.h"
 
 namespace am {
 
+#ifdef __cpp_lib_math_constants
+  constexpr double kPi = std::numbers::pi;
+  constexpr double kSqrt4Pi = 2./std::numbers::inv_sqrtpi;
+  constexpr double kInvSqrt4Pi = 0.5*std::numbers::inv_sqrtpi;
+#else
   constexpr double kPi = 3.141592653589793238462643383279502884197169399375;
   constexpr double kSqrt4Pi = 3.544907701811032054596334966682290365595098912244;
   constexpr double kInvSqrt4Pi = 0.282094791773878143474039725780386292922025314664;
+#endif
 
   enum class AngularMomentumOperatorType : char {kOrbital='l', kSpin='s', kTotal='j'};
 

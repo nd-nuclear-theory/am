@@ -31,8 +31,7 @@
 
 #include <cmath>
 #include <stdexcept>
-#include <version>
-#ifdef __cpp_lib_math_constants
+#if __has_include(<numbers>)
 #  include <numbers>
 #endif
 

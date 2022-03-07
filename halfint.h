@@ -85,6 +85,7 @@
   08/05/21 (pjf): Allow HalfInt to be constructed from arbitrary integral types.
   08/09/21 (pjf): Templatize conversion operators.
   09/24/21 (pjf): Add user-defined literal _hi.
+  03/07/22 (pjf): Add pow(), ceil(), and floor().
 ****************************************************************/
 
 #ifndef HALFINT_H_
@@ -546,6 +547,38 @@ inline HalfInt abs(const HalfInt& h)
     return h;
 }
 
+template<typename T, std::enable_if_t<std::is_floating_point_v<T>>* = nullptr>
+inline T pow(T x, const HalfInt& j)
+// Calculate x raised to HalfInt power
+{
+  return std::pow(x, static_cast<T>(j));
+}
+
+template<class T>
+std::complex<T> pow(const std::complex<T>& x, const HalfInt& j)
+// Calculate x raised to HalfInt power
+{
+  return std::pow(x, static_cast<T>(j));
+}
+
+inline double ceil(const HalfInt& j)
+// Calculate ceiling of j
+{
+  if (IsInteger(j))
+    return TwiceValue(j)/2.;
+  else
+    return (TwiceValue(j)+1)/2.;
+}
+
+inline double floor(const HalfInt& j)
+// Calculate floor of j
+{
+  if (IsInteger(j))
+    return TwiceValue(j)/2.;
+  else
+    return (TwiceValue(j)-1)/2.;
+}
+
 // angular momentum hat symbol
 //
 // Overloading: Versions for both halfint and int arguments are
@@ -581,7 +614,7 @@ double Hat(int j)
 CXX14_CONSTEXPR inline
 int ParitySign(const HalfInt& sum)
 {
-  if (!IsInteger(sum)) throw std::invalid_argument("complex phase encounterd in am::ParitySign");
+  if (!IsInteger(sum)) throw std::invalid_argument("complex phase encountered in am::ParitySign");
 
   //////// simple implementation ////////
   // int remainder = abs(int(sum)) % 2;

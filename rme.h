@@ -41,12 +41,15 @@ namespace am {
 
   inline
   double SphericalHarmonicCRME(const int& lp, const int& l, const int& k)
-  // Calculate reduced matrix element of the "C" spherical harmonic in l basis.
+  // Calculate reduced matrix element of spherical harmonic C beween spatial
+  // wave functions.
   //
-  // This is the spherical harmonic in Racah's normalization [Brink & Satchler
-  // (1993), app. IV, p. 145]:
+  // Spherical harmonic is in C normalization [Brink & Satchler (1993),
+  // eqn. (2.9)].
   //
-  //    Y_k = [(2*k+1)/(4*pi)]^(1/2) * C_k
+  //   C_l = ((4*pi)/(2*l+1))^(1/2) * Y_l
+  //
+  // RME is in Rose convention.
   //
   // Arguments:
   //   lp (int): bra orbital angular momentum
@@ -66,12 +69,15 @@ namespace am {
   double LJCoupledSphericalHarmonicCRME(
     const int& lp, const HalfInt& jp, const int& l, const HalfInt& j,
     const int& k)
-  // Calculate reduced matrix element of the "C" spherical harmonic in lj-coupled basis.
+  // Calculate reduced matrix element of spherical harmonic C beween
+  // spatial-spin (lj-coupled) wave functions.
   //
-  // This is the spherical harmonic in Racah's normalization [Brink & Satchler
-  // (1993), app. IV, p. 145]:
+  // Spherical harmonic is in C normalization [Brink & Satchler (1993),
+  // eqn. (2.9)].
   //
-  //    Y_k = [(2*k+1)/(4*pi)]^(1/2) * C_k
+  //   C_l = ((4*pi)/(2*l+1))^(1/2) * Y_l
+  //
+  // RME is in Rose convention.
   //
   // Arguments:
   //   lp (int): bra orbital angular momentum
@@ -99,7 +105,10 @@ namespace am {
 
   inline
   double SphericalHarmonicYRME(const int& lp, const int& l, const int& k)
-  // Calculate reduced matrix element of spherical harmonic in l basis.
+  // Calculate reduced matrix element of spherical harmonic Y beween spatial
+  // wave functions.
+  //
+  // RME is in Rose convention.
   //
   // Arguments:
   //   lp (int): bra orbital angular momentum
@@ -121,7 +130,10 @@ namespace am {
   double LJCoupledSphericalHarmonicYRME(
     const int& lp, const HalfInt& jp, const int& l, const HalfInt& j,
     const int& k)
-  // Calculate reduced matrix element of spherical harmonic in lj-coupled scheme.
+  // Calculate reduced matrix element of spherical harmonic Y beween
+  // spatial-spin (lj-coupled) wave functions.
+  //
+  // RME is in Rose convention.
   //
   // Arguments:
   //   lp (int): bra orbital angular momentum
@@ -143,7 +155,10 @@ namespace am {
 
   inline
   double AngularMomentumJRME(const HalfInt& Jp, const HalfInt& J)
-  // Calculate reduced matrix element of angular momentum operator.
+  // Calculate reduced matrix element of angular momentum operator J in standard
+  // angular momentum basis.
+  //
+  // RME is in Rose convention.
   //
   // Arguments:
   //   Jp (HalfInt): bra angular momentum
@@ -163,7 +178,10 @@ namespace am {
     const HalfInt& J1p, const HalfInt& J2p, const HalfInt& Jp,
     const HalfInt& J1, const HalfInt& J2, const HalfInt& J
   )
-  // Calculate reduced matrix element of angular momentum operator.
+  // Calculate reduced matrix element of angular momentum operator j1 (i.e., for
+  // first subsystem) in jjJ coupled basis.
+  //
+  // RME is in Rose convention.
   //
   // Arguments:
   //   J1p, J2p, Jp (input): bra angular momenta
@@ -191,7 +209,10 @@ namespace am {
     const HalfInt& J1p, const HalfInt& J2p, const HalfInt& Jp,
     const HalfInt& J1, const HalfInt& J2, const HalfInt& J
   )
-  // Calculate reduced matrix element of angular momentum operator.
+  // Calculate reduced matrix element of angular momentum operator j2 (i.e., for
+  // second subsystem) in jjJ coupled basis.
+  //
+  // RME is in Rose convention.
   //
   // Arguments:
   //   J1p, J2p, Jp (input): bra angular momenta
@@ -219,7 +240,13 @@ namespace am {
     const HalfInt& J1p, const HalfInt& J2p, const HalfInt& Jp,
     const HalfInt& J1, const HalfInt& J2, const HalfInt& J
   )
-  // Calculate reduced matrix element of angular momentum operator.
+  // Calculate reduced matrix element of angular momentum operator J (i.e.,
+  // total angular momentum) in jjJ coupled basis.
+  //
+  // This is identical to calculation of RME of J in standard angular momentum
+  // basis, except that checks are applied on the subsystem angular momenta.
+  //
+  // RME is in Rose convention.
   //
   // Arguments:
   //   J1p, J2p, Jp (input): bra angular momenta

@@ -19,10 +19,13 @@
     use more consistent phases in general (i.e. use two-system formula).
   + 07/07/19 (sp/pjf): Fix Wigner6J->Wigner3J typo in SphericalHarmonicCRME.
   + 04/10/20 (pjf): Replace assertions with exceptions.
+  + 02/11/22 (mac): Clarify conventions in docstrings.
   + 03/04/22 (pjf):
     - Use macro AM_EXCEPTIONS to toggle between throwing
       exceptions and simply returning zero.
     - Use C++20 math constants if available.
+  + 04/19/22 (mac): Further expand docstrings.
+  + 04/19/22 (pjf): Add additional references to docstrings.
 
 ****************************************************************/
 
@@ -54,13 +57,13 @@ namespace am {
 
   inline
   double SphericalHarmonicCRME(const int& lp, const int& l, const int& k)
-  // Calculate reduced matrix element of spherical harmonic C beween spatial
+  // Calculate reduced matrix element of spherical harmonic C between spatial
   // wave functions.
   //
-  // Spherical harmonic is in C normalization [Brink & Satchler (1993),
-  // eqn. (2.9)].
+  // Spherical harmonic is in Racah's normalization [G. Racah, Phys. Rev. 62,
+  // 438 (1942), eqn. (46); Brink & Satchler (1993), eqn. (2.9)].
   //
-  //   C_l = ((4*pi)/(2*l+1))^(1/2) * Y_l
+  //   C_k = ((4*pi)/(2*k+1))^(1/2) * Y_k
   //
   // RME is in Rose convention.
   //
@@ -87,13 +90,13 @@ namespace am {
   double LJCoupledSphericalHarmonicCRME(
     const int& lp, const HalfInt& jp, const int& l, const HalfInt& j,
     const int& k)
-  // Calculate reduced matrix element of spherical harmonic C beween
+  // Calculate reduced matrix element of spherical harmonic C between
   // spatial-spin (lj-coupled) wave functions.
   //
-  // Spherical harmonic is in C normalization [Brink & Satchler (1993),
-  // eqn. (2.9)].
+  // Spherical harmonic is in Racah's normalization [G. Racah, Phys. Rev. 62,
+  // 438 (1942), eqn. (46); Brink & Satchler (1993), eqn. (2.9)].
   //
-  //   C_l = ((4*pi)/(2*l+1))^(1/2) * Y_l
+  //   C_k = ((4*pi)/(2*k+1))^(1/2) * Y_k
   //
   // RME is in Rose convention.
   //
@@ -128,7 +131,7 @@ namespace am {
 
   inline
   double SphericalHarmonicYRME(const int& lp, const int& l, const int& k)
-  // Calculate reduced matrix element of spherical harmonic Y beween spatial
+  // Calculate reduced matrix element of spherical harmonic Y between spatial
   // wave functions.
   //
   // RME is in Rose convention.
@@ -153,7 +156,7 @@ namespace am {
   double LJCoupledSphericalHarmonicYRME(
     const int& lp, const HalfInt& jp, const int& l, const HalfInt& j,
     const int& k)
-  // Calculate reduced matrix element of spherical harmonic Y beween
+  // Calculate reduced matrix element of spherical harmonic Y between
   // spatial-spin (lj-coupled) wave functions.
   //
   // RME is in Rose convention.

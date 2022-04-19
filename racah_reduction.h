@@ -15,6 +15,8 @@
   + 08/10/18 (pjf): Add single-system reduction formula.
   + 01/24/19 (pjf): Add 2-1 two-system reduction formula.
   + 04/10/20 (pjf): Replace assertions with exceptions.
+  + 03/04/22 (pjf): Use macro AM_EXCEPTIONS to toggle between throwing
+      exceptions and simply returning zero.
 
 ****************************************************************/
 
@@ -46,8 +48,13 @@ namespace am {
   // Returns:
   //   coefficient
   {
+    #ifdef AM_EXCEPTIONS
     if (!AllowedTriangle(J0a, J0b, J0)) throw std::domain_error("triangle disallowed");
-    if (!AllowedTriangle(Jp, J0, J)) throw std::domain_error("triangle disallowed");
+    if (!AllowedTriangle(Jp, J, J0)) throw std::domain_error("triangle disallowed");
+    #else
+    if (!AllowedTriangle(J0a, J0b, J0)) return 0;
+    if (!AllowedTriangle(Jp, J, J0)) return 0;
+    #endif
 
     double value = ParitySign(J0-Jp-J)
       * Hat(Jpp) * Hat(J0)
@@ -84,7 +91,15 @@ namespace am {
   // Returns:
   //   coefficient
   {
+    #ifdef AM_EXCEPTIONS
     if (!(J2p==J2)) throw std::domain_error("triangle disallowed");
+    if (!AllowedTriangle(Jp, J, J0)) throw std::domain_error("triangle disallowed");
+    #else
+    if (!(J2p==J2)) return 0;
+    if (!AllowedTriangle(Jp, J, J0)) return 0;
+    #endif
+
+    if (!AllowedTriangle(J1p, J1, J0)) return 0;
 
     double value = ParitySign(J1p+J2+J+J0)
       *Hat(J1p)*Hat(J)
@@ -121,7 +136,15 @@ namespace am {
   // Returns:
   //   coefficient
   {
+    #ifdef AM_EXCEPTIONS
     if (!(J1p==J1)) throw std::domain_error("triangle disallowed");
+    if (!AllowedTriangle(Jp, J, J0)) throw std::domain_error("triangle disallowed");
+    #else
+    if (!(J1p==J1)) return 0;
+    if (!AllowedTriangle(Jp, J, J0)) return 0;
+    #endif
+
+    if (!AllowedTriangle(J2p, J2, J0)) return 0;
 
     double value = ParitySign(J1+J2+Jp+J0)
       *Hat(J2p)*Hat(J)
@@ -149,8 +172,14 @@ namespace am {
   // Returns:
   //   coefficient
   {
-
+    #ifdef AM_EXCEPTIONS
     if (Jp!=J) throw std::domain_error("triangle disallowed");
+    #else
+    if (Jp!=J) return 0;
+    #endif
+
+    if (!AllowedTriangle(J1p, J1, J0)) return 0;
+    if (!AllowedTriangle(J2p, J2, J0)) return 0;
 
     double value = ParitySign(J2p+Jp+J1)
       * Hat(J1p) * Hat(J2p)
@@ -184,7 +213,14 @@ namespace am {
   // Returns:
   //   coefficient
   {
+    #ifdef AM_EXCEPTIONS
     if (!AllowedTriangle(Jp, J, J0)) throw std::domain_error("triangle disallowed");
+    #else
+    if (!AllowedTriangle(Jp, J, J0)) return 0;
+    #endif
+
+    if (!AllowedTriangle(J1p, J1, J0a)) return 0;
+    if (!AllowedTriangle(J2p, J2, J0b)) return 0;
 
     double value = Hat(J0) * Hat(J)
       * Hat(J1p) * Hat(J2p)
@@ -218,7 +254,14 @@ namespace am {
   // Returns:
   //   coefficient
   {
+    #ifdef AM_EXCEPTIONS
     if (!AllowedTriangle(Jp, J, J0)) throw std::domain_error("triangle disallowed");
+    #else
+    if (!AllowedTriangle(Jp, J, J0)) return 0;
+    #endif
+
+    if (!AllowedTriangle(J1p, J1, J0b)) return 0;
+    if (!AllowedTriangle(J2p, J2, J0a)) return 0;
 
     double value = ParitySign(J0a + J0b - J0)
       * Hat(J0) * Hat(J)

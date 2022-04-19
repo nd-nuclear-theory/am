@@ -21,6 +21,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_EXTENSIONS False)
 
+# optionally enable exceptions
+option(AM_ENABLE_EXCEPTIONS "enable throwing exceptions for invalid inputs" OFF)
+
 # ##############################################################################
 # find external projects/dependencies
 # ##############################################################################
@@ -60,6 +63,14 @@ foreach(header IN LISTS am_HEADERS)
                  $<INSTALL_INTERFACE:include/am/${header}>
   )
 endforeach()
+
+# ##############################################################################
+# enable optional features
+# ##############################################################################
+
+if(AM_ENABLE_EXCEPTIONS)
+  target_compile_definitions(am PUBLIC AM_EXCEPTIONS)
+endif()
 
 # ##############################################################################
 # link dependencies

@@ -4,7 +4,7 @@
   Defines arithmetic type HalfInt which stores integer or half-integer values,
   as needed, e.g., for angular momentum quantum numbers.
 
-  Language: C++11
+  Language: C++17
 
   Ke Cai, Veerle Hellemans, Mark A. Caprio
   University of Notre Dame
@@ -85,6 +85,9 @@
   08/05/21 (pjf): Allow HalfInt to be constructed from arbitrary integral types.
   08/09/21 (pjf): Templatize conversion operators.
   09/24/21 (pjf): Add user-defined literal _hi.
+  03/07/22 (pjf):
+    - Add pow(), ceil(), and floor().
+    - Require C++17.
 ****************************************************************/
 
 #ifndef HALFINT_H_
@@ -101,16 +104,6 @@
 #include <type_traits>
 #include <utility>
 #include <vector>
-
-// constexpr is not flexible enough in C++11; only enable it if
-// compiling with C++14 or later
-#ifndef CXX14_CONSTEXPR
-  #if __cplusplus >= 201402L
-    #define CXX14_CONSTEXPR constexpr
-  #else
-    #define CXX14_CONSTEXPR
-  #endif
-#endif
 
 class HalfInt
 {
@@ -133,14 +126,12 @@ class HalfInt
   // since only data member needs copying
 
   // default constructor: initializes value to zero
-  CXX14_CONSTEXPR
-  HalfInt() : twice_value_(0) {};
+  constexpr HalfInt() : twice_value_(0) {};
 
   // conversion from integer
   // EX: HalfInt(1) constructs 2/2, HalfInt(2) constructs 4/2
   template<typename T, std::enable_if_t<std::is_integral_v<T>, T>* = nullptr>
-  CXX14_CONSTEXPR
-  HalfInt(T);
+  constexpr HalfInt(T);
 
   // construct from numerator and denominator
   // EX: HalfInt(1,2) constructs 1/2, HalfInt(2, 2) constructs 1,
@@ -150,8 +141,7 @@ class HalfInt
     std::enable_if_t<std::is_arithmetic_v<T>, T>* = nullptr,
     std::enable_if_t<std::is_integral_v<U>, U>* = nullptr
     >
-  CXX14_CONSTEXPR
-  HalfInt(T, U);
+  constexpr HalfInt(T, U);
 
   // prevent construction from floating-point
   // EX: HalfInt(1.5) --> compile error
@@ -173,23 +163,20 @@ class HalfInt
   // functions by the same name, to permit more natural mathematical
   // notation, e.g., IsInteger(h).
 
-  CXX14_CONSTEXPR
-  int TwiceValue() const
+  constexpr int TwiceValue() const
   // return twice value as type int
   {
     return twice_value_;
   };
 
-  CXX14_CONSTEXPR
-  bool IsInteger() const
+  constexpr bool IsInteger() const
   // Test for integer value.
   {
     return !(twice_value_%2);
   }
 
   template<typename T, std::enable_if_t<std::is_integral_v<T>>* = nullptr>
-  CXX14_CONSTEXPR
-  explicit operator T() const
+  constexpr explicit operator T() const
   // conversion to int by truncation
   //
   // See also: http://stackoverflow.com/questions/4824278/c-defining-a-type-cast
@@ -206,8 +193,7 @@ class HalfInt
   ////////////////////////////////////////////////////////////////
 
   template<typename T, std::enable_if_t<std::is_floating_point_v<T>>* = nullptr>
-  CXX14_CONSTEXPR
-  explicit operator T() const
+  constexpr explicit operator T() const
   // conversion operators for float
   //
   // See also: http://stackoverflow.com/questions/4824278/c-defining-a-type-cast
@@ -234,21 +220,21 @@ class HalfInt
   // note: operator = is synthesized assignment operator
 
   // operators return reference to allow for chained (a+=b)+=c structures
-  CXX14_CONSTEXPR HalfInt& operator +=(const HalfInt&);
-  CXX14_CONSTEXPR HalfInt& operator -=(const HalfInt&);
-  CXX14_CONSTEXPR HalfInt& operator *=(const int&);
+  constexpr HalfInt& operator +=(const HalfInt&);
+  constexpr HalfInt& operator -=(const HalfInt&);
+  constexpr HalfInt& operator *=(const int&);
 
   ////////////////////////////////////////////////////////////////
   // unary arithmetic operators
   ////////////////////////////////////////////////////////////////
 
-  CXX14_CONSTEXPR HalfInt operator +() const;
-  CXX14_CONSTEXPR HalfInt operator -() const;
+  constexpr HalfInt operator +() const;
+  constexpr HalfInt operator -() const;
 
-  CXX14_CONSTEXPR HalfInt& operator ++(); // prefix ++, increments then returns reference
-  CXX14_CONSTEXPR HalfInt operator ++(int); // postfix ++, returns value then increments
-  CXX14_CONSTEXPR HalfInt& operator --(); // prefix --, increments then returns reference
-  CXX14_CONSTEXPR HalfInt operator --(int); // postfix --, returns value then increments
+  constexpr HalfInt& operator ++(); // prefix ++, increments then returns reference
+  constexpr HalfInt operator ++(int); // postfix ++, returns value then increments
+  constexpr HalfInt& operator --(); // prefix --, increments then returns reference
+  constexpr HalfInt operator --(int); // postfix --, returns value then increments
 
   ////////////////////////////////////////////////////////////////
   // string conversion
@@ -272,16 +258,14 @@ class HalfInt
 ////////////////////////////////////////////////////////////////
 
 template<typename T, std::enable_if_t<std::is_integral_v<T>, T>*>
-CXX14_CONSTEXPR
-inline HalfInt::HalfInt(T value)
+constexpr inline HalfInt::HalfInt(T value)
   : twice_value_(2*value)
 {}
 
 template<typename T, typename U,
     std::enable_if_t<std::is_arithmetic_v<T>, T>*,
     std::enable_if_t<std::is_integral_v<U>, U>*>
-CXX14_CONSTEXPR
-inline HalfInt::HalfInt(T numerator, U denominator)
+constexpr inline HalfInt::HalfInt(T numerator, U denominator)
   : twice_value_((2/denominator)*numerator)
 {
   if (!((denominator==1)||(denominator==2)))
@@ -331,22 +315,19 @@ constexpr HalfInt operator""_hi()
 // arithmetic assignment operators
 ////////////////////////////////////////////////////////////////
 
-CXX14_CONSTEXPR
-inline HalfInt& HalfInt::operator +=(const HalfInt& b)
+constexpr inline HalfInt& HalfInt::operator +=(const HalfInt& b)
 {
   twice_value_ += b.twice_value_;
   return *this;
 }
 
-CXX14_CONSTEXPR
-inline HalfInt& HalfInt::operator -=(const HalfInt& b)
+constexpr inline HalfInt& HalfInt::operator -=(const HalfInt& b)
 {
   twice_value_ -= b.twice_value_;
   return *this;
 }
 
-CXX14_CONSTEXPR
-inline HalfInt& HalfInt::operator *=(const int& b)
+constexpr inline HalfInt& HalfInt::operator *=(const int& b)
 {
   twice_value_ *= b;
   return *this;
@@ -356,14 +337,12 @@ inline HalfInt& HalfInt::operator *=(const int& b)
 // nonmember accessor functions
 ////////////////////////////////////////////////////////////////
 
-CXX14_CONSTEXPR
-inline int TwiceValue(const HalfInt& h)
+constexpr inline int TwiceValue(const HalfInt& h)
 {
   return (h.TwiceValue());
 }
 
-CXX14_CONSTEXPR
-inline bool IsInteger(const HalfInt& h)
+constexpr inline bool IsInteger(const HalfInt& h)
 {
   return (h.IsInteger());
 }
@@ -372,44 +351,38 @@ inline bool IsInteger(const HalfInt& h)
 // unary arithmetic operators
 ////////////////////////////////////////////////////////////////
 
-CXX14_CONSTEXPR
-inline HalfInt HalfInt::operator + () const
+constexpr inline HalfInt HalfInt::operator + () const
 {
   return *this;
 };
 
-CXX14_CONSTEXPR
-inline HalfInt HalfInt::operator - () const
+constexpr inline HalfInt HalfInt::operator - () const
 {
   HalfInt negative;
   negative.twice_value_ = -twice_value_;
   return negative;
 };
 
-CXX14_CONSTEXPR
-inline HalfInt& HalfInt::operator ++ ()
+constexpr inline HalfInt& HalfInt::operator ++ ()
 {
   twice_value_ += 2;
   return *this;
 }
 
-CXX14_CONSTEXPR
-inline HalfInt HalfInt::operator ++ (int)
+constexpr inline HalfInt HalfInt::operator ++ (int)
 {
   HalfInt h = *this;
   twice_value_ += 2;
   return h;
 }
 
-CXX14_CONSTEXPR
-inline HalfInt& HalfInt::operator -- ()
+constexpr inline HalfInt& HalfInt::operator -- ()
 {
   twice_value_ -= 2;
   return *this;
 }
 
-CXX14_CONSTEXPR
-inline HalfInt HalfInt::operator -- (int)
+constexpr inline HalfInt HalfInt::operator -- (int)
 {
   HalfInt h = *this;
   twice_value_ -= 2;
@@ -421,32 +394,28 @@ inline HalfInt HalfInt::operator -- (int)
 // binary arithmetic operators
 ////////////////////////////////////////////////////////////////
 
-CXX14_CONSTEXPR
-inline HalfInt operator + (const HalfInt& a, const HalfInt& b)
+constexpr inline HalfInt operator + (const HalfInt& a, const HalfInt& b)
 {
   HalfInt sum(a);
   sum += b;
   return sum;
 }
 
-CXX14_CONSTEXPR
-inline HalfInt operator - (const HalfInt& a, const HalfInt& b)
+constexpr inline HalfInt operator - (const HalfInt& a, const HalfInt& b)
 {
   HalfInt sum(a);
   sum -= b;
   return sum;
 }
 
-CXX14_CONSTEXPR
-inline HalfInt operator * (const HalfInt& a, const int& b)
+constexpr inline HalfInt operator * (const HalfInt& a, const int& b)
 {
   HalfInt product(a);
   product *= b;
   return product;
 }
 
-CXX14_CONSTEXPR
-inline HalfInt operator * (const int& a, const HalfInt& b)
+constexpr inline HalfInt operator * (const int& a, const HalfInt& b)
 {
   HalfInt product(b);
   product *= a;
@@ -457,38 +426,32 @@ inline HalfInt operator * (const int& a, const HalfInt& b)
 // relational operators
 ////////////////////////////////////////////////////////////////
 
-CXX14_CONSTEXPR
-inline bool operator == (const HalfInt& h1, const HalfInt& h2)
+constexpr inline bool operator == (const HalfInt& h1, const HalfInt& h2)
 {
   return h1.TwiceValue() == h2.TwiceValue();
 }
 
-CXX14_CONSTEXPR
-inline bool operator < (const HalfInt& h1, const HalfInt& h2)
+constexpr inline bool operator < (const HalfInt& h1, const HalfInt& h2)
 {
   return h1.TwiceValue() < h2.TwiceValue();
 }
 
-CXX14_CONSTEXPR
-inline bool operator > (const HalfInt& h1, const HalfInt& h2)
+constexpr inline bool operator > (const HalfInt& h1, const HalfInt& h2)
 {
   return !((h1==h2)||(h1<h2));
 }
 
-CXX14_CONSTEXPR
-inline bool operator >= (const HalfInt& h1, const HalfInt& h2)
+constexpr inline bool operator >= (const HalfInt& h1, const HalfInt& h2)
 {
   return !(h1 < h2);
 }
 
-CXX14_CONSTEXPR
-inline bool operator <= (const HalfInt& h1, const HalfInt& h2)
+constexpr inline bool operator <= (const HalfInt& h1, const HalfInt& h2)
 {
   return ((h1 < h2)||(h1 == h2));
 }
 
-CXX14_CONSTEXPR
-inline bool operator != (const HalfInt& h1, const HalfInt& h2)
+constexpr inline bool operator != (const HalfInt& h1, const HalfInt& h2)
 {
   return !(h1 == h2);
 }
@@ -536,14 +499,45 @@ struct std::hash<HalfInt>
 // arithmetic functions
 ////////////////////////////////////////////////////////////////
 
-CXX14_CONSTEXPR
-inline HalfInt abs(const HalfInt& h)
+constexpr inline HalfInt abs(const HalfInt& h)
 // Calculate absolute value.
 {
   if (h.TwiceValue() < 0)
     return -h;
   else
     return h;
+}
+
+template<typename T, std::enable_if_t<std::is_floating_point_v<T>>* = nullptr>
+inline T pow(T x, const HalfInt& j)
+// Calculate x raised to HalfInt power
+{
+  return std::pow(x, static_cast<T>(j));
+}
+
+template<class T>
+std::complex<T> pow(const std::complex<T>& x, const HalfInt& j)
+// Calculate x raised to HalfInt power
+{
+  return std::pow(x, static_cast<T>(j));
+}
+
+inline double ceil(const HalfInt& j)
+// Calculate ceiling of j
+{
+  if (IsInteger(j))
+    return TwiceValue(j)/2.;
+  else
+    return (TwiceValue(j)+1)/2.;
+}
+
+inline double floor(const HalfInt& j)
+// Calculate floor of j
+{
+  if (IsInteger(j))
+    return TwiceValue(j)/2.;
+  else
+    return (TwiceValue(j)-1)/2.;
 }
 
 // angular momentum hat symbol
@@ -578,10 +572,10 @@ double Hat(int j)
 // a bitwise operation (int(sum)&1) or (TwiceValue(sum)&2). This also
 // allows us to make the function `constexpr`.
 
-CXX14_CONSTEXPR inline
+constexpr inline
 int ParitySign(const HalfInt& sum)
 {
-  if (!IsInteger(sum)) throw std::invalid_argument("complex phase encounterd in am::ParitySign");
+  if (!IsInteger(sum)) throw std::invalid_argument("complex phase encountered in am::ParitySign");
 
   //////// simple implementation ////////
   // int remainder = abs(int(sum)) % 2;
@@ -595,7 +589,7 @@ int ParitySign(const HalfInt& sum)
   return sign;
 }
 
-CXX14_CONSTEXPR inline
+constexpr inline
 int ParitySign(int sum)
 {
   int remainder = sum&1;
@@ -612,7 +606,7 @@ int ParitySign(int sum)
 // and is 1 if the phase is imaginary. The second-least-significant
 // bit TwiceValue(sum)&2 is 0 if the phase is positive, and 1 if the
 // phase is negative.
-CXX14_CONSTEXPR inline
+constexpr inline
 std::complex<double> Phase(const HalfInt& sum)
 {
   // (TwiceValue(sum)&1) -> 0 if 2*sum is even, -> 1 if 2*sum is odd

@@ -11,7 +11,7 @@ am_module = Extension(
     '_am',
     sources=['am_wrap.cpp', 'halfint.cpp', 'am.cpp'],
     libraries=['gsl', 'gslcblas', 'm'],
-    extra_compile_args=['-std=c++17', '-g', '-O2']
+    extra_compile_args=['-std=c++17', '-g', '-O2', '-DAM_EXCEPTIONS']
 )
 
 setup (name = 'am',

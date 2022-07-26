@@ -18,3 +18,7 @@ distutils/pip can find GSL, e.g.:
 ```
 % env CFLAGS="-I$GSL_DIR/include -L$GSL_DIR/lib" pip install -v --user .
 ```
+or
+```
+% env CFLAGS="-I$GSL_ROOT/include -L$GSL_ROOT/lib" pip install -v --user .
+```

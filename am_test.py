@@ -1,13 +1,12 @@
 """ Provide Python port of am_test.cpp unit tests.
 
-    TODO (mac, 05/17/20): Finish porting tests.
-
     Language: Python 3
 
     Mark A. Caprio
     University of Notre Dame
 
     05/17/20 (mac): Created.
+    12/04/22 (mac): Continue porting tests.
 
 """
 
@@ -40,6 +39,7 @@ if (__name__=="__main__"):
     # std::cout << std::endl;
     # std::cout << am::ProductAngularMomentumRange(2,HalfInt(3,2)) << std::endl;
     # std::cout << "****" << std::endl;
+    print("am.ProductAngularMomentumRange(2, am.HalfInt(3,2)) = {}".format(am.ProductAngularMomentumRange(2, am.HalfInt(3,2))))
   
     # // angular momentum range arithmetic
     # std::cout << "range intersection" << std::endl;
@@ -59,14 +59,30 @@ if (__name__=="__main__"):
     # // GSL coupling tests
     # std::cout << "Wigner 3-J: Expect 0.276026..." << std::endl;
     # std::cout << am::Wigner3J(2, HalfInt(3,2), HalfInt(5,2), +2, -HalfInt(1,2), -HalfInt(3,2)) << std::endl;
-    # std::cout << "CG: Expect 0.676123..." << std::endl;
+    print("Wigner 3-J: Expect 0.276026...")
+    print("am.Wigner3J(2, am.HalfInt(3,2), am.HalfInt(5,2), +2, -am.HalfInt(1,2), -am.HalfInt(3,2)) = {}".format(am.Wigner3J(2, am.HalfInt(3,2), am.HalfInt(5,2), +2, -am.HalfInt(1,2), -am.HalfInt(3,2))))
+    # std::cout << "Clebsch-Gordan: Expect 0.676123..." << std::endl;
     # std::cout << am::ClebschGordan(2, +2, HalfInt(3,2), -HalfInt(1,2), HalfInt(5,2), +HalfInt(3,2)) << std::endl;
+    print("CG: Expect 0.676123...")
+    print("am.ClebschGordan(2, +2, am.HalfInt(3,2), -am.HalfInt(1,2), am.HalfInt(5,2), +am.HalfInt(3,2)) = {}".format(am.ClebschGordan(2, +2, am.HalfInt(3,2), -am.HalfInt(1,2), am.HalfInt(5,2), +am.HalfInt(3,2))))
     # std::cout << "Wigner 6-J: Expect 0.0757095..." << std::endl;
     # std::cout << am::Wigner6J(2, HalfInt(5,2), HalfInt(9,2), 5, HalfInt(5,2), HalfInt(7,2)) << std::endl;
+    print("Wigner 6-J: Expect 0.0757095...")
+    print("am.Wigner6J(2, am.HalfInt(5,2), am.HalfInt(9,2), 5, am.HalfInt(5,2), am.HalfInt(7,2)) = {}".format(am.Wigner6J(2, am.HalfInt(5,2), am.HalfInt(9,2), 5, am.HalfInt(5,2), am.HalfInt(7,2))))
     # std::cout << "Unitary 6-J: Expect 0.677166..." << std::endl;
     # std::cout << am::Unitary6J(2, HalfInt(5,2), HalfInt(9,2), 5, HalfInt(5,2), HalfInt(7,2)) << std::endl;
+    print("Unitary 6-J: Expect 0.677166...")
+    print("am.Unitary6J(2, am.HalfInt(5,2), am.HalfInt(9,2), 5, am.HalfInt(5,2), am.HalfInt(7,2)) = {}".format(am.Unitary6J(2, am.HalfInt(5,2), am.HalfInt(9,2), 5, am.HalfInt(5,2), am.HalfInt(7,2))))
     # std::cout << "Wigner 9-J: Expect -0.00197657..." << std::endl;
     # std::cout << am::Wigner9J(6,3,7,4,5,3,9,8,10) << std::endl;
+    print("Wigner 9-J: Expect -0.00197657...")
+    print("am.Wigner9J(6, 3, 7, 4, 5, 3, 9, 8, 10) = {}".format(am.Wigner9J(6, 3, 7, 4, 5, 3, 9, 8, 10)))
     # std::cout << "Unitary 9-J: Expect -0.364006..." << std::endl;
     # std::cout << am::Unitary9J(6,3,7,4,5,3,9,8,10) << std::endl;
-    # std::cout << "****" << std::endl;
+    print("Unitary 9-J: Expect -0.364006...")
+    print("am.Unitary9J(6, 3, 7, 4, 5, 3, 9, 8, 10) = {}".format(am.Unitary9J(6, 3, 7, 4, 5, 3, 9, 8, 10)))
+
+    h = am.HalfInt(1, 2)
+    print(am.Wigner9J(h, h, 0, h, h, 0, 0, 0, 0))
+    print(am.Wigner9J(h, h, 0, h, h, 0, 1, 1, 0))
+    print(am.Unitary9J(h, h, 0, h, h, 0, 1, 1, 0))

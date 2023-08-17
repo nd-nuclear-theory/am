@@ -1,37 +1,50 @@
 # am installation guide #
 
-Mark A. Caprio, Patrick J. Fasano  
+Mark A. Caprio  
 Department of Physics, University of Notre Dame
+Patrick J. Fasano  
+Physics Division, Argonne National Laboratory
 
 + 09/07/2020 (mac): Created.
 + 05/31/2023 (mac): Expand and update instructions.
++ 08/17/2023 (pjf): Switch to CMake instructions.
 
 ----------------------------------------------------------------
 
-# 1. Standalone compilation (optional)
+# 1. Standalone compilation and installation (optional)
 
-Standalone compilation is only useful if you are doing testing or development.
-Otherwise, ignore these instructions!
+Configure the project using CMake using:
 
-For standalone compilation, use the `ndmakefile` module, e.g.:
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  % cmake -B build/ .
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  ~~~~~~~~~~~~~~~~
-  % ln -s ../ndmakefile/makefile
-  % ln -s ../ndconfig/config-gnu.mk config.mk
-  % make all
-  ~~~~~~~~~~~~~~~~
+Some supporting modules (`gsl` and `fmt`) must be installed or otherwise be made
+visible to CMake.
 
-Some supporting modules (such as `ndmakefile` and `fmt`) will also need to be
-cloned.  In the `fmt` library, be sure to check out the `submodule` branch.
-
-To run a test code:
+To compile the library itself:
 
   ~~~~~~~~~~~~~~~~
-  % make programs-test
-  % ./am_test
+  % cmake --build build/
   ~~~~~~~~~~~~~~~~
 
-The package also provides CMake support.
+To compile the test codes:
+
+  ~~~~~~~~~~~~~~~~
+  % cmake --build build/ -- tests
+  ~~~~~~~~~~~~~~~~
+
+These test codes can then be run:
+
+  ~~~~~~~~~~~~~~~~
+  % ./build/am_test
+  % ./build/halfint_test
+  ~~~~~~~~~~~~~~~~
+
+To install the library (here with prefix `~/install`):
+  ~~~~~~~~~~~~~~~~
+  % cmake --install build/ --prefix ~/install
+  ~~~~~~~~~~~~~~~~
 
 # 2. Installation as python module
 

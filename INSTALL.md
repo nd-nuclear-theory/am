@@ -1,7 +1,7 @@
 # am installation guide #
 
 Mark A. Caprio  
-Department of Physics, University of Notre Dame
+Department of Physics, University of Notre Dame  
 Patrick J. Fasano  
 Physics Division, Argonne National Laboratory
 

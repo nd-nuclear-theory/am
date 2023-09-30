@@ -8,10 +8,30 @@ Physics Division, Argonne National Laboratory
 + 09/07/2020 (mac): Created.
 + 05/31/2023 (mac): Expand and update instructions.
 + 08/17/2023 (pjf): Switch to CMake instructions.
++ 09/30/2023 (mac): Provide explanation of C++ vs. Python installation.
 
 ----------------------------------------------------------------
 
+This package serves double duty as a C++ library and as a Python module.  As a
+C++ library, this package is usually used as a submodule of a larger project,
+and you do not need to install it at all.  However, if you are doing development
+work on `am`, you may want to set up standalone compilation (see Section 1
+"Standalone compilation and installation").  If you are only interested in using
+this package as a Python module, you can skip to the Python installation
+instructions (see Section 2 "Installation as python module").
+
 # 1. Standalone compilation and installation (optional)
+
+First, some supporting modules (`gsl` and `fmt`) must be installed or otherwise be made
+visible to CMake.  For `fmt`:
+
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  % git clone https://github.com/fmtlib/fmt.git
+  % cd fmt
+  % cmake -B build/ .
+  % cmake --build build/
+  % cd ..
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Configure the project using CMake using:
 
@@ -19,8 +39,13 @@ Configure the project using CMake using:
   % cmake -B build/ .
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Some supporting modules (`gsl` and `fmt`) must be installed or otherwise be made
-visible to CMake.
+However, if you have not installed the dependencies, but only built them, you
+will need to tell CMake where to find the built-but-not-installed libraries:
+
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  % cmake -B build . \
+      -Dfmt_DIR=~/code/fmt/build
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To compile the library itself:
 
@@ -54,15 +79,23 @@ For use as a Python module, install using distutils/pip:
    % pip install --user .
    ~~~~~~~~~~~~~~~~
 
-However, if GSL is not installed systemwide (e.g., in `/usr/local`), note that
-you may first need to set `CFLAGS` and/or `LDFLAGS` so that distutils/pip can
-find GSL, e.g.:
+However, this installation requires compiling C++ code.  If you are on an HPC
+cluster, make sure you have loaded the appropriate modules for whatever compiler
+you wish to use.
+
+Moreover, the code requires the GSL library.  If GSL is not installed systemwide
+(e.g., in `/usr/local`), compilation will fail, with an error such as `fatal
+error: gsl/gsl_sf_coupling.h: No such file or directory`.  If you are on an HPC
+cluster, you may need to load an appropriate module).  Then you will need to set
+`CFLAGS` and/or `LDFLAGS` so that distutils/pip can find GSL, wherever it
+happens to be installed, e.g.:
 
    ~~~~~~~~~~~~~~~~
    % env CFLAGS="-I$GSL_DIR/include -L$GSL_DIR/lib" pip install -v --user .
    ~~~~~~~~~~~~~~~~
 
-If installation was successful, you should be able to import the `am` module without error:
+If installation was successful, you should then be able to import the `am`
+module, from within your Python interpreter, without error:
 
    ~~~~~~~~~~~~~~~~
    >>> import am

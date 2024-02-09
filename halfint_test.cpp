@@ -11,6 +11,7 @@
 #include <algorithm>
 
 #include "fmt/format.h"
+#include "fmt/ranges.h"
 
 #include "halfint.h"
 #include "halfint_fmt.h"
@@ -50,6 +51,13 @@ int main(int argc, char **argv)
           j, j_f, j_conv, j == j_conv
         ) << std::endl;
   }
+  std::cout << "****" << std::endl;
+
+  // fmt formatting
+  std::cout << fmt::format("{}", 1.5_hi) << std::endl;;
+  std::cout << fmt::format("{}", std::tuple(0.5_hi, 1.5_hi, 2.5_hi)) << std::endl;
+  const std::tuple t{1.5_hi, 2, 2.5_hi};
+  std::cout << fmt::format("{}", t) << std::endl;
   std::cout << "****" << std::endl;
 
   // should cause compiler failure:

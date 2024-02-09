@@ -41,7 +41,7 @@ struct formatter<HalfInt> {
   }
 
   template <typename FormatContext>
-  FMT_CONSTEXPR auto format(const HalfInt& h, FormatContext& ctx) -> decltype(ctx.out()) {
+  FMT_CONSTEXPR auto format(const HalfInt& h, FormatContext& ctx) const -> decltype(ctx.out()) {
     if (presentation == 'f')
     {
       return format_to(ctx.out(), "{:.1f}", float(h));

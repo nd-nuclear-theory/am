@@ -73,7 +73,7 @@ namespace am {
   }
 
   CXX14_CONSTEXPR inline
-  double dim(int j)
+  int dim(int j)
   {
     return 2*j+1;
   }

@@ -36,6 +36,8 @@
 #define AM_H_
 
 #include <algorithm>
+#include <utility>
+#include <vector>
 
 #include "halfint.h"
 
@@ -94,11 +96,43 @@ namespace am {
     return triangular && proper_integrity;
   }
 
-  HalfInt::vector ProductAngularMomenta(const HalfInt& j1, const HalfInt& j2);
-  // Create a vector of angular momenta that j1 and j2 can be coupled to under the triangle inequality.
-
+  template<
+      typename T, typename U,
+      typename R = typename std::common_type<T,U>::type,
+      std::enable_if_t<
+          std::is_constructible<HalfInt, R>::value
+          || std::is_convertible<R, HalfInt>::value
+        >* = nullptr
+    >
   CXX14_CONSTEXPR inline
-  HalfInt::pair ProductAngularMomentumRange(const HalfInt& j1, const HalfInt& j2)
+  std::vector<R> ProductAngularMomenta(const T j1, const U j2)
+  // Create a vector of angular momenta that j1 and j2 can be coupled to under the triangle inequality.
+  {
+    // find triangle range
+    R j_min = abs(static_cast<R>(j1)-static_cast<R>(j2));
+    R j_max = static_cast<R>(j1)+static_cast<R>(j2);
+
+    // allocate storage for results
+    std::vector<R> result;
+    int entries = int(j_max-j_min)+1;
+    result.reserve(entries);
+
+    // store results
+    for (R j = j_min; j <= j_max; ++j)
+      result.push_back(j);
+    return result;
+  }
+
+  template<
+      typename T, typename U,
+      typename R = typename std::common_type<T,U>::type,
+      std::enable_if_t<
+          std::is_constructible<HalfInt, R>::value
+          || std::is_convertible<R, HalfInt>::value
+        >* = nullptr
+    >
+  CXX14_CONSTEXPR inline
+  std::pair<R,R> ProductAngularMomentumRange(const T j1, const U j2)
   // Generate range of angular momenta allowed by triangle inequality.
   //
   // Arguments:
@@ -107,11 +141,21 @@ namespace am {
   // Returns:
   //   (HalfInt::pair) :  angular momentum range
   {
-    return HalfInt::pair(abs(j1-j2),j1+j2);
+    return std::pair<R,R>(abs(j1-j2),j1+j2);
   }
 
+  template<
+      typename T, typename U,
+      typename R = typename std::common_type<T,U>::type,
+      std::enable_if_t<
+          std::is_constructible<HalfInt, R>::value
+          || std::is_convertible<R, HalfInt>::value
+        >* = nullptr
+    >
   CXX14_CONSTEXPR inline
-  HalfInt::pair AngularMomentumRangeIntersection(const HalfInt::pair& r1, const HalfInt::pair& r2)
+  std::pair<R,R> AngularMomentumRangeIntersection(
+      const std::pair<T,T>& r1, const std::pair<U,U>& r2
+    )
   // Obtain intersection of two angular momentum ranges.
   //
   // Lower bound is max of lower bounds, and upper bound is min of upper bounds.
@@ -122,19 +166,26 @@ namespace am {
   // Returns:
   //   (HalfInt::pair) :  angular momentum range
   {
-    return HalfInt::pair(std::max(r1.first,r2.first),std::min(r1.second,r2.second));
+    return std::pair<R,R>(std::max(r1.first,r2.first),std::min(r1.second,r2.second));
   }
 
-  template <typename... Types>
-  inline
-    HalfInt::pair AngularMomentumRangeIntersection(
-        const HalfInt::pair& r1, const Types&... args
-      )
+  template <
+      typename T, typename... Args,
+      typename R = T,
+      std::enable_if_t<
+          std::is_constructible<HalfInt, R>::value
+          || std::is_convertible<R, HalfInt>::value
+        >* = nullptr
+    >
+  CXX14_CONSTEXPR inline
+  std::pair<R,R> AngularMomentumRangeIntersection(
+      const std::pair<T,T>& r1, Args&&... args
+    )
   // Recursive extension of AngularMomentumRangeIntersection to
   // arbitrary number of arguments...
   {
-    HalfInt::pair r = am::AngularMomentumRangeIntersection(args...);
-    return am::AngularMomentumRangeIntersection(r1,r);
+    std::pair<R,R> r = AngularMomentumRangeIntersection(std::forward<Args>(args)...);
+    return AngularMomentumRangeIntersection(r1,r);
   }
 
   // Debugging: This fails...  Apparently need template?  To check

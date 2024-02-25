@@ -41,8 +41,8 @@ endif()
 # ##############################################################################
 
 # define units
-set(am_UNITS_H wigner_gsl wigner_gsl_twice racah_reduction rme)
-set(am_UNITS_H_CPP am halfint)
+set(am_UNITS_H wigner_gsl wigner_gsl_twice racah_reduction rme am)
+set(am_UNITS_H_CPP halfint)
 if(TARGET fmt::fmt)
   list(APPEND am_UNITS_H halfint_fmt)
   message(STATUS "building am with fmt support")

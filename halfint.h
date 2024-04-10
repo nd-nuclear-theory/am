@@ -90,6 +90,7 @@
     - Require C++17.
   04/10/24 (pjf):
     - Inline halfint.cpp to make library pure header.
+    - Add min(), max(), and minmax() functions for ADL.
 ****************************************************************/
 
 #ifndef HALFINT_H_
@@ -97,6 +98,7 @@
 
 #include <cmath> // for sqrt
 #include <cstdlib>
+#include <algorithm>
 #include <complex>
 #include <functional>  // for hash
 #include <iostream>
@@ -511,6 +513,51 @@ struct std::hash<HalfInt>
 ////////////////////////////////////////////////////////////////
 // arithmetic functions
 ////////////////////////////////////////////////////////////////
+
+template<
+    typename... Ts,
+    typename R = typename std::common_type_t<Ts...>,
+    std::enable_if_t<
+        (std::is_same_v<typename std::decay_t<Ts>,HalfInt> || ...)
+        && (std::is_constructible_v<HalfInt, R>
+        || std::is_convertible_v<R, HalfInt>)
+      >* = nullptr
+  >
+constexpr inline
+R min(const Ts&... t)
+{
+  return std::min(static_cast<R>(t)...);
+}
+
+template<
+    typename... Ts,
+    typename R = typename std::common_type_t<Ts...>,
+    std::enable_if_t<
+        (std::is_same_v<typename std::decay_t<Ts>,HalfInt> || ...)
+        && (std::is_constructible_v<HalfInt, R>
+        || std::is_convertible_v<R, HalfInt>)
+      >* = nullptr
+  >
+constexpr inline
+R max(const Ts&... t)
+{
+  return std::max(static_cast<R>(t)...);
+}
+
+template<
+    typename... Ts,
+    typename R = typename std::common_type_t<Ts...>,
+    std::enable_if_t<
+        (std::is_same_v<typename std::decay_t<Ts>,HalfInt> || ...)
+        && (std::is_constructible_v<HalfInt, R>
+        || std::is_convertible_v<R, HalfInt>)
+      >* = nullptr
+  >
+constexpr inline
+std::pair<R,R> minmax(const Ts&... t)
+{
+  return std::minmax(static_cast<R>(t)...);
+}
 
 constexpr inline HalfInt abs(const HalfInt& h)
 // Calculate absolute value.

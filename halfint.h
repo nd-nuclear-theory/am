@@ -88,6 +88,8 @@
   03/07/22 (pjf):
     - Add pow(), ceil(), and floor().
     - Require C++17.
+  04/10/24 (pjf):
+    - Inline halfint.cpp to make library pure header.
 ****************************************************************/
 
 #ifndef HALFINT_H_
@@ -99,6 +101,7 @@
 #include <functional>  // for hash
 #include <iostream>
 #include <limits>
+#include <sstream>
 #include <string>
 #include <stdexcept>
 #include <type_traits>
@@ -240,7 +243,17 @@ class HalfInt
   // string conversion
   ////////////////////////////////////////////////////////////////
 
-  std::string Str() const;
+  inline std::string Str() const
+  {
+    std::ostringstream ss;
+
+    if (IsInteger())
+      ss << twice_value_/2;
+    else
+      ss << twice_value_ << "/2";
+
+    return ss.str();
+  }
 
   ////////////////////////////////////////////////////////////////
   // data
@@ -622,9 +635,15 @@ std::complex<double> Phase(const HalfInt& sum)
 
 // textual output to stream
 // EX: HalfInt(3) or HalfInt(6,2) -> "3", HalfInt(3,2) -> "3/2"
-std::ostream& operator<< (std::ostream&, const HalfInt&);
+inline std::ostream& operator<< (std::ostream& os, const HalfInt& h)
+{
+  return os << h.Str();
+}
 
-std::ostream& operator<< (std::ostream&, const HalfInt::pair&);
+inline std::ostream& operator<< (std::ostream& os, const HalfInt::pair& r)
+{
+  return os << "(" << r.first << "," << r.second << ")";
+}
 
 ////////////////////////////////////////////////////////////////
 // numeric limits

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.23)
 
 # Determine if am is built as a subproject (using add_subdirectory) or if it is
 # the master project.
@@ -41,28 +41,25 @@ endif()
 # ##############################################################################
 
 # define units
-set(am_UNITS_H wigner_gsl wigner_gsl_twice racah_reduction rme am)
-set(am_UNITS_H_CPP halfint)
+set(am_UNITS_H halfint wigner_gsl wigner_gsl_twice racah_reduction rme am)
 if(TARGET fmt::fmt)
   list(APPEND am_UNITS_H halfint_fmt)
   message(STATUS "building am with fmt support")
 endif()
 
 # construct lists of headers and sources
-set(am_HEADERS ${am_UNITS_H} ${am_UNITS_H_CPP})
+set(am_HEADERS ${am_UNITS_H})
 list(TRANSFORM am_HEADERS APPEND .h)
-set(am_SOURCES ${am_UNITS_H_CPP})
-list(TRANSFORM am_SOURCES APPEND .cpp)
 
 # define am library and add source files
-add_library(am ${am_SOURCES})
+add_library(am INTERFACE)
+target_sources(
+  am INTERFACE
+  FILE_SET HEADERS
+  TYPE HEADERS
+  FILES ${am_HEADERS}
+)
 add_library(am::am ALIAS am)
-foreach(header IN LISTS am_HEADERS)
-  target_sources(
-    am INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${header}>
-                 $<INSTALL_INTERFACE:include/am/${header}>
-  )
-endforeach()
 
 # ##############################################################################
 # enable optional features
@@ -76,25 +73,15 @@ endif()
 # link dependencies
 # ##############################################################################
 
-target_link_libraries(am PUBLIC m GSL::gsl)
+target_link_libraries(am INTERFACE m GSL::gsl)
 if(TARGET fmt::fmt)
   target_link_libraries(am INTERFACE fmt::fmt)
 endif()
 
 # ##############################################################################
-# define include directory
-# ##############################################################################
-cmake_path(GET am_SOURCE_DIR PARENT_PATH am_PARENT_DIR)
-target_include_directories(
-  am INTERFACE $<BUILD_INTERFACE:${am_PARENT_DIR}> $<INSTALL_INTERFACE:include>
-)
-
-# ##############################################################################
 # define installation rules
 # ##############################################################################
-install(TARGETS am EXPORT amTargets)
-# if(TARGET fmt::fmt) install(TARGETS fmt::fmt EXPORT amTargets ) endif()
-install(FILES ${am_HEADERS} DESTINATION include/am)
+install(TARGETS am EXPORT amTargets FILE_SET HEADERS DESTINATION include/am)
 
 install(
   EXPORT amTargets

@@ -235,3 +235,36 @@ PyObject* HalfInt_dispatch_mul(PyObject* a, PyObject* b) {
 %include "racah_reduction.h"
 %include "rme.h"
 
+////////////////////////////////////////////////////////////////
+// Instantiate am.h template functions
+////////////////////////////////////////////////////////////////
+
+%extend HalfInt {
+  %template(HalfInt) HalfInt<int,nullptr>;
+  %template(HalfInt) HalfInt<int,int,nullptr,nullptr>;
+}
+
+// instantiate STL templates for return types
+%template(pairi) std::pair<int,int>;
+%template(vectori) std::vector<int>;
+namespace am {
+%template(ProductAngularMomenta) ProductAngularMomenta<HalfInt,HalfInt,HalfInt,nullptr>;
+%template(ProductAngularMomenta) ProductAngularMomenta<HalfInt,int,HalfInt,nullptr>;
+%template(ProductAngularMomenta) ProductAngularMomenta<int,HalfInt,HalfInt,nullptr>;
+%template(ProductAngularMomenta) ProductAngularMomenta<int,int,int,nullptr>;
+
+%template(ProductAngularMomentumRange) ProductAngularMomentumRange<HalfInt,HalfInt,HalfInt,nullptr>;
+%template(ProductAngularMomentumRange) ProductAngularMomentumRange<HalfInt,int,HalfInt,nullptr>;
+%template(ProductAngularMomentumRange) ProductAngularMomentumRange<int,HalfInt,HalfInt,nullptr>;
+%template(ProductAngularMomentumRange) ProductAngularMomentumRange<int,int,int,nullptr>;
+
+%template(AngularMomentumRangeIntersection)
+AngularMomentumRangeIntersection<int,int,int,nullptr>;
+%template(AngularMomentumRangeIntersection)
+AngularMomentumRangeIntersection<HalfInt,int,HalfInt,nullptr>;
+%template(AngularMomentumRangeIntersection)
+AngularMomentumRangeIntersection<int,HalfInt,HalfInt,nullptr>;
+%template(AngularMomentumRangeIntersection)
+AngularMomentumRangeIntersection<HalfInt,HalfInt,HalfInt,nullptr>;
+};
+

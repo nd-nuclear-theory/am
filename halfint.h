@@ -518,8 +518,10 @@ template<
     typename... Ts,
     typename R = typename std::common_type_t<Ts...>,
     std::enable_if_t<
-        (std::is_same_v<typename std::decay_t<Ts>,HalfInt> || ...)
-        && (std::is_constructible_v<HalfInt, R>
+#ifndef SWIG
+        (std::is_same_v<typename std::decay_t<Ts>,HalfInt> || ...) &&
+#endif
+        (std::is_constructible_v<HalfInt, R>
         || std::is_convertible_v<R, HalfInt>)
       >* = nullptr
   >
@@ -533,8 +535,10 @@ template<
     typename... Ts,
     typename R = typename std::common_type_t<Ts...>,
     std::enable_if_t<
-        (std::is_same_v<typename std::decay_t<Ts>,HalfInt> || ...)
-        && (std::is_constructible_v<HalfInt, R>
+#ifndef SWIG
+        (std::is_same_v<typename std::decay_t<Ts>,HalfInt> || ...) &&
+#endif
+        (std::is_constructible_v<HalfInt, R>
         || std::is_convertible_v<R, HalfInt>)
       >* = nullptr
   >
@@ -548,8 +552,10 @@ template<
     typename... Ts,
     typename R = typename std::common_type_t<Ts...>,
     std::enable_if_t<
-        (std::is_same_v<typename std::decay_t<Ts>,HalfInt> || ...)
-        && (std::is_constructible_v<HalfInt, R>
+#ifndef SWIG
+        (std::is_same_v<typename std::decay_t<Ts>,HalfInt> || ...) &&
+#endif
+        (std::is_constructible_v<HalfInt, R>
         || std::is_convertible_v<R, HalfInt>)
       >* = nullptr
   >

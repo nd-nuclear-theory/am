@@ -29,6 +29,9 @@
   + 07/05/16 (mac): Extend AngularMomentumRangeIntersection to arbitrary number
     of arguments.
   + 04/10/20 (pjf): Make operations `constexpr` when using C++14.
+  + 04/10/24 (pjf):
+    - Require C++17.
+    - Fix templatized versions of product functions.
 
 ****************************************************************/
 
@@ -40,16 +43,6 @@
 #include <vector>
 
 #include "halfint.h"
-
-// constexpr is not flexible enough in C++11; only enable it if
-// compiling with C++14 or later
-#ifndef CXX14_CONSTEXPR
-  #if __cplusplus >= 201402L
-    #define CXX14_CONSTEXPR constexpr
-  #else
-    #define CXX14_CONSTEXPR
-  #endif
-#endif
 
 namespace am {
 
@@ -66,13 +59,13 @@ namespace am {
   // Should Hat be moved from halfint.h (and global namespace) to here
   // (and am namespace), as well?
 
-  CXX14_CONSTEXPR inline
+  constexpr inline
   int dim(const HalfInt& j)
   {
     return TwiceValue(j)+1;
   }
 
-  CXX14_CONSTEXPR inline
+  constexpr inline
   int dim(int j)
   {
     return 2*j+1;
@@ -83,7 +76,7 @@ namespace am {
   // triangle inequality and coupling
   ////////////////////////////////////////////////////////////////
 
-  CXX14_CONSTEXPR inline
+  constexpr inline
   bool AllowedTriangle(const HalfInt& h1, const HalfInt& h2, const HalfInt& h3)
   // Test if three HalfInts are coupled legally, i.e., they form a closed triangle.
   //
@@ -98,16 +91,17 @@ namespace am {
 
   template<
       typename T, typename U,
-      typename R = typename std::common_type<T,U>::type,
+      typename R = typename std::common_type_t<T,U>,
       std::enable_if_t<
-          std::is_constructible<HalfInt, R>::value
-          || std::is_convertible<R, HalfInt>::value
+          std::is_constructible_v<HalfInt, R>
+          || std::is_convertible_v<R, HalfInt>
         >* = nullptr
     >
-  CXX14_CONSTEXPR inline
+  constexpr inline
   std::vector<R> ProductAngularMomenta(const T j1, const U j2)
   // Create a vector of angular momenta that j1 and j2 can be coupled to under the triangle inequality.
   {
+    using std::abs;
     // find triangle range
     R j_min = abs(static_cast<R>(j1)-static_cast<R>(j2));
     R j_max = static_cast<R>(j1)+static_cast<R>(j2);
@@ -125,13 +119,13 @@ namespace am {
 
   template<
       typename T, typename U,
-      typename R = typename std::common_type<T,U>::type,
+      typename R = typename std::common_type_t<T,U>,
       std::enable_if_t<
-          std::is_constructible<HalfInt, R>::value
-          || std::is_convertible<R, HalfInt>::value
+          std::is_constructible_v<HalfInt, R>
+          || std::is_convertible_v<R, HalfInt>
         >* = nullptr
     >
-  CXX14_CONSTEXPR inline
+  constexpr inline
   std::pair<R,R> ProductAngularMomentumRange(const T j1, const U j2)
   // Generate range of angular momenta allowed by triangle inequality.
   //
@@ -141,18 +135,19 @@ namespace am {
   // Returns:
   //   (HalfInt::pair) :  angular momentum range
   {
+    using std::abs;
     return std::pair<R,R>(abs(j1-j2),j1+j2);
   }
 
   template<
       typename T, typename U,
-      typename R = typename std::common_type<T,U>::type,
+      typename R = typename std::common_type_t<T,U>,
       std::enable_if_t<
-          std::is_constructible<HalfInt, R>::value
-          || std::is_convertible<R, HalfInt>::value
+          std::is_constructible_v<HalfInt, R>
+          || std::is_convertible_v<R, HalfInt>
         >* = nullptr
     >
-  CXX14_CONSTEXPR inline
+  constexpr inline
   std::pair<R,R> AngularMomentumRangeIntersection(
       const std::pair<T,T>& r1, const std::pair<U,U>& r2
     )
@@ -166,26 +161,28 @@ namespace am {
   // Returns:
   //   (HalfInt::pair) :  angular momentum range
   {
-    return std::pair<R,R>(std::max(r1.first,r2.first),std::min(r1.second,r2.second));
+    using std::min;
+    using std::max;
+    return std::pair<R,R>(max(r1.first,r2.first),min(r1.second,r2.second));
   }
 
-  template <
-      typename T, typename... Args,
-      typename R = T,
+  template<
+      typename T, typename... UU,
+      typename R = typename std::common_type_t<T,UU...>,
       std::enable_if_t<
-          std::is_constructible<HalfInt, R>::value
-          || std::is_convertible<R, HalfInt>::value
+          std::is_constructible_v<HalfInt, R>
+          || std::is_convertible_v<R, HalfInt>
         >* = nullptr,
-      std::enable_if_t<(sizeof...(Args) > 1)>* = nullptr
+      std::enable_if_t<(sizeof...(UU) > 1)>* = nullptr
     >
-  CXX14_CONSTEXPR inline
+  constexpr inline
   std::pair<R,R> AngularMomentumRangeIntersection(
-      const std::pair<T,T>& r1, Args&&... args
+      const std::pair<T,T>& r1, const std::pair<UU,UU>&... rr
     )
   // Recursive extension of AngularMomentumRangeIntersection to
   // arbitrary number of arguments...
   {
-    std::pair<R,R> r = AngularMomentumRangeIntersection(std::forward<Args>(args)...);
+    auto r = AngularMomentumRangeIntersection(rr...);
     return AngularMomentumRangeIntersection(r1,r);
   }
 

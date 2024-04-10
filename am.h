@@ -175,7 +175,8 @@ namespace am {
       std::enable_if_t<
           std::is_constructible<HalfInt, R>::value
           || std::is_convertible<R, HalfInt>::value
-        >* = nullptr
+        >* = nullptr,
+      std::enable_if_t<(sizeof...(Args) > 1)>* = nullptr
     >
   CXX14_CONSTEXPR inline
   std::pair<R,R> AngularMomentumRangeIntersection(

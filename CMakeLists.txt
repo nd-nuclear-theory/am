@@ -81,13 +81,20 @@ endif()
 # ##############################################################################
 # define installation rules
 # ##############################################################################
-install(TARGETS am EXPORT amTargets FILE_SET HEADERS DESTINATION include/am)
+include(GNUInstallDirs)
+
+install(
+  TARGETS am
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  EXPORT amTargets
+  FILE_SET HEADERS DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/am
+)
 
 install(
   EXPORT amTargets
   NAMESPACE am::
   FILE amTargets.cmake
-  DESTINATION lib/cmake/am
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/am
 )
 
 include(CMakePackageConfigHelpers)
@@ -95,7 +102,7 @@ include(CMakePackageConfigHelpers)
 configure_package_config_file(
   ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
   "${CMAKE_CURRENT_BINARY_DIR}/amConfig.cmake"
-  INSTALL_DESTINATION "lib/cmake/am"
+  INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/am"
   NO_SET_AND_CHECK_MACRO NO_CHECK_REQUIRED_COMPONENTS_MACRO
 )
 # generate the version file for the config file
@@ -108,7 +115,7 @@ write_basic_package_version_file(
 # install the configuration file
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/amConfig.cmake
               ${CMAKE_CURRENT_BINARY_DIR}/amConfigVersion.cmake
-        DESTINATION lib/cmake/am
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/am
 )
 
 export(

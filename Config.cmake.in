@@ -1,13 +1,13 @@
 @PACKAGE_INIT@
 
 include(CMakeFindDependencyMacro)
-include ( "${CMAKE_CURRENT_LIST_DIR}/amTargets.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@Targets.cmake")
 
 get_target_property(
-  am_INTERFACE_LINK_LIBRARIES am::am INTERFACE_LINK_LIBRARIES
+  @PROJECT_NAME@_INTERFACE_LINK_LIBRARIES @PROJECT_NAME@::@PROJECT_NAME@ INTERFACE_LINK_LIBRARIES
 )
 
 find_dependency(GSL)
-if(fmt::fmt IN_LIST am_INTERFACE_LINK_LIBRARIES)
+if(fmt::fmt IN_LIST @PROJECT_NAME@_INTERFACE_LINK_LIBRARIES)
   find_dependency(fmt)
 endif()

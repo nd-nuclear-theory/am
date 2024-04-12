@@ -37,45 +37,47 @@ if(NOT TARGET GSL::gsl)
 endif()
 
 # ##############################################################################
-# define am headers and sources
+# define headers and sources
 # ##############################################################################
 
 # define units
-set(am_UNITS_H halfint wigner_gsl wigner_gsl_twice racah_reduction rme am)
+set(${PROJECT_NAME}_UNITS_H halfint wigner_gsl wigner_gsl_twice racah_reduction rme am)
 if(TARGET fmt::fmt)
-  list(APPEND am_UNITS_H halfint_fmt)
+  list(APPEND ${PROJECT_NAME}_UNITS_H halfint_fmt)
   message(STATUS "building am with fmt support")
 endif()
 
 # construct lists of headers and sources
-set(am_HEADERS ${am_UNITS_H})
-list(TRANSFORM am_HEADERS APPEND .h)
+set(${PROJECT_NAME}_HEADERS ${${PROJECT_NAME}_UNITS_H})
+list(TRANSFORM ${PROJECT_NAME}_HEADERS APPEND .h)
+cmake_path(GET CMAKE_CURRENT_SOURCE_DIR PARENT_PATH parent_path)
 
-# define am library and add source files
-add_library(am INTERFACE)
+# define library and add source files
+add_library(${PROJECT_NAME} INTERFACE)
 target_sources(
-  am INTERFACE
+  ${PROJECT_NAME} INTERFACE
   FILE_SET HEADERS
   TYPE HEADERS
-  FILES ${am_HEADERS}
+  BASE_DIRS "${parent_dir}"
+  FILES ${${PROJECT_NAME}_HEADERS}
 )
-add_library(am::am ALIAS am)
+add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 # ##############################################################################
 # enable optional features
 # ##############################################################################
 
 if(AM_ENABLE_EXCEPTIONS)
-  target_compile_definitions(am PUBLIC AM_EXCEPTIONS)
+  target_compile_definitions(${PROJECT_NAME} PUBLIC AM_EXCEPTIONS)
 endif()
 
 # ##############################################################################
 # link dependencies
 # ##############################################################################
 
-target_link_libraries(am INTERFACE m GSL::gsl)
+target_link_libraries(${PROJECT_NAME} INTERFACE m GSL::gsl)
 if(TARGET fmt::fmt)
-  target_link_libraries(am INTERFACE fmt::fmt)
+  target_link_libraries(${PROJECT_NAME} INTERFACE fmt::fmt)
 endif()
 
 # ##############################################################################
@@ -84,60 +86,59 @@ endif()
 include(GNUInstallDirs)
 
 install(
-  TARGETS am
-  DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  EXPORT amTargets
-  FILE_SET HEADERS DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/am
+  TARGETS ${PROJECT_NAME}
+  EXPORT ${PROJECT_NAME}Targets
+  FILE_SET HEADERS
 )
 
 install(
-  EXPORT amTargets
-  NAMESPACE am::
-  FILE amTargets.cmake
-  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/am
+  EXPORT ${PROJECT_NAME}Targets
+  NAMESPACE ${PROJECT_NAME}::
+  FILE ${PROJECT_NAME}Targets.cmake
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
 )
 
 include(CMakePackageConfigHelpers)
 # generate the config file that is includes the exports
 configure_package_config_file(
   ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
-  "${CMAKE_CURRENT_BINARY_DIR}/amConfig.cmake"
-  INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/am"
+  "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+  INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
   NO_SET_AND_CHECK_MACRO NO_CHECK_REQUIRED_COMPONENTS_MACRO
 )
 # generate the version file for the config file
 write_basic_package_version_file(
-  "${CMAKE_CURRENT_BINARY_DIR}/amConfigVersion.cmake"
-  VERSION "${am_VERSION_MAJOR}.${am_VERSION_MINOR}"
+  "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+  VERSION "${${PROJECT_NAME}_VERSION_MAJOR}.${${PROJECT_NAME}_VERSION_MINOR}"
   COMPATIBILITY AnyNewerVersion
 )
 
 # install the configuration file
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/amConfig.cmake
-              ${CMAKE_CURRENT_BINARY_DIR}/amConfigVersion.cmake
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/am
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+              ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
 )
 
 export(
-  EXPORT amTargets
-  NAMESPACE am::
-  FILE "${CMAKE_CURRENT_BINARY_DIR}/amTargets.cmake"
+  EXPORT ${PROJECT_NAME}Targets
+  NAMESPACE ${PROJECT_NAME}::
+  FILE "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Targets.cmake"
 )
 
 # ##############################################################################
 # define tests
 # ##############################################################################
 
-set(am_TEST_NAMES halfint_test am_test)
+set(${PROJECT_NAME}_UNITS_TEST halfint_test ${PROJECT_NAME}_test)
 
-add_custom_target(am_tests)
-foreach(test_name IN LISTS am_TEST_NAMES)
+add_custom_target(${PROJECT_NAME}_tests)
+foreach(test_name IN LISTS ${PROJECT_NAME}_UNITS_TEST)
   add_executable(${test_name} EXCLUDE_FROM_ALL ${test_name}.cpp)
-  target_link_libraries(${test_name} am::am)
-  add_dependencies(am_tests ${test_name})
+  target_link_libraries(${test_name} ${PROJECT_NAME}::${PROJECT_NAME})
+  add_dependencies(${PROJECT_NAME}_tests ${test_name})
 endforeach()
 
 if(AM_MASTER_PROJECT)
   add_custom_target(tests)
-  add_dependencies(tests am_tests)
+  add_dependencies(tests ${PROJECT_NAME}_tests)
 endif()

@@ -47,11 +47,11 @@
 %{
 #define SWIG_FILE_WITH_INIT
 #include <sstream>
-#include "halfint.h"
-#include "am.h"
-#include "wigner_gsl.h"
-#include "racah_reduction.h"
-#include "rme.h"
+#include "am/halfint.h"
+#include "am/am.h"
+#include "am/wigner_gsl.h"
+#include "am/racah_reduction.h"
+#include "am/rme.h"
 %}
 
 // ignore global am constants
@@ -229,11 +229,11 @@ PyObject* HalfInt_dispatch_mul(PyObject* a, PyObject* b) {
 // Include header files for am, for parsing by SWIG
 ////////////////////////////////////////////////////////////////
 
-%include "halfint.h"
-%include "am.h"
-%include "wigner_gsl.h"
-%include "racah_reduction.h"
-%include "rme.h"
+%include "am/halfint.h"
+%include "am/am.h"
+%include "am/wigner_gsl.h"
+%include "am/racah_reduction.h"
+%include "am/rme.h"
 
 ////////////////////////////////////////////////////////////////
 // Instantiate am.h template functions

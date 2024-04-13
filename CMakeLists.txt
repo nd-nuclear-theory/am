@@ -49,8 +49,8 @@ endif()
 
 # construct lists of headers and sources
 set(${PROJECT_NAME}_HEADERS ${${PROJECT_NAME}_UNITS_H})
+list(TRANSFORM ${PROJECT_NAME}_HEADERS PREPEND ${PROJECT_NAME}/)
 list(TRANSFORM ${PROJECT_NAME}_HEADERS APPEND .h)
-cmake_path(GET CMAKE_CURRENT_SOURCE_DIR PARENT_PATH parent_path)
 
 # define library and add source files
 add_library(${PROJECT_NAME} INTERFACE)
@@ -58,7 +58,6 @@ target_sources(
   ${PROJECT_NAME} INTERFACE
   FILE_SET HEADERS
   TYPE HEADERS
-  BASE_DIRS "${parent_dir}"
   FILES ${${PROJECT_NAME}_HEADERS}
 )
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
@@ -133,7 +132,7 @@ set(${PROJECT_NAME}_UNITS_TEST halfint_test ${PROJECT_NAME}_test)
 
 add_custom_target(${PROJECT_NAME}_tests)
 foreach(test_name IN LISTS ${PROJECT_NAME}_UNITS_TEST)
-  add_executable(${test_name} EXCLUDE_FROM_ALL ${test_name}.cpp)
+  add_executable(${test_name} EXCLUDE_FROM_ALL test/${test_name}.cpp)
   target_link_libraries(${test_name} ${PROJECT_NAME}::${PROJECT_NAME})
   add_dependencies(${PROJECT_NAME}_tests ${test_name})
 endforeach()

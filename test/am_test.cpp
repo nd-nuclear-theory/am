@@ -9,9 +9,9 @@
 #include <iostream>
 #include <vector>
 
-#include "am.h"
-#include "halfint.h"
-#include "wigner_gsl.h"
+#include "am/am.h"
+#include "am/halfint.h"
+#include "am/wigner_gsl.h"
 
 int main(int argc, char **argv)
 {

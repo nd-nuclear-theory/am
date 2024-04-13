@@ -4630,11 +4630,11 @@ SWIG_AsVal_ptrdiff_t (PyObject * obj, ptrdiff_t *val)
 
 #define SWIG_FILE_WITH_INIT
 #include <sstream>
-#include "halfint.h"
-#include "am.h"
-#include "wigner_gsl.h"
-#include "racah_reduction.h"
-#include "rme.h"
+#include "am/halfint.h"
+#include "am/am.h"
+#include "am/wigner_gsl.h"
+#include "am/racah_reduction.h"
+#include "am/rme.h"
 
 
 extern "C" {

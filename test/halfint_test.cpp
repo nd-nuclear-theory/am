@@ -13,8 +13,8 @@
 #include "fmt/format.h"
 #include "fmt/ranges.h"
 
-#include "halfint.h"
-#include "halfint_fmt.h"
+#include "am/halfint.h"
+#include "am/halfint_fmt.h"
 
 int main(int argc, char **argv)
 {

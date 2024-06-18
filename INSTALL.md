@@ -39,7 +39,7 @@ submodule.
   % cd ~/code
   ~~~~~~~~~~~~~~~~
 
-  Clone the `mfdnres` repository.
+  Clone the `am` repository.
 
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   % git clone https://github.com/nd-nuclear-theory/am.git
@@ -50,9 +50,12 @@ submodule.
 For use as a Python module, install using distutils/pip:
 
    ~~~~~~~~~~~~~~~~
-   % pip install --user .
+   % python3 -m pip install --user .
    ~~~~~~~~~~~~~~~~
 
+(If you are actively developing the `am` code, you may also want to pass the
+`--editable` flag to `pip`.)
+  
 However, this installation requires compiling C++ code.  If you are on an HPC
 cluster, make sure you have loaded the appropriate modules for whatever compiler
 you wish to use.

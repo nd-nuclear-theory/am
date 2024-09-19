@@ -91,6 +91,7 @@
   04/10/24 (pjf):
     - Inline halfint.cpp to make library pure header.
     - Add min(), max(), and minmax() functions for ADL.
+  09/19/24 (pjf): Add constructor for using HalfInt numerator.
 ****************************************************************/
 
 #ifndef HALFINT_H_
@@ -147,6 +148,13 @@ class HalfInt
     std::enable_if_t<std::is_integral_v<U>, U>* = nullptr
     >
   constexpr HalfInt(T, U);
+
+  // construct from numerator and denominator when numerator is HalfInt
+  template<
+    typename U,
+    std::enable_if_t<std::is_integral_v<U>, U>* = nullptr
+    >
+  constexpr HalfInt(HalfInt, U);
 
   // prevent construction from floating-point
   // EX: HalfInt(1.5) --> compile error
@@ -286,6 +294,20 @@ constexpr inline HalfInt::HalfInt(T numerator, U denominator)
   if (!((denominator==1)||(denominator==2)))
     {
       throw std::invalid_argument("HalfInt constructed with denominator not 1 or 2");
+    }
+}
+
+template<typename U, std::enable_if_t<std::is_integral_v<U>, U>*>
+constexpr inline HalfInt::HalfInt(HalfInt numerator, U denominator)
+  : twice_value_(numerator.TwiceValue()/denominator)
+{
+  if (!((denominator==1)||(denominator==2)))
+    {
+      throw std::invalid_argument("HalfInt constructed with denominator not 1 or 2");
+    }
+  if ((denominator==2)&&(!numerator.IsInteger()))
+    {
+      throw std::invalid_argument("HalfInt constructed with half-integer numerator");
     }
 }
 

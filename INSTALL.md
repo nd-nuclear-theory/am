@@ -22,8 +22,8 @@ the case where you need `am` as a supporting module for some other Python
 package, such as `mcscript-ncci` or `mfdnres`.
 
 (2) If you wish to build and/or install `am` as a C++ library, see Section 2.
-However, as a C++ library, `am` is often simply used as a submodule of a larger
-project (such as `shell`).  In that case, you do not need to install it
+However, as a C++ library, `am` is often simply used as a dependency of a larger
+project (such as `shell`).  In that case, you may not need to install it
 separately at all.  The only time you are likely to need to build and/or install
 `am` separately is if (a) you are doing development work on `am` and want to be
 able to compile it on its own or (b) you want to install `am` as a standalone
@@ -53,9 +53,6 @@ For use as a Python module, install using distutils/pip:
    % python3 -m pip install --user .
    ~~~~~~~~~~~~~~~~
 
-(If you are actively developing the `am` code, you may also want to pass the
-`--editable` flag to `pip`.)
-  
 However, this installation requires compiling C++ code.  If you are on an HPC
 cluster, make sure you have loaded the appropriate modules for whatever compiler
 you wish to use.

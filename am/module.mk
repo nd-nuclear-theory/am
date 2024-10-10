@@ -7,13 +7,10 @@ $(eval $(begin-module))
 # units
 module_units_h += wigner_gsl wigner_gsl_twice racah_reduction rme
 module_units_h += halfint_fmt am
-module_units_cpp-h += halfint
+module_units_h += halfint
 
 # programs
 module_programs_cpp +=
-
-# test programs
-module_programs_cpp_test += halfint_test am_test
 
 ################################################################
 # library creation flag

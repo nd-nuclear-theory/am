@@ -47,21 +47,26 @@ submodule.
 
 # 1. Installation as python module
 
-For use as a Python module, install using distutils/pip:
+For use as a Python module, the basic idea is to install using distutils/pip
+(but please first see below for notes on setting environment variables):
 
    ~~~~~~~~~~~~~~~~
    % python3 -m pip install --user .
    ~~~~~~~~~~~~~~~~
 
-However, this installation requires compiling C++ code.  If you are on an HPC
+This installation process requires compiling C++ code.  If you are on an HPC
 cluster, make sure you have loaded the appropriate modules for whatever compiler
-you wish to use.
+you wish to use, before you try to install.
 
-Moreover, the code requires the GSL library.  If GSL is not installed systemwide
-(e.g., in `/usr/local`), compilation will fail, with an error such as `fatal
-error: gsl/gsl_sf_coupling.h: No such file or directory`.  If you are on an HPC
-cluster, you may need to load an appropriate module).  Then you will need to set
-`CFLAGS` and/or `LDFLAGS` so that distutils/pip can find GSL, wherever it
+Moreover, the code requires the GSL library.  If GSL is already installed in the
+compiler's search path, e.g., in `/usr/local`, then you should be set.
+Otherwise, compilation will fail, with an error such as `fatal error:
+gsl/gsl_sf_coupling.h: No such file or directory`.
+
+If you are on an HPC cluster, you may need to load an appropriate module for
+GSL, which will typically set the `GSL_DIR` environment variable, or something
+similar, to point to the location of the GSL installation.  Then you will need
+to set `CFLAGS` and/or `LDFLAGS` so that distutils/pip can find GSL, wherever it
 happens to be installed, e.g.:
 
    ~~~~~~~~~~~~~~~~

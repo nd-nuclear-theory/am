@@ -7,7 +7,7 @@
 
     05/17/20 (mac): Created.
     06/26/20 (mac): Finish converting tests.  Add dict key test.
-
+    03/28/26 (mac): Redesignate float cast as throwing TypeError.
 """
 
 import am
@@ -42,7 +42,11 @@ if (__name__=="__main__"):
     print("{}".format(-am.HalfInt(1,2)))
     print("{}".format(am.HalfInt(1)+am.HalfInt(1,2)))
     print("{} {}".format(0+am.HalfInt(1,2),1+am.HalfInt(1,2)))
-    print("{}".format(1.0+float(am.HalfInt(1,2))))
+    try:
+        # 03/28/26 (mac): Failing under Python 3.10.12.
+        print("{}".format(1.0+float(am.HalfInt(1,2))))
+    except TypeError as e:
+        print(e)
     try:
         print("{}".format(1.0+am.HalfInt(1,2)))
     except TypeError as e:

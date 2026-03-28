@@ -54,20 +54,21 @@ For use as a Python module, the basic idea is to install using distutils/pip
    % python3 -m pip install --user .
    ~~~~~~~~~~~~~~~~
 
-This installation process requires compiling C++ code.  If you are on an HPC
-cluster, make sure you have loaded the appropriate modules for whatever compiler
-you wish to use, before you try to install.
+This module is, in part, a wrapper for C++ code.  Therefore, as part of the
+installation process, some C++ code must be complied.  Moreover, this C++ code
+relies upon the GSL library, so the GSL library must be available.
 
-Moreover, the code requires the GSL library.  If GSL is already installed in the
-compiler's search path, e.g., in `/usr/local`, then you should be set.
-Otherwise, compilation will fail, with an error such as `fatal error:
-gsl/gsl_sf_coupling.h: No such file or directory`.
+If you are on an HPC cluster, make sure you have loaded the appropriate modules
+for whatever compiler you wish to use, before you try to install.
 
+If GSL is already installed in the compiler's search path, e.g., in
+`/usr/local`, then you should be set.  Otherwise, compilation will fail, with an
+error such as `fatal error: gsl/gsl_sf_coupling.h: No such file or directory`.
 If you are on an HPC cluster, you may need to load an appropriate module for
-GSL, which will typically set the `GSL_DIR` environment variable, or something
-similar, to point to the location of the GSL installation.  Then you will need
-to set `CFLAGS` and/or `LDFLAGS` so that distutils/pip can find GSL, wherever it
-happens to be installed, e.g.:
+GSL.  This module will typically set the `GSL_DIR` environment variable, or
+something similar, to point to the location of the GSL installation.  Then you
+will need to set `CFLAGS` and/or `LDFLAGS` so that distutils/pip and the C++
+compiler can find GSL, wherever it happens to be installed, e.g.:
 
    ~~~~~~~~~~~~~~~~
    % env CFLAGS="-I$GSL_DIR/include -L$GSL_DIR/lib" pip install -v --user .
@@ -80,10 +81,13 @@ module, from within your Python interpreter, without error:
    >>> import am
    ~~~~~~~~~~~~~~~~
    
-You should also be able to run the test code without generating any errors:
+You should also be able to run the test codes under `test`.  They will report
+some (expected) error messages from evaluating certain illustrative invalid
+expressions, but they should successfully terminate:
 
    ~~~~~~~~~~~~~~~~
    % python3 am_test.py
+   % python3 halfint_test.py
    ~~~~~~~~~~~~~~~~
 
 

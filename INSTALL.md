@@ -10,6 +10,7 @@ Physics Division, Argonne National Laboratory
 + 08/17/2023 (pjf): Switch to CMake instructions.
 + 09/30/2023 (mac): Provide explanation of C++ vs. Python installation.
 + 06/18/2024 (mac/keo): Add cloning directions and triage user between Python and C++ installation.
++ 08/20/2026 (mac): Update GSL environment variable name.
 
 ----------------------------------------------------------------
 
@@ -65,13 +66,20 @@ If GSL is already installed in the compiler's search path, e.g., in
 `/usr/local`, then you should be set.  Otherwise, compilation will fail, with an
 error such as `fatal error: gsl/gsl_sf_coupling.h: No such file or directory`.
 If you are on an HPC cluster, you may need to load an appropriate module for
-GSL.  This module will typically set the `GSL_DIR` environment variable, or
-something similar, to point to the location of the GSL installation.  Then you
-will need to set `CFLAGS` and/or `LDFLAGS` so that distutils/pip and the C++
-compiler can find GSL, wherever it happens to be installed, e.g.:
+GSL.  This module will typically set an environment variable (`GSL_DIR`,
+`GSL_ROOT_DIR`, or something similar), to point to the location of the GSL
+installation.  Then you will need to set `CFLAGS` and/or `LDFLAGS` so that
+distutils/pip and the C++ compiler can find GSL, wherever it happens to be
+installed, e.g.:
 
    ~~~~~~~~~~~~~~~~
    % env CFLAGS="-I$GSL_DIR/include -L$GSL_DIR/lib" pip install -v --user .
+   ~~~~~~~~~~~~~~~~
+
+or
+
+   ~~~~~~~~~~~~~~~~
+   % env CFLAGS="-I$GSL_ROOT_DIR/include -L$GSL_ROOT_DIR/lib" pip install -v --user .
    ~~~~~~~~~~~~~~~~
 
 If installation was successful, you should then be able to import the `am`
